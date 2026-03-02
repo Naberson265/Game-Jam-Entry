@@ -26,6 +26,7 @@ public class PlayerScript : MonoBehaviour
         if (ability == 1f) accelSpeed *= 1.25f;
         if (Input.GetAxis("Vertical") > 0.01f || Input.GetAxis("Horizontal") > 0.01f || Input.GetAxis("Vertical") < -0.01f || Input.GetAxis("Horizontal") < -0.01f)
         {
+            print(playerSpeed);
             if (playerSpeed < speedBenchmark[0]) playerSpeed += newAccelSpeed;
             else if (playerSpeed < speedBenchmark[1] && charControl.isGrounded) playerSpeed += newAccelSpeed / 2.5f;
             else if (playerSpeed < speedBenchmark[2] && charControl.isGrounded) playerSpeed += newAccelSpeed / 5f;
