@@ -25,13 +25,13 @@ public class CameraScript : MonoBehaviour
         transform.localEulerAngles = new Vector3(xRot, yRot, 0f);
         camFixedDirTransform.localEulerAngles = new Vector3(0f, yRot, 0f);
         RaycastHit raycastHit;
-        if (Physics.Raycast(playerTransform.position, -transform.forward, out raycastHit, 10f, rayLayerMask, QueryTriggerInteraction.Ignore))
+        if (Physics.Raycast(playerTransform.position, -transform.forward, out raycastHit, distanceToPlayer, rayLayerMask, QueryTriggerInteraction.Ignore))
         {
-            transform.position = raycastHit.point + (transform.forward * 0.2f);
+            transform.position = raycastHit.point + (transform.forward * 0.1f);
         }
         else
         {
-            transform.position = playerTransform.position - (transform.forward * 9.9f);
+            transform.position = playerTransform.position - (transform.forward * distanceToPlayer);
         }
     }
     public void PauseGame()
@@ -54,6 +54,7 @@ public class CameraScript : MonoBehaviour
     {
 		Cursor.lockState = CursorLockMode.None;
     }
+	public float distanceToPlayer = 10f;
 	public float mouseSensitivity = 1f;
 	public float xRot = 0f;
 	public float yRot = 0f;

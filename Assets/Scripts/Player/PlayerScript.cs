@@ -101,7 +101,7 @@ public class PlayerScript : MonoBehaviour
     public float playerSpeed;
     public float[] speedBenchmark = {10f, 20f, 35f};
     public float[] healthToSize = {0f, 1f, 1.5f, 2f, 2.5f, 3f, 3.5f, 4f, 4.5f, 4.75f, 5f};
-    public float accelSpeed = 20f;
+    public float accelSpeed = 32f;
     public float jumpHeight = 25f;
     public float yVelocity = 0f;
     public float terminalVelocity = 50f;
