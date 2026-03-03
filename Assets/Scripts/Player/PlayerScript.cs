@@ -13,7 +13,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (canMove) Movement();
         if (invincibleTime > 0f) invincibleTime -= Time.deltaTime;
-        if (invincibleTime <= 0f && health <= 0) gameController.ReloadLevel();
+        if (invincibleTime <= 0f && health <= 0) GameController.ReloadLevel();
     }
 	public void Movement()
 	{
@@ -120,5 +120,4 @@ public class PlayerScript : MonoBehaviour
     public GameObject playerModel;
     public GameObject leftOverBox;
     public CharacterController charControl;
-    public GameController gameController;
 }
