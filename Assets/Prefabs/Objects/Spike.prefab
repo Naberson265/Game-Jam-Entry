@@ -594,7 +594,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8acae3e543eb165468e2a00f7d678484, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageObject
-  damageTime: 1.5
+  damageTime: 0.2
   damageAmount: 1
   ignoreIFrames: 0
 --- !u!136 &2184840379080275432

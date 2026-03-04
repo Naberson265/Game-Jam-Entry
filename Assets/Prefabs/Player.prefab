@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 6913580275446739274}
   - component: {fileID: 2820296470441269188}
   - component: {fileID: 5878397818002461938}
-  - component: {fileID: 2615295789991237712}
-  m_Layer: 0
+  - component: {fileID: 3032459911207750906}
+  m_Layer: 3
   m_Name: PlayerModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3598
+  m_VersionIndex: 3652
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -338,8 +338,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 243549253640267696}
   m_Mesh: {fileID: 0}
---- !u!64 &2615295789991237712
-MeshCollider:
+--- !u!65 &3032459911207750906
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -356,10 +356,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &597042203065953818
 GameObject:
   m_ObjectHideFlags: 0
@@ -833,8 +832,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8264023426867619422}
-  - component: {fileID: 2932742620543156604}
-  - component: {fileID: 906102067950279005}
+  - component: {fileID: 2063435087871181196}
+  - component: {fileID: 5729015269261786598}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -858,7 +857,7 @@ Transform:
   - {fileID: 7563061107791986419}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2932742620543156604
+--- !u!114 &2063435087871181196
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -867,11 +866,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7403211961532867112}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00d34ecf254cf07479bb3cbf963f1d7d, type: 3}
+  m_Script: {fileID: 11500000, guid: c51783e41942d344aa66e4a5084d4242, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   ability: 0
-  playerSpeed: 0
   speedBenchmark:
   - 10
   - 20
@@ -888,50 +886,47 @@ MonoBehaviour:
   - 4.5
   - 4.75
   - 5
-  accelSpeed: 32
-  jumpHeight: 25
-  yVelocity: 0
+  moveSpeed: 7
+  groundDrag: 2
+  jumpHeight: 5
+  jumpCooldown: 0.25
+  airMultiplier: 0.4
   terminalVelocity: 50
-  gravity: 60
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 64
   invincibleTime: 0
-  coyoteTime: 0.15
-  currentCoyoteTime: 0
   health: 5
-  canMove: 1
-  movement: {x: 0, y: 0, z: 0}
-  sideMovement: {x: 0, y: 0, z: 0}
-  moveDirection: {x: 0, y: 0, z: 0}
-  charCollider: {fileID: 2615295789991237712}
-  camTransform: {fileID: 0}
   camFixedDirTransform: {fileID: 0}
   playerModel: {fileID: 243549253640267696}
-  leftOverBox: {fileID: 4534513083330989831, guid: c36466281c14aea4886f709d34a09537, type: 3}
-  charControl: {fileID: 906102067950279005}
---- !u!143 &906102067950279005
-CharacterController:
+  leftOverBox: {fileID: 0}
+--- !u!54 &5729015269261786598
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7403211961532867112}
-  m_Material: {fileID: 0}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 1
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 1
-  m_Radius: 1.49
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0
 --- !u!1 &7601770119611602726
 GameObject:
   m_ObjectHideFlags: 0
