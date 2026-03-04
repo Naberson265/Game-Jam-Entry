@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class PlayerScript : MonoBehaviour
 {
     void Start()
@@ -14,6 +15,7 @@ public class PlayerScript : MonoBehaviour
         if (canMove) Movement();
         if (invincibleTime > 0f) invincibleTime -= Time.deltaTime;
         if (invincibleTime <= 0f && health <= 0) GameController.ReloadLevel();
+        powerQueueDisplays[0].sprite = powerUpIcons[ability];
     }
 	public void Movement()
 	{
@@ -22,17 +24,17 @@ public class PlayerScript : MonoBehaviour
         movement += Input.GetAxis("Vertical") * camFixedDirTransform.forward;
         sideMovement += Input.GetAxis("Horizontal") * camFixedDirTransform.right;
         // Acceleration.
-        float newAccelSpeed = accelSpeed * Time.deltaTime;
-        if (ability == 1f) accelSpeed *= 1.25f;
+        float newAccelSpeed = accelSpeed * Time.deltaTime; // Function specific to prevent issues with timescale/pauses.
+        float newPlayerSpeed = playerSpeed; // Function specific to prevent issues with timescale/pauses.
+        if (ability == 1f) newAccelSpeed *= 1.25f;
         if (Input.GetAxis("Vertical") > 0.01f || Input.GetAxis("Horizontal") > 0.01f || Input.GetAxis("Vertical") < -0.01f || Input.GetAxis("Horizontal") < -0.01f)
         {
-            print(playerSpeed);
-            if (playerSpeed < speedBenchmark[0]) playerSpeed += newAccelSpeed;
-            else if (playerSpeed < speedBenchmark[1] && charControl.isGrounded) playerSpeed += newAccelSpeed / 2.5f;
-            else if (playerSpeed < speedBenchmark[2] && charControl.isGrounded) playerSpeed += newAccelSpeed / 5f;
-            else if (playerSpeed >= speedBenchmark[2]) playerSpeed = speedBenchmark[2];
+            if (newPlayerSpeed < speedBenchmark[0]) newPlayerSpeed += newAccelSpeed;
+            else if (newPlayerSpeed < speedBenchmark[1] && charControl.isGrounded) newPlayerSpeed += newAccelSpeed / 2.5f;
+            else if (newPlayerSpeed < speedBenchmark[2] && charControl.isGrounded) newPlayerSpeed += newAccelSpeed / 5f;
+            else if (newPlayerSpeed >= speedBenchmark[2]) newPlayerSpeed = speedBenchmark[2];
         }
-        else playerSpeed = 0f;
+        else newPlayerSpeed = 0f;
         newAccelSpeed /= Time.deltaTime;
         Vector3 combinedMovement = (movement + sideMovement);
         if (combinedMovement.sqrMagnitude > 1f) combinedMovement.Normalize();
@@ -58,14 +60,21 @@ public class PlayerScript : MonoBehaviour
             yVelocity += jumpHeight;
             currentCoyoteTime = 0f;
         }
+        RaycastHit raycastHit;
+        if (Physics.Raycast(transform.position, transform.up, out raycastHit, (playerModel.transform.localScale.x / 2f), rayLayerMask, QueryTriggerInteraction.Ignore) && yVelocity > 0.1f)
+        {
+            // Makes sure that when the player collides with something from above they don't stick to it and instead fall down.
+            yVelocity = 0f;
+        }
         // Makes sure the player's y velocity never goes past the terminal velocity.
         if (yVelocity > terminalVelocity) yVelocity = terminalVelocity;
         if (yVelocity < -terminalVelocity) yVelocity = -terminalVelocity;
-		playerSpeed *= Time.deltaTime;
-		moveDirection = combinedMovement * playerSpeed;
+		newPlayerSpeed *= Time.deltaTime;
+		moveDirection = combinedMovement * newPlayerSpeed;
         moveDirection += new Vector3 (0f, yVelocity * Time.deltaTime, 0f);
 		charControl.Move(moveDirection);
-		playerSpeed /= Time.deltaTime; // Converts the speed back to normal numbers.
+		newPlayerSpeed /= Time.deltaTime; // Converts the speed back to normal numbers.
+        playerSpeed = newPlayerSpeed; // Makes the real playerSpeed variable equal to the function specific one.
     }
     public void Damage(float newIFrames, int damageDealt, bool ignoreIFrames)
     {
@@ -101,6 +110,8 @@ public class PlayerScript : MonoBehaviour
     public float playerSpeed;
     public float[] speedBenchmark = {10f, 20f, 35f};
     public float[] healthToSize = {0f, 1f, 1.5f, 2f, 2.5f, 3f, 3.5f, 4f, 4.5f, 4.75f, 5f};
+    public Image[] powerQueueDisplays;
+    public Sprite[] powerUpIcons;
     public float accelSpeed = 32f;
     public float jumpHeight = 25f;
     public float yVelocity = 0f;
@@ -120,4 +131,5 @@ public class PlayerScript : MonoBehaviour
     public GameObject playerModel;
     public GameObject leftOverBox;
     public CharacterController charControl;
+	public LayerMask rayLayerMask;
 }
