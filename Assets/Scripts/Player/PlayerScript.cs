@@ -75,7 +75,6 @@ public class PlayerScript : MonoBehaviour
             invincibleTime += newIFrames;
             GameObject droppedPart = Instantiate(leftOverBox, transform.position, transform.rotation);
             droppedPart.transform.localScale = playerModel.transform.localScale;
-            droppedPart.GetComponent<PlayerDupe>().ps = this;
             health -= damageDealt;
             if (health > 0)
             {
