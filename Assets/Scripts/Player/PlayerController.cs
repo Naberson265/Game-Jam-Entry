@@ -15,9 +15,10 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
 
     [Header("Movement")]
-    public float moveSpeed = 7f;
+    public float moveSpeed = 8f;
 
-    public float groundDrag = 5;
+    public float groundDrag = 2;
+    public float airDrag = 0.4f;
 
     public float jumpHeight = 25f;
     public float jumpCooldown = 0.25f;
@@ -49,6 +50,8 @@ public class PlayerController : MonoBehaviour
     [Header("Objects")]
     public Transform camFixedDirTransform;
     public GameObject playerModel;
+    private PhysicsMaterial playerPhysMat;
+    private float playerPhysMatFriction;
     //public GameObject leftOverBox;
 
     private bool canMove = true;
@@ -57,13 +60,15 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        playerPhysMat = playerModel.GetComponent<Collider>().material;
+        playerPhysMatFriction = playerPhysMat.dynamicFriction;
         //playerModel.transform.localScale = new Vector3(healthToSize[health], healthToSize[health], healthToSize[health]);
     }
     void Update()
     {
         // Grounded and Movement Direction
         // TODO: CHANGE THIS RAYCAST TO A BoxCast.
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerModel.transform.localScale.y * 0.5f + 0.3f, whatIsGround);
+        grounded = Physics.BoxCast(playerModel.transform.position, playerModel.transform.localScale * 0.49f, Vector3.down, playerModel.transform.rotation, playerModel.transform.localScale.y * 0.06f, whatIsGround);
         movementDir = Input.GetAxisRaw("Vertical") * camFixedDirTransform.forward + Input.GetAxisRaw("Horizontal") * camFixedDirTransform.right;
         // When to Jump
         if (Input.GetButton("Jump") && readyToJump && grounded)
@@ -74,9 +79,9 @@ public class PlayerController : MonoBehaviour
         }
 
         if (grounded)
-            rb.linearDamping = groundDrag;
+            rb.linearDamping = Mathf.Lerp(rb.linearDamping, groundDrag, 0.1f);
         else
-            rb.linearDamping = 0;
+            rb.linearDamping = airDrag;
 
         if (invincibleTime > 0f) invincibleTime -= Time.deltaTime;
         //powerQueueDisplays[0].sprite = powerUpIcons[ability];
@@ -86,11 +91,18 @@ public class PlayerController : MonoBehaviour
         if (canMove) {
             // on ground
             if (grounded)
+            {
                 rb.AddForce(movementDir.normalized * moveSpeed * 10f, ForceMode.Force);
-
+                playerPhysMat.dynamicFriction = playerPhysMatFriction;
+                playerPhysMat.staticFriction = playerPhysMatFriction;
+            }
             // in air
-            else if (!grounded)
+            else
+            {
                 rb.AddForce(movementDir.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+                playerPhysMat.dynamicFriction = 0;
+                playerPhysMat.staticFriction = 0;
+            }
         }
         // Makes the player look in the direction they move.
         Vector3 directionToFace = transform.position + transform.forward + movementDir.normalized * 0.4f;
