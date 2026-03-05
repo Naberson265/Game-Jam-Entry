@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -24,10 +25,9 @@ public class PlayerController : MonoBehaviour
     public float airMultiplier = 0.4f;
     private bool readyToJump = true;
 
-    //public float coyoteTime = 0.15f;
-    //public float currentCoyoteTime;
-
-    //public float terminalVelocity = 50f;
+    public float coyoteTime = 0.15f;
+    public float currentCoyoteTime;
+    public float terminalVelocity = 50f;
 
     [Header("Ground Check")]
     public LayerMask whatIsGround;
@@ -35,21 +35,21 @@ public class PlayerController : MonoBehaviour
 
     [Header("Health and Ability")]
     // Abilities: 0-Default 1-Rocket/Dash 2-Feather/Lightweight 3-Metallic/Heavy 4-Explosive
-    //public int[] health;
-    //public float[] healthToSize = { 0f, 1f, 1.5f, 2f, 2.5f, 3f, 3.5f, 4f, 4.5f, 4.75f, 5f };
+    public int health = 5;
+    public float[] healthToSize = { 0f, 1f, 1.5f, 2f, 2.5f, 3f, 3.5f, 4f, 4.5f, 4.75f, 5f };
 
-    public float maxInvincibleTime = 0f;
+    public float maxInvincibleTime = 2f;
     public float invincibleTime = 0f;
 
-    //public int ability;
-    //public image[] powerqueuedisplays;
-    //public sprite[] powerupicons;
+    public int ability;
+    public Image[] powerQueueDisplays;
+    public Sprite[] powerUpIcons;
 
 
     [Header("Objects")]
     public Transform camFixedDirTransform;
     public GameObject playerModel;
-    //public GameObject leftOverBox;
+    public GameObject leftOverBox;
 
     private bool canMove = true;
     private Vector3 movementDir = Vector3.zero;
@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        //playerModel.transform.localScale = new Vector3(healthToSize[health], healthToSize[health], healthToSize[health]);
+        playerModel.transform.localScale = new Vector3(healthToSize[health], healthToSize[health], healthToSize[health]);
     }
     void Update()
     {
@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
             rb.linearDamping = 0;
 
         if (invincibleTime > 0f) invincibleTime -= Time.deltaTime;
-        //powerQueueDisplays[0].sprite = powerUpIcons[ability];
+        powerQueueDisplays[0].sprite = powerUpIcons[ability];
     }
 	private void FixedUpdate()
 	{
@@ -92,6 +92,8 @@ public class PlayerController : MonoBehaviour
             else if (!grounded)
                 rb.AddForce(movementDir.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
         }
+        if (rb.linearVelocity.y > terminalVelocity) rb.linearVelocity = new Vector3(rb.linearVelocity.x, terminalVelocity, rb.linearVelocity.z);
+        if (rb.linearVelocity.y < -terminalVelocity) rb.linearVelocity = new Vector3(rb.linearVelocity.x, -terminalVelocity, rb.linearVelocity.z);
         // Makes the player look in the direction they move.
         Vector3 directionToFace = transform.position + transform.forward + movementDir.normalized * 0.4f;
         transform.LookAt(directionToFace);
@@ -112,10 +114,11 @@ public class PlayerController : MonoBehaviour
     }
 
     // Turn Damage into an IEnumerator
-    public void Damage(int damageDealt, bool ignoreIFrames)
+    public IEnumerator Damage(int damageDealt, bool ignoreIFrames)
     {
         invincibleTime = maxInvincibleTime;
-
-        //if (health <= 0) GameController.ReloadLevel();
+        yield return new WaitForSeconds(1);
+        if (health <= 0) GameController.ReloadLevel();
+        yield break;
     }
 }

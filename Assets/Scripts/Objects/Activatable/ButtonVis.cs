@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class LevelButton : MonoBehaviour
+public class ButtonVisual : MonoBehaviour
 {
     void Start()
     {
@@ -12,27 +12,26 @@ public class LevelButton : MonoBehaviour
         if (pressed)
         {
             buttonVis.transform.position = new Vector3(transform.position.x, buttonInitialPos.y - distanceDown, transform.position.z);
-            GetComponent<Collider>().enabled = false;
         }
         else
         {
             buttonVis.transform.position = new Vector3(transform.position.x, buttonInitialPos.y, transform.position.z);
-            GetComponent<Collider>().enabled = true;
         }
+        if (timeUntilRelease > 0f) timeUntilRelease -= Time.deltaTime;
+        else pressed = false;
     }
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Player" && !pressed)
+        if (!pressed)
         {
             pressed = true;
-            PlayerPrefs.SetInt(buttonName, 1);
+            timeUntilRelease = 0.1f;
         }
     }
-    public bool pressed = false;
+    private float timeUntilRelease;
     public float distanceDown = 0.75f;
-    public string buttonName = "Temp";
+    public bool pressed = false;
     private Vector3 buttonInitialPos;
     public GameObject buttonVis;
     public PlayerScript pScript;
-    public CameraScript cScript;
 }

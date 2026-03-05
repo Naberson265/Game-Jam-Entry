@@ -543,7 +543,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e81a00ad06096df43bd9bec3e8ff5279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDupe
-  clipTime: 10
+  clipTime: 20
 --- !u!54 &1755893321949885859
 Rigidbody:
   m_ObjectHideFlags: 0
