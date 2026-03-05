@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5439001100870442308}
   - component: {fileID: 3246003201339420820}
   - component: {fileID: 4161718609894220295}
-  - component: {fileID: 7553910565950301565}
+  - component: {fileID: 1491988191602390667}
   - component: {fileID: 2184840379080275432}
   m_Layer: 6
   m_Name: Spike
@@ -582,7 +582,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7867943608768884941}
   m_Mesh: {fileID: 0}
---- !u!114 &7553910565950301565
+--- !u!114 &1491988191602390667
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -591,11 +591,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7867943608768884941}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8acae3e543eb165468e2a00f7d678484, type: 3}
+  m_Script: {fileID: 11500000, guid: 50026c9ac44be1741b6c2763ae06d57a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DamageObject
-  damageTime: 0.2
+  m_EditorClassIdentifier: Assembly-CSharp::DamageTrigger
   damageAmount: 1
+  damageLevel: 0
   ignoreIFrames: 0
 --- !u!136 &2184840379080275432
 CapsuleCollider:

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,6 +16,13 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody rb;
 
+    [Header("Objects")]
+    public Transform camFixedDirTransform;
+    private PhysicsMaterial playerPhysMat;
+    private float playerPhysMatFriction;
+
+    public GameObject leftOverBox;
+
     [Header("Movement")]
     public float moveSpeed = 8f;
 
@@ -22,6 +30,7 @@ public class PlayerController : MonoBehaviour
     public float airDrag = 0.4f;
 
     public float jumpHeight = 25f;
+    public float launchMultiplier = 1.5f;
     public float jumpCooldown = 0.25f;
     public float airMultiplier = 0.4f;
     private bool readyToJump = true;
@@ -30,47 +39,65 @@ public class PlayerController : MonoBehaviour
     public float currentCoyoteTime;
     public float terminalVelocity = 50f;
 
+    private bool canMove = true;
+    private Vector3 movementDir = Vector3.zero;
+
     [Header("Ground Check")]
     public LayerMask whatIsGround;
     private bool grounded;
 
     [Header("Health and Ability")]
     // Abilities: 0-Default 1-Rocket/Dash 2-Feather/Lightweight 3-Metallic/Heavy 4-Explosive
-    public int health = 5;
+    public List<int> health = new List<int> { 2, 2, 2 };
     public float[] healthToSize = { 0f, 1f, 1.5f, 2f, 2.5f, 3f, 3.5f, 4f, 4.5f, 4.75f, 5f };
 
-    public float maxInvincibleTime = 2f;
+    public float maxInvincibleTime = 0.2f;
     public float invincibleTime = 0f;
 
-    public int ability;
+    public float abilityCooldown = 1f;
     public Image[] powerQueueDisplays;
     public Sprite[] powerUpIcons;
 
+    private bool usedAirAbility = false;
 
-    [Header("Objects")]
-    public Transform camFixedDirTransform;
-    public GameObject playerModel;
-    private PhysicsMaterial playerPhysMat;
-    private float playerPhysMatFriction;
-    //public GameObject leftOverBox;
+    [Header("Rocket Properties")]
+    public float rocketSpeedMultiplier = 1.5f;
+    public float dashForce = 40;
+    private bool isDashing = false;
 
-    private bool canMove = true;
-    private Vector3 movementDir = Vector3.zero;
+    [Header("Drone Properties")]
+    public float floatTerminalVelocity = 0.2f;
+    public float floatGravityPercentage = 0.5f;
+    private bool isFloating = false;
+
+    [Header("Metal Properties")]
+    public float groundpoundForce = 50f;
+
+    [Header("Spring Properties")]
+    public float springLaunchMultiplier = 1.5f;
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        playerPhysMat = playerModel.GetComponent<Collider>().material;
+        playerPhysMat = gameObject.GetComponent<Collider>().material;
         playerPhysMatFriction = playerPhysMat.dynamicFriction;
-        //playerModel.transform.localScale = new Vector3(healthToSize[health], healthToSize[health], healthToSize[health]);
+
+        float size = healthToSize[health.Count];
+        gameObject.transform.localScale = new Vector3(size, size, size);
     }
     void Update()
     {
         // Grounded and Movement Direction
-        // TODO: CHANGE THIS RAYCAST TO A BoxCast.
-        grounded = Physics.BoxCast(playerModel.transform.position, playerModel.transform.localScale * 0.49f, Vector3.down, playerModel.transform.rotation, playerModel.transform.localScale.y * 0.06f, whatIsGround);
+        grounded = Physics.BoxCast(gameObject.transform.position, gameObject.transform.localScale * 0.49f, Vector3.down, gameObject.transform.rotation, gameObject.transform.localScale.y * 0.06f, whatIsGround);
         movementDir = Input.GetAxisRaw("Vertical") * camFixedDirTransform.forward + Input.GetAxisRaw("Horizontal") * camFixedDirTransform.right;
-        // When to Jump
+
+        if (grounded)
+        {
+            usedAirAbility = false;
+        }
+
+        // Jumping
         if (Input.GetButton("Jump") && readyToJump && grounded)
         {
             readyToJump = false;
@@ -78,59 +105,206 @@ public class PlayerController : MonoBehaviour
             Invoke(nameof(ResetJump), jumpCooldown);
         }
 
-        if (grounded)
-            rb.linearDamping = Mathf.Lerp(rb.linearDamping, groundDrag, 0.1f);
-        else
-            rb.linearDamping = airDrag;
+        // Abilitying
+        if (Input.GetButtonDown("Ability"))
+        {
+            Ability();
+        }
+        // Deactivation for click and hold abilities
+        if (Input.GetButtonUp("Ability"))
+        {
+            DisableAbilities();
+        }
 
-        if (invincibleTime > 0f) invincibleTime -= Time.deltaTime;
-        powerQueueDisplays[0].sprite = powerUpIcons[ability];
+        // Drag Changes in Air
+        if (grounded)
+        {
+            rb.linearDamping = groundDrag;
+        }
+        else
+        {
+            rb.linearDamping = airDrag;
+        }
+
+        // Invincibility Timer
+        if (invincibleTime > 0f)
+        {
+            invincibleTime -= Time.deltaTime;
+        }
+
+        // Ability Cooldown
+        if (abilityCooldown > 0)
+        {
+            abilityCooldown -= Time.deltaTime;
+        }
+        //powerQueueDisplays[0].sprite = powerUpIcons[GetAbility()];
     }
 	private void FixedUpdate()
 	{
         if (canMove) {
             // on ground
+            float speedMultiplier = 1;
+            // Increase Speed while dashing
+            if (isDashing)
+            {
+                speedMultiplier = rocketSpeedMultiplier;
+            }
             if (grounded)
             {
-                rb.AddForce(movementDir.normalized * moveSpeed * 10f, ForceMode.Force);
+                rb.AddForce(movementDir.normalized * moveSpeed * 10f * speedMultiplier, ForceMode.Force);
                 playerPhysMat.dynamicFriction = playerPhysMatFriction;
                 playerPhysMat.staticFriction = playerPhysMatFriction;
             }
             // in air
             else
             {
-                rb.AddForce(movementDir.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+                rb.AddForce(movementDir.normalized * moveSpeed * 10f * airMultiplier * speedMultiplier, ForceMode.Force);
                 playerPhysMat.dynamicFriction = 0;
                 playerPhysMat.staticFriction = 0;
             }
+            // Makes the player look in the direction they move.
+            Vector3 directionToFace = transform.position + transform.forward + movementDir.normalized * 0.4f;
+            transform.LookAt(directionToFace);
         }
-        if (rb.linearVelocity.y > terminalVelocity) rb.linearVelocity = new Vector3(rb.linearVelocity.x, terminalVelocity, rb.linearVelocity.z);
-        if (rb.linearVelocity.y < -terminalVelocity) rb.linearVelocity = new Vector3(rb.linearVelocity.x, -terminalVelocity, rb.linearVelocity.z);
-        // Makes the player look in the direction they move.
-        Vector3 directionToFace = transform.position + transform.forward + movementDir.normalized * 0.4f;
-        transform.LookAt(directionToFace);
+
+        // We only want terminal velocity to effect downwards speed. When floating change this terminal velocity temporarily.
+        float savedTerminalVel = terminalVelocity;
+        if (isFloating)
+        {
+            terminalVelocity = floatTerminalVelocity;
+            // Decrease Gravity
+            print(Physics.gravity.y * rb.mass * floatGravityPercentage);
+            rb.AddForce(new Vector3(0, Mathf.Abs(Physics.gravity.y * rb.mass * floatGravityPercentage), 0), ForceMode.Force);
+        }
+        if (rb.linearVelocity.y < -terminalVelocity)
+        {
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, -terminalVelocity, rb.linearVelocity.z);
+        }
+        terminalVelocity = savedTerminalVel;
     }
 
-    private void Jump()
+    public void Ability()
+    {
+        // Currently most don't need the ability cooldown, so I left it up to each if statement
+        // Rocket
+        if (GetAbility() == 1)
+        {
+            if(grounded)
+            {
+                isDashing = true;
+            } else if (!usedAirAbility)
+            {
+                usedAirAbility = true;
+                // If the player is going the same direction as the dash, conserve that speed.
+                float speed = Vector3.Dot(rb.linearVelocity, camFixedDirTransform.forward);
+                rb.linearVelocity = Vector3.zero;
+                rb.AddForce(camFixedDirTransform.forward * (dashForce + speed), ForceMode.Impulse);
+            }
+        }
+        // Drone
+        else if (GetAbility() == 2)
+        {
+            isFloating = true;
+        }
+        // Metal
+        else if (GetAbility() == 3 && !grounded && currentCoyoteTime <= 0f && !usedAirAbility)
+        {
+            rb.AddForce(Vector3.down * groundpoundForce, ForceMode.Impulse);
+            invincibleTime = 5f;
+            usedAirAbility = true;
+        }
+        // Spring
+        else if (GetAbility() == 4 && abilityCooldown <= 0f && health.Count > 1)
+        {
+            Damage(1, 3, true);
+        }
+    }
+
+    public void DisableAbilities()
+    {
+        isFloating = false;
+        isDashing = false;
+    }
+
+    private void Jump(float mult = 1)
     {
         // Reset y velocity
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
         // Calculates force needed to get to jump height
         float jumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(Physics.gravity.y) * jumpHeight);
-        rb.AddForce(transform.up * jumpVelocity, ForceMode.Impulse);
+        rb.AddForce(transform.up * jumpVelocity * mult, ForceMode.Impulse);
     }
     private void ResetJump()
     {
         readyToJump = true;
     }
 
-    // Turn Damage into an IEnumerator
-    public IEnumerator Damage(int damageDealt, bool ignoreIFrames)
+    private int GetAbility()
     {
-        invincibleTime = maxInvincibleTime;
-        yield return new WaitForSeconds(1);
-        if (health <= 0) GameController.ReloadLevel();
+        if (health.Count > 0)
+        {
+            return health[health.Count - 1];
+        } else
+        {
+            return 0;
+        }
+    }
+
+    // Makes sure the Block should take damage, this is what everything else calls
+    public void Damage(int damageAmount = 0, int damageLevel = 0, bool ignoreIFrames = false)
+    {
+        if ((invincibleTime <= 0f || ignoreIFrames) && health.Count > 0)
+        {
+            invincibleTime = maxInvincibleTime;
+            int deathAbility = GetAbility();
+            if (damageLevel >= 3 ||
+            damageLevel == 2 && !(GetAbility() == 3 && usedAirAbility) ||
+            damageLevel == 1 && GetAbility() != 3 ||
+            damageLevel == 0 && GetAbility() != 3 && rb.linearVelocity.magnitude <= 30f)
+            {
+                for (int i = 0; i < damageAmount && health.Count > 0; i++)
+                {
+                    health.RemoveAt(health.Count - 1);
+                }
+
+                // Do damage animation.
+                StartCoroutine(DamageRoutine(deathAbility));
+            }
+        }
+    }
+
+    // Deal with damage animation and consequences here.
+    private IEnumerator DamageRoutine(int ability)
+    {
+        rb.isKinematic = true;
+        canMove = false;
+        yield return new WaitForSeconds(0.3f);
+        rb.isKinematic = false;
+        canMove = true;
+        if (health.Count > 0)
+        {
+            GameObject droppedPart = Instantiate(leftOverBox, transform.position, transform.rotation);
+            droppedPart.transform.localScale = gameObject.transform.localScale;
+            float size = healthToSize[health.Count];
+            gameObject.transform.localScale = new Vector3(size, size, size);
+            DisableAbilities();
+
+            float launchMult = launchMultiplier;
+            if (ability == 4)
+            {
+                launchMult *= springLaunchMultiplier;
+            }
+            print(launchMult);
+            Jump(launchMult);
+        }
+        else
+        {
+            canMove = false;
+            rb.isKinematic = true;
+            yield return new WaitForSeconds(1f);
+            GameController.ReloadLevel(); // Eventually set up Resettable
+        }
         yield break;
     }
 }
