@@ -38,9 +38,12 @@ public class PlayerScript : MonoBehaviour
         newAccelSpeed /= Time.deltaTime;
         Vector3 combinedMovement = (movement + sideMovement);
         if (combinedMovement.sqrMagnitude > 1f) combinedMovement.Normalize();
-        // Makes the player look in the direction they move.
-        Vector3 directionToFace = transform.position + combinedMovement;
-        transform.LookAt(directionToFace);
+        // Makes the player look in the direction they move *smoothly
+        if (combinedMovement != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(combinedMovement);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 10* Time.deltaTime);
+        }
         // Jumping and gravity.
         if (!charControl.isGrounded)
         {

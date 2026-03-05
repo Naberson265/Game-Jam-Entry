@@ -25,6 +25,7 @@ public class CameraScript : MonoBehaviour
         transform.localEulerAngles = new Vector3(xRot, yRot, 0f);
         camFixedDirTransform.localEulerAngles = new Vector3(0f, yRot, 0f);
         RaycastHit raycastHit;
+        
         if (Physics.Raycast(playerTransform.position, -transform.forward, out raycastHit, distanceToPlayer, rayLayerMask, QueryTriggerInteraction.Ignore))
         {
             transform.position = raycastHit.point + (transform.forward * 0.1f);
