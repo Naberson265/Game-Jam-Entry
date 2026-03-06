@@ -33,6 +33,6 @@ public class LevelButton : MonoBehaviour
     public string buttonName = "Temp";
     private Vector3 buttonInitialPos;
     public GameObject buttonVis;
-    public PlayerScript pScript;
+    public PlayerController pScript;
     public CameraScript cScript;
 }

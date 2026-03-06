@@ -5,11 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class LevelStartTrigger : MonoBehaviour
 {
+    public Activatable[] activatablesOn;
+    public Activatable[] activatablesOff;
     public GameObject[] objectsToActivate;
     public GameObject[] objectsToDeactivate;
+    public GameController gc;
     void OnTriggerEnter()
     {
-        GameController.StartNewLevel();
+        gc.StartNewLevel();
         foreach (GameObject activatingObj in objectsToActivate)
         {
             activatingObj.SetActive(true);
@@ -17,6 +20,14 @@ public class LevelStartTrigger : MonoBehaviour
         foreach (GameObject deactivatingObj in objectsToDeactivate)
         {
             deactivatingObj.SetActive(false);
+        }
+        foreach (Activatable actionObjectOn in activatablesOn)
+        {
+            actionObjectOn.activated = true;
+        }
+        foreach (Activatable actionObjectOff in activatablesOff)
+        {
+            actionObjectOff.activated = false;
         }
         Destroy(gameObject); // Make sure the player can't start a level multiple times using 1 trigger.
     }

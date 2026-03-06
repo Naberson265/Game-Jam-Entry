@@ -44,14 +44,14 @@ public class PlayerController : MonoBehaviour
 
     [Header("Ground Check")]
     public LayerMask whatIsGround;
-    private bool grounded;
+    public bool grounded;
 
     [Header("Health and Ability")]
     // Abilities: 0-Default 1-Rocket/Dash 2-Feather/Lightweight 3-Metallic/Heavy 4-Explosive
-    public List<int> health = new List<int> { 2, 2, 2 };
+    public List<int> health = new List<int> { 0, 0, 0, 0, 0 };
     public float[] healthToSize = { 0f, 1f, 1.5f, 2f, 2.5f, 3f, 3.5f, 4f, 4.5f, 4.75f, 5f };
 
-    public float maxInvincibleTime = 0.2f;
+    public float maxInvincibleTime = 2f;
     public float invincibleTime = 0f;
 
     public float abilityCooldown = 1f;
@@ -75,7 +75,6 @@ public class PlayerController : MonoBehaviour
 
     [Header("Spring Properties")]
     public float springLaunchMultiplier = 1.5f;
-
 
     void Start()
     {
@@ -137,7 +136,33 @@ public class PlayerController : MonoBehaviour
         {
             abilityCooldown -= Time.deltaTime;
         }
-        //powerQueueDisplays[0].sprite = powerUpIcons[GetAbility()];
+        int healthCheckIndex = health.Count - 1;
+        int healthCheckIndexDisplay = 0;
+        if (health.Count > 0)
+        {
+            foreach (Image display in powerQueueDisplays)
+            {
+                if (healthCheckIndexDisplay > 0)
+                {
+                    if (healthCheckIndexDisplay < health.Count)
+                    {
+                        powerQueueDisplays[healthCheckIndexDisplay].sprite = powerUpIcons[health[healthCheckIndex]];
+                        powerQueueDisplays[healthCheckIndexDisplay].color = Color.grey;
+                    }
+                    else if (healthCheckIndexDisplay < powerQueueDisplays.Length)
+                    {
+                        powerQueueDisplays[healthCheckIndexDisplay].color = new Color(0f,0f,0f,0f);
+                    }
+                }
+                else
+                {
+                    powerQueueDisplays[healthCheckIndexDisplay].sprite = powerUpIcons[GetAbility()];
+                }
+                healthCheckIndex--;
+                healthCheckIndexDisplay++;
+            }
+            powerQueueDisplays[health.Count - 1].sprite = powerUpIcons[health[0]];
+        }
     }
 	private void FixedUpdate()
 	{
@@ -173,7 +198,6 @@ public class PlayerController : MonoBehaviour
         {
             terminalVelocity = floatTerminalVelocity;
             // Decrease Gravity
-            print(Physics.gravity.y * rb.mass * floatGravityPercentage);
             rb.AddForce(new Vector3(0, Mathf.Abs(Physics.gravity.y * rb.mass * floatGravityPercentage), 0), ForceMode.Force);
         }
         if (rb.linearVelocity.y < -terminalVelocity)
@@ -256,19 +280,18 @@ public class PlayerController : MonoBehaviour
     {
         if ((invincibleTime <= 0f || ignoreIFrames) && health.Count > 0)
         {
-            invincibleTime = maxInvincibleTime;
             int deathAbility = GetAbility();
             if (damageLevel >= 3 ||
             damageLevel == 2 && !(GetAbility() == 3 && usedAirAbility) ||
             damageLevel == 1 && GetAbility() != 3 ||
-            damageLevel == 0 && GetAbility() != 3 && rb.linearVelocity.magnitude <= 30f)
+            damageLevel == 0 && GetAbility() != 3 && rb.linearVelocity.magnitude <= 35f)
             {
                 for (int i = 0; i < damageAmount && health.Count > 0; i++)
                 {
                     health.RemoveAt(health.Count - 1);
                 }
-
                 // Do damage animation.
+                invincibleTime = maxInvincibleTime;
                 StartCoroutine(DamageRoutine(deathAbility));
             }
         }

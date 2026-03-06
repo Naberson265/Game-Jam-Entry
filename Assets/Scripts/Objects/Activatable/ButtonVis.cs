@@ -33,5 +33,4 @@ public class ButtonVisual : MonoBehaviour
     public bool pressed = false;
     private Vector3 buttonInitialPos;
     public GameObject buttonVis;
-    public PlayerScript pScript;
 }

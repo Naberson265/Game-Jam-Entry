@@ -520,16 +520,17 @@ MonoBehaviour:
   moveSpeed: 8
   groundDrag: 1
   airDrag: 0.4
-  jumpHeight: 5
+  jumpHeight: 7.5
+  launchMultiplier: 1.5
   jumpCooldown: 0.25
-  airMultiplier: 0.3
+  airMultiplier: 0.25
   coyoteTime: 0.15
   currentCoyoteTime: 0
   terminalVelocity: 50
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 64
-  health: 000000000100000002000000
+    m_Bits: 449
+  health: 0000000000000000000000000000000000000000
   healthToSize:
   - 0
   - 1
@@ -542,7 +543,7 @@ MonoBehaviour:
   - 4.5
   - 4.75
   - 5
-  maxInvincibleTime: 0.4
+  maxInvincibleTime: 2
   invincibleTime: 0
   abilityCooldown: 1
   powerQueueDisplays:
@@ -551,15 +552,17 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   powerUpIcons:
-  - {fileID: 156934238, guid: bd06f00ee8faf6d42be2d8e054e342e7, type: 3}
   - {fileID: 2098601072, guid: bd06f00ee8faf6d42be2d8e054e342e7, type: 3}
   - {fileID: 82191961, guid: bd06f00ee8faf6d42be2d8e054e342e7, type: 3}
-  - {fileID: 335677380, guid: bd06f00ee8faf6d42be2d8e054e342e7, type: 3}
-  - {fileID: 1317199679, guid: bd06f00ee8faf6d42be2d8e054e342e7, type: 3}
+  - {fileID: -1767126390, guid: bd06f00ee8faf6d42be2d8e054e342e7, type: 3}
+  - {fileID: -424001296, guid: bd06f00ee8faf6d42be2d8e054e342e7, type: 3}
+  - {fileID: 2098601072, guid: bd06f00ee8faf6d42be2d8e054e342e7, type: 3}
   rocketSpeedMultiplier: 1.5
   dashForce: 40
   floatTerminalVelocity: 0.2
   floatGravityPercentage: 0.5
+  groundpoundForce: 50
+  springLaunchMultiplier: 1.5
 --- !u!54 &5729015269261786598
 Rigidbody:
   m_ObjectHideFlags: 0

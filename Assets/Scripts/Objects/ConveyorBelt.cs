@@ -58,11 +58,11 @@ public class ConveyorBeltScript : MonoBehaviour
         }
         if (other.tag == "Player")
         {
-            other.GetComponent<CharacterController>().Move(addedVelocity * MoveOffset * moveSpeed);
+            other.transform.position += addedVelocity * MoveOffset * moveSpeed;
         }
         if (other.tag == "NPC")
         {
-            other.transform.position += (addedVelocity * MoveOffset * moveSpeed);
+            other.transform.position += addedVelocity * MoveOffset * moveSpeed;
         }
     }
 }
