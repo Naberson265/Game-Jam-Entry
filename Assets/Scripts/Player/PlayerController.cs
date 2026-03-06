@@ -82,8 +82,7 @@ public class PlayerController : MonoBehaviour
         playerPhysMat = gameObject.GetComponent<Collider>().material;
         playerPhysMatFriction = playerPhysMat.dynamicFriction;
 
-        float size = healthToSize[health.Count];
-        gameObject.transform.localScale = new Vector3(size, size, size);
+        UpdateAppearance();
     }
     void Update()
     {
@@ -275,6 +274,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Update Size and Model based on health
+    private void UpdateAppearance()
+    {
+        float size = healthToSize[health.Count];
+        gameObject.transform.localScale = new Vector3(size, size, size);
+    }
+
     // Makes sure the Block should take damage, this is what everything else calls
     public void Damage(int damageAmount = 0, int damageLevel = 0, bool ignoreIFrames = false)
     {
@@ -300,6 +306,10 @@ public class PlayerController : MonoBehaviour
     // Deal with damage animation and consequences here.
     private IEnumerator DamageRoutine(int ability)
     {
+        GameObject droppedPart = Instantiate(leftOverBox, transform.position, transform.rotation);
+        droppedPart.transform.localScale = gameObject.transform.localScale;
+        UpdateAppearance();
+
         rb.isKinematic = true;
         canMove = false;
         yield return new WaitForSeconds(0.3f);
@@ -307,10 +317,6 @@ public class PlayerController : MonoBehaviour
         canMove = true;
         if (health.Count > 0)
         {
-            GameObject droppedPart = Instantiate(leftOverBox, transform.position, transform.rotation);
-            droppedPart.transform.localScale = gameObject.transform.localScale;
-            float size = healthToSize[health.Count];
-            gameObject.transform.localScale = new Vector3(size, size, size);
             DisableAbilities();
 
             float launchMult = launchMultiplier;
@@ -329,5 +335,11 @@ public class PlayerController : MonoBehaviour
             GameController.ReloadLevel(); // Eventually set up Resettable
         }
         yield break;
+    }
+
+    public void Powerup(int ability)
+    {
+        health.Add(ability);
+        UpdateAppearance();
     }
 }
