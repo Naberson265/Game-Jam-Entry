@@ -6,6 +6,11 @@ public class Powerup : Resettable
     [SerializeField] private int powerupType = 0;
     [SerializeField] private SpriteRenderer iconRenderer;
 
+    private void Start()
+    {
+        iconRenderer.sprite = IconManager.iconManager.powerupIcons[powerupType];
+    }
+
     // What everything should reset to.
     private bool defaultState = true;
 
