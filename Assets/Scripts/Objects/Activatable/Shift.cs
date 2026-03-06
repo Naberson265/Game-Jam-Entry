@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Door : Activatable
+public class Shift : Activatable
 {
     public bool isInitiallyOpen;
     public float doorSpeed = 0.1f;
