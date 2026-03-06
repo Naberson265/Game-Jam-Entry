@@ -14,6 +14,7 @@ public enum PlayerAbility : int
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController playerController { get; private set; }
     private Rigidbody rb;
 
     [Header("Objects")]
@@ -55,8 +56,7 @@ public class PlayerController : MonoBehaviour
     public float invincibleTime = 0f;
 
     public float abilityCooldown = 1f;
-    public Image[] powerQueueDisplays;
-    public Sprite[] powerUpIcons;
+
 
     private bool usedAirAbility = false;
 
@@ -78,6 +78,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        playerController = this;
         rb = GetComponent<Rigidbody>();
         playerPhysMat = gameObject.GetComponent<Collider>().material;
         playerPhysMatFriction = playerPhysMat.dynamicFriction;
@@ -87,7 +88,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // Grounded and Movement Direction
-        grounded = Physics.BoxCast(gameObject.transform.position, gameObject.transform.localScale * 0.49f, Vector3.down, gameObject.transform.rotation, gameObject.transform.localScale.y * 0.06f, whatIsGround);
+        grounded = Physics.BoxCast(gameObject.transform.position, gameObject.transform.localScale * 0.47f, Vector3.down, gameObject.transform.rotation, gameObject.transform.localScale.y * 0.05f, whatIsGround);
         movementDir = Input.GetAxisRaw("Vertical") * camFixedDirTransform.forward + Input.GetAxisRaw("Horizontal") * camFixedDirTransform.right;
 
         if (grounded)
@@ -135,33 +136,6 @@ public class PlayerController : MonoBehaviour
         {
             abilityCooldown -= Time.deltaTime;
         }
-        int healthCheckIndex = health.Count - 1;
-        int healthCheckIndexDisplay = 0;
-        if (health.Count > 0)
-        {
-            foreach (Image display in powerQueueDisplays)
-            {
-                if (healthCheckIndexDisplay > 0)
-                {
-                    if (healthCheckIndexDisplay < health.Count)
-                    {
-                        powerQueueDisplays[healthCheckIndexDisplay].sprite = powerUpIcons[health[healthCheckIndex]];
-                        powerQueueDisplays[healthCheckIndexDisplay].color = Color.grey;
-                    }
-                    else if (healthCheckIndexDisplay < powerQueueDisplays.Length)
-                    {
-                        powerQueueDisplays[healthCheckIndexDisplay].color = new Color(0f,0f,0f,0f);
-                    }
-                }
-                else
-                {
-                    powerQueueDisplays[healthCheckIndexDisplay].sprite = powerUpIcons[GetAbility()];
-                }
-                healthCheckIndex--;
-                healthCheckIndexDisplay++;
-            }
-            powerQueueDisplays[health.Count - 1].sprite = powerUpIcons[health[0]];
-        }
     }
 	private void FixedUpdate()
 	{
@@ -204,6 +178,12 @@ public class PlayerController : MonoBehaviour
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, -terminalVelocity, rb.linearVelocity.z);
         }
         terminalVelocity = savedTerminalVel;
+
+        // Check for Wall Clip, If so die.
+        if (Physics.OverlapSphere(transform.position, 0.1f, whatIsGround).Length > 0)
+        {
+            Damage(10, 3, true);
+        }
     }
 
     public void Ability()

@@ -476,6 +476,7 @@ GameObject:
   - component: {fileID: 2063435087871181196}
   - component: {fileID: 5729015269261786598}
   - component: {fileID: 2573367690327405028}
+  - component: {fileID: 6722678855280772339}
   - component: {fileID: 9136460673735812037}
   - component: {fileID: 8249771540226993595}
   - component: {fileID: 1361149360570484979}
@@ -530,6 +531,7 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 449
+  grounded: 0
   health: 0000000000000000000000000000000000000000
   healthToSize:
   - 0
@@ -546,17 +548,6 @@ MonoBehaviour:
   maxInvincibleTime: 2
   invincibleTime: 0
   abilityCooldown: 1
-  powerQueueDisplays:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  powerUpIcons:
-  - {fileID: 2098601072, guid: bd06f00ee8faf6d42be2d8e054e342e7, type: 3}
-  - {fileID: 82191961, guid: bd06f00ee8faf6d42be2d8e054e342e7, type: 3}
-  - {fileID: -1767126390, guid: bd06f00ee8faf6d42be2d8e054e342e7, type: 3}
-  - {fileID: -424001296, guid: bd06f00ee8faf6d42be2d8e054e342e7, type: 3}
-  - {fileID: 2098601072, guid: bd06f00ee8faf6d42be2d8e054e342e7, type: 3}
   rocketSpeedMultiplier: 1.5
   dashForce: 40
   floatTerminalVelocity: 0.2
@@ -587,7 +578,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 80
   m_CollisionDetection: 2
 --- !u!65 &2573367690327405028
@@ -597,7 +588,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7403211961532867112}
-  m_Material: {fileID: 13400000, guid: 536031232eab3e74991b0fd5dc371f8e, type: 2}
+  m_Material: {fileID: 13400000, guid: 48c830bce9d17aa4b8023456cc51fe71, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -610,6 +601,27 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &6722678855280772339
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7403211961532867112}
+  m_Material: {fileID: 13400000, guid: 48c830bce9d17aa4b8023456cc51fe71, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &9136460673735812037
 MeshRenderer:

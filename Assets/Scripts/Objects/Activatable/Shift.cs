@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Shift : Activatable
 {
-    public bool isInitiallyOpen;
     public float doorSpeed = 0.1f;
     public Vector3 openDisplacement;
 
@@ -15,7 +14,7 @@ public class Shift : Activatable
     {
         closedPoint = gameObject.transform.localPosition;
         openPoint = closedPoint + openDisplacement;
-        if (isInitiallyOpen)
+        if (activated)
         {
             gameObject.transform.localPosition = openPoint;
         }
@@ -23,7 +22,7 @@ public class Shift : Activatable
     private void FixedUpdate()
     {
         Vector3 currentPos = gameObject.transform.localPosition;
-        if (activated ^ isInitiallyOpen)
+        if (activated)
         {
             if ((currentPos - openPoint).magnitude > 0.01f)
             {

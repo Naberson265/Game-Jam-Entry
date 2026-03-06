@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MovingPlatform : Activatable
 {
-    public bool isInitiallyActive;
     public float platformSpeed = 10f;
     public int currentTarget = 1;
     public Vector3[] platformDestination;
@@ -18,7 +17,7 @@ public class MovingPlatform : Activatable
     private void FixedUpdate()
     {
         Vector3 currentPos = gameObject.transform.localPosition;
-        if (activated ^ isInitiallyActive)
+        if (activated)
         {
             if ((currentPos - platformDestination[currentTarget]).magnitude > 0.01f)
             {

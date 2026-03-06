@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class ActivateMultiple : Activatable
 {
+    [SerializeField] private bool negated = false;
     [SerializeField] private Activatable[] activatables;
     private bool currentActivation;
 
@@ -11,7 +12,7 @@ public class ActivateMultiple : Activatable
         {
             foreach (Activatable activatable in activatables)
             {
-                activatable.activated = activated;
+                activatable.activated = activated ^ negated;
             }
         }
 

@@ -8,7 +8,7 @@ public class Powerup : Resettable
 
     private void Start()
     {
-        iconRenderer.sprite = IconManager.iconManager.powerupIcons[powerupType];
+        iconRenderer.sprite = IconManager.iconManager.powerUpIcons[powerupType];
     }
 
     // What everything should reset to.
