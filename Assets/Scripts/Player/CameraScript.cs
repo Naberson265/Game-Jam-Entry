@@ -21,6 +21,9 @@ public class CameraScript : MonoBehaviour
     {
         xRot -= Input.GetAxis("Mouse Y") * mouseSensitivity;
         yRot += Input.GetAxis("Mouse X") * mouseSensitivity;
+        distanceToPlayer -= Input.GetAxis("Mouse ScrollWheel") * 10f;
+        if (distanceToPlayer > maxDistance) distanceToPlayer = maxDistance;
+        if (distanceToPlayer < minDistance) distanceToPlayer = minDistance;
         xRot = Mathf.Clamp(xRot, -80f, 80f);
         transform.localEulerAngles = new Vector3(xRot, yRot, 0f);
         camFixedDirTransform.localEulerAngles = new Vector3(0f, yRot, 0f);
@@ -54,7 +57,9 @@ public class CameraScript : MonoBehaviour
     {
 		Cursor.lockState = CursorLockMode.None;
     }
-	public float distanceToPlayer = 10f;
+	public float distanceToPlayer = 12f;
+	public float maxDistance = 30f;
+	public float minDistance = 0.1f;
 	public float mouseSensitivity = 1f;
 	public float xRot = 0f;
 	public float yRot = 0f;

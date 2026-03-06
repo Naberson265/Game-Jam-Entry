@@ -56,11 +56,11 @@ public class ConveyorBeltScript : MonoBehaviour
         {
             addedVelocity = new Vector3(0, 0, -1);
         }
-        if (other.tag == "Player")
+        if (other.transform.gameObject.layer == 3)
         {
             other.transform.position += addedVelocity * MoveOffset * moveSpeed;
         }
-        if (other.tag == "NPC")
+        if (other.transform.gameObject.layer == 7)
         {
             other.transform.position += addedVelocity * MoveOffset * moveSpeed;
         }

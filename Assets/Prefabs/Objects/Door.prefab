@@ -126,9 +126,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
   activated: 0
-  isInitiallyOpen: 0
-  doorSpeed: 0.1
-  openDisplacement: {x: 0, y: 0, z: -3}
+  pushSpeed: 0.1
+  activeDisplacement: {x: 0, y: 0, z: -3}
 --- !u!1 &3196856452128103977
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,9 +254,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
   activated: 0
-  isInitiallyOpen: 0
-  doorSpeed: 0.1
-  openDisplacement: {x: 0, y: 0, z: 3}
+  pushSpeed: 0.1
+  activeDisplacement: {x: 0, y: 0, z: 3}
 --- !u!1 &6600910264059063433
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,6 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ActivateMultiple
   activated: 0
+  negated: 0
   activatables:
   - {fileID: 331216688578345270}
   - {fileID: 8432240853197647232}

@@ -769,7 +769,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10c3c1bab71315d40b3121ad074ba92f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceToPlayer: 10
+  distanceToPlayer: 12
+  maxDistance: 30
+  minDistance: 0.1
   mouseSensitivity: 1
   xRot: 0
   yRot: 0
@@ -984,6 +986,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameController
   timePassed: 0
+  L1time: {fileID: 0}
+  L2time: {fileID: 0}
+  gameMusic: {fileID: 0}
+  levelSongs: []
+  currentLevel: 0
 --- !u!4 &373688718
 Transform:
   m_ObjectHideFlags: 0
