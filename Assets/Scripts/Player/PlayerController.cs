@@ -290,6 +290,8 @@ public class PlayerController : MonoBehaviour
         droppedPart.transform.localScale = gameObject.transform.localScale;
         UpdateAppearance();
 
+        //Conserve horizontal momentum when taking Damage
+        Vector3 saveVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
         rb.isKinematic = true;
         canMove = false;
         yield return new WaitForSeconds(0.3f);
@@ -304,8 +306,8 @@ public class PlayerController : MonoBehaviour
             {
                 launchMult *= springLaunchMultiplier;
             }
-            print(launchMult);
             Jump(launchMult);
+            rb.AddForce(saveVelocity,ForceMode.Impulse);
         }
         else
         {

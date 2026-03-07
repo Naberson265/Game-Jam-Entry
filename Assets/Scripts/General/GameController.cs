@@ -7,8 +7,6 @@ public class GameController : MonoBehaviour
 {
     public static GameController gameController { get; private set; }
     public float timePassed;
-    public TMP_Text L1time;
-    public TMP_Text L2time;
     public AudioSource gameMusic;
     public AudioClip[] levelSongs;
     public int currentLevel;
@@ -24,8 +22,6 @@ public class GameController : MonoBehaviour
     void Start()
     {
         gameMusic = GetComponent<AudioSource>();
-        L1time.gameObject.SetActive(false);
-        L2time.gameObject.SetActive(false);
     }
     void Update()
     {
@@ -33,16 +29,6 @@ public class GameController : MonoBehaviour
     }
     public void StartNewLevel()
     {
-        if (currentLevel == 0)
-        {
-            L1time.text = "L1: " + timePassed.ToString();
-            L1time.gameObject.SetActive(true);
-        }
-        if (currentLevel == 1)
-        {
-            L2time.text = "L2: " + timePassed.ToString();
-            L2time.gameObject.SetActive(true);
-        }
         currentLevel++;
         gameMusic.Stop();
         gameMusic.clip = levelSongs[currentLevel];

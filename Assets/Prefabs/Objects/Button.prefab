@@ -176,7 +176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Door
   activated: 0
   pushSpeed: 0.1
-  activeDisplacement: {x: 0, y: -0.4, z: 0}
+  activeDisplacement: {x: 0, y: -0.2, z: 0}
 --- !u!64 &4491791643942045833
 MeshCollider:
   m_ObjectHideFlags: 0
