@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Linq;
 
 public enum PlayerAbility : int
 {
@@ -56,7 +57,7 @@ public class PlayerController : MonoBehaviour
     public float invincibleTime = 0f;
 
     public float abilityCooldown = 1f;
-
+    public GameObject[] abilityModels;
 
     private bool usedAirAbility = false;
 
@@ -247,7 +248,7 @@ public class PlayerController : MonoBehaviour
         readyToJump = true;
     }
 
-    private int GetAbility()
+    public int GetAbility()
     {
         if (health.Count > 0)
         {
@@ -263,6 +264,17 @@ public class PlayerController : MonoBehaviour
     {
         float size = healthToSize[health.Count];
         gameObject.transform.localScale = new Vector3(size, size, size);
+
+        // Update Model
+        for (int i = 0; i < abilityModels.Length; i++) {
+            if (i == GetAbility())
+            {
+                abilityModels[i].SetActive(true);
+            } else
+            {
+                abilityModels[i].SetActive(false);
+            }
+        }
     }
 
     // Makes sure the Block should take damage, this is what everything else calls
@@ -292,6 +304,7 @@ public class PlayerController : MonoBehaviour
     {
         print("Famage");
         GameObject droppedPart = Instantiate(leftOverBox, transform.position, transform.rotation);
+        droppedPart.GetComponent<PlayerDupe>().SetModel(ability);
         droppedPart.transform.localScale = gameObject.transform.localScale;
         UpdateAppearance();
 
