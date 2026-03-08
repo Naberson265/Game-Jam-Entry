@@ -518,7 +518,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   camFixedDirTransform: {fileID: 0}
   leftOverBox: {fileID: 4534513083330989831, guid: c36466281c14aea4886f709d34a09537, type: 3}
-  moveSpeed: 7
+  moveSpeed: 6
   groundDrag: 2
   airDrag: 0.2
   jumpHeight: 7.5
@@ -530,7 +530,7 @@ MonoBehaviour:
   terminalVelocity: 50
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 449
+    m_Bits: 193
   grounded: 0
   health: 0000000000000000000000000000000000000000
   healthToSize:
@@ -545,11 +545,11 @@ MonoBehaviour:
   - 4.5
   - 4.75
   - 5
-  maxInvincibleTime: 2
+  maxInvincibleTime: 1
   invincibleTime: 0
   abilityCooldown: 1
   rocketSpeedMultiplier: 1.5
-  dashForce: 40
+  dashForce: 30
   floatTerminalVelocity: 0.2
   floatGravityPercentage: 0.5
   groundpoundForce: 50

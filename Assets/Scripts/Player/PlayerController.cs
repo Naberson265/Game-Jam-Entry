@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
     public List<int> health = new List<int> { 0, 0, 0, 0, 0 };
     public float[] healthToSize = { 0f, 1f, 1.5f, 2f, 2.5f, 3f, 3.5f, 4f, 4.5f, 4.75f, 5f };
 
-    public float maxInvincibleTime = 2f;
+    public float maxInvincibleTime = 1f;
     public float invincibleTime = 0f;
 
     public float abilityCooldown = 1f;
@@ -180,9 +180,13 @@ public class PlayerController : MonoBehaviour
         terminalVelocity = savedTerminalVel;
 
         // Check for Wall Clip, If so die.
-        if (Physics.OverlapSphere(transform.position, 0.1f, whatIsGround).Length > 0)
+        Collider[] cols = Physics.OverlapSphere(transform.position, 0.1f, whatIsGround);
+        foreach( Collider col in cols)
         {
-            Damage(10, 3, true);
+            if(!col.isTrigger)
+            {
+                Damage(10, 3, true);
+            }
         }
     }
 
@@ -270,7 +274,7 @@ public class PlayerController : MonoBehaviour
             if (damageLevel >= 3 ||
             damageLevel == 2 && !(GetAbility() == 3 && usedAirAbility) ||
             damageLevel == 1 && GetAbility() != 3 ||
-            damageLevel == 0 && GetAbility() != 3 && rb.linearVelocity.magnitude <= 35f)
+            damageLevel == 0 && GetAbility() != 3)
             {
                 for (int i = 0; i < damageAmount && health.Count > 0; i++)
                 {
@@ -286,6 +290,7 @@ public class PlayerController : MonoBehaviour
     // Deal with damage animation and consequences here.
     private IEnumerator DamageRoutine(int ability)
     {
+        print("Famage");
         GameObject droppedPart = Instantiate(leftOverBox, transform.position, transform.rotation);
         droppedPart.transform.localScale = gameObject.transform.localScale;
         UpdateAppearance();

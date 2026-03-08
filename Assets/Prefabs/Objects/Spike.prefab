@@ -616,10 +616,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.3
+  m_Radius: 0.4
   m_Height: 1
   m_Direction: 1
-  m_Center: {x: 0, y: -0.1, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8148210683496342368
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,7 +630,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2228985090014083361}
   - component: {fileID: 6934042576896645432}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: PhysicalCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
