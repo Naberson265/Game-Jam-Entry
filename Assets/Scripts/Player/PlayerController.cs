@@ -20,8 +20,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Objects")]
     public Transform camFixedDirTransform;
-    private PhysicsMaterial playerPhysMat;
-    private float playerPhysMatFriction;
+    public Animator modelAnimator;
 
     public GameObject leftOverBox;
 
@@ -81,8 +80,6 @@ public class PlayerController : MonoBehaviour
     {
         playerController = this;
         rb = GetComponent<Rigidbody>();
-        playerPhysMat = gameObject.GetComponent<Collider>().material;
-        playerPhysMatFriction = playerPhysMat.dynamicFriction;
 
         UpdateAppearance();
     }
@@ -91,6 +88,8 @@ public class PlayerController : MonoBehaviour
         // Grounded and Movement Direction
         grounded = Physics.BoxCast(gameObject.transform.position, gameObject.transform.localScale * 0.47f, Vector3.down, gameObject.transform.rotation, gameObject.transform.localScale.y * 0.05f, whatIsGround);
         movementDir = Input.GetAxisRaw("Vertical") * camFixedDirTransform.forward + Input.GetAxisRaw("Horizontal") * camFixedDirTransform.right;
+        modelAnimator.SetBool("Grounded", grounded);
+        modelAnimator.SetBool("Moving", movementDir.magnitude > 0.2);
 
         if (grounded)
         {
@@ -151,15 +150,11 @@ public class PlayerController : MonoBehaviour
             if (grounded)
             {
                 rb.AddForce(movementDir.normalized * moveSpeed * 10f * speedMultiplier, ForceMode.Force);
-                playerPhysMat.dynamicFriction = playerPhysMatFriction;
-                playerPhysMat.staticFriction = playerPhysMatFriction;
             }
             // in air
             else
             {
                 rb.AddForce(movementDir.normalized * moveSpeed * 10f * airMultiplier * speedMultiplier, ForceMode.Force);
-                playerPhysMat.dynamicFriction = 0;
-                playerPhysMat.staticFriction = 0;
             }
             // Makes the player look in the direction they move.
             Vector3 directionToFace = transform.position + transform.forward + movementDir.normalized * 0.4f;
@@ -236,6 +231,8 @@ public class PlayerController : MonoBehaviour
 
     private void Jump(float mult = 1)
     {
+        modelAnimator.Play("Jump");
+
         // Reset y velocity
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
