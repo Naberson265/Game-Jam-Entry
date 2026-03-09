@@ -12,6 +12,7 @@ public class ConveyorBeltScript : MonoBehaviour
     private void Start()
     {
         moveSpeed = beltspeed / 4;
+        meshRenderer = transform.parent.gameObject.GetComponent<MeshRenderer>();
     }
     private void Update()
     {

@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-public class powerUpDisplay : MonoBehaviour
+public class PowerUpDisplay : MonoBehaviour
 {
     public Image[] powerQueueDisplays;
 

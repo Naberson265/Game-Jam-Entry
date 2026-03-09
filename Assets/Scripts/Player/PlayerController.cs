@@ -229,9 +229,9 @@ public class PlayerController : MonoBehaviour
         isDashing = false;
     }
 
-    private void Jump(float mult = 1)
+    private void Jump(float mult = 1, bool playJumpAnim = true)
     {
-        modelAnimator.Play("Jump");
+        if (playJumpAnim) modelAnimator.Play("Jump");
 
         // Reset y velocity
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
@@ -299,7 +299,7 @@ public class PlayerController : MonoBehaviour
     // Deal with damage animation and consequences here.
     private IEnumerator DamageRoutine(int ability)
     {
-        print("Famage");
+        print("Damaged!");
         GameObject droppedPart = Instantiate(leftOverBox, transform.position, transform.rotation);
         droppedPart.GetComponent<PlayerDupe>().SetModel(ability);
         droppedPart.transform.localScale = gameObject.transform.localScale;
@@ -315,13 +315,13 @@ public class PlayerController : MonoBehaviour
         if (health.Count > 0)
         {
             DisableAbilities();
-
+            modelAnimator.Play("Damage");
             float launchMult = launchMultiplier;
             if (ability == 4)
             {
                 launchMult *= springLaunchMultiplier;
             }
-            Jump(launchMult);
+            Jump(launchMult, false);
             rb.AddForce(saveVelocity,ForceMode.Impulse);
         }
         else
