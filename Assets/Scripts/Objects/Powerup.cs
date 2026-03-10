@@ -2,30 +2,29 @@ using UnityEngine;
 
 public class Powerup : Resettable
 {
-    public PlayerController ps;
     private bool canPickup = true;
-    private float respawnTime;
+    private int respawnHealth = -1;
+    private float respawnTime = 0;
     public bool canRespawn = false;
-    public float timeBetweenRespawns = 15f;
+    public float TimeBeforeRespawn = 1;
     [SerializeField] private int powerupType = 0;
     [SerializeField] private SpriteRenderer iconRenderer;
 
     private void Start()
     {
-        ps = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         iconRenderer.sprite = IconManager.iconManager.powerUpIcons[powerupType];
-        respawnTime = timeBetweenRespawns;
     }
     private void Update()
     {
-        if (ps.GetAbility() != powerupType)
+        if (canRespawn && !canPickup && PlayerController.playerController.health.Count <= respawnHealth)
         {
-            if (respawnTime > 0f && !canPickup && canRespawn) respawnTime -= Time.deltaTime;
-            else
+            respawnTime += Time.deltaTime;
+            if (respawnTime > TimeBeforeRespawn)
             {
+                respawnTime = 0;
                 canPickup = true;
                 iconRenderer.enabled = true;
-                respawnTime = timeBetweenRespawns;
+                respawnHealth = -1;
             }
         }
     }
@@ -54,7 +53,8 @@ public class Powerup : Resettable
         {
             canPickup = false;
             iconRenderer.enabled = false;
-            ps.Powerup(powerupType);
+            respawnHealth = PlayerController.playerController.health.Count;
+            PlayerController.playerController.Powerup(powerupType);
         }
     }
 }

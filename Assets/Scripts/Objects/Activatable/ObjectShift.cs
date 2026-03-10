@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ButtonShift : Activatable
+public class ObjectShift : Activatable
 {
     public float pushSpeed = 0.1f;
     public Vector3 activeDisplacement;

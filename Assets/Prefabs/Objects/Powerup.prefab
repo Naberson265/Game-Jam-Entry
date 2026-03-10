@@ -150,6 +150,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef232ca5e0babe74f988f2a0d5e92e5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Powerup
+  canRespawn: 0
+  TimeBeforeRespawn: 1
   powerupType: 0
   iconRenderer: {fileID: 1538160143058615018}
 --- !u!135 &5839913156843709982
