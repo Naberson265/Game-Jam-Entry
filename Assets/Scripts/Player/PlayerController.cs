@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Linq;
+using Unity.VisualScripting;
 
 public enum PlayerAbility : int
 {
@@ -13,7 +14,7 @@ public enum PlayerAbility : int
     OutlierReading = 200
 }
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Resettable
 {
     public static PlayerController playerController { get; private set; }
     private Rigidbody rb;
@@ -85,12 +86,18 @@ public class PlayerController : MonoBehaviour
     [Header("Spring Properties")]
     public float springLaunchMultiplier = 1.5f;
 
+
+    // Resettable Defaults
+    private List<int> savedHealth;
+    private Vector3 spawnpoint;
+
     void Start()
     {
         playerController = this;
         rb = GetComponent<Rigidbody>();
         playerAudio = GetComponent<AudioSource>();
         UpdateAppearance();
+        SaveDefault();
     }
     void Update()
     {
@@ -317,7 +324,6 @@ public class PlayerController : MonoBehaviour
     // Deal with damage animation and consequences here.
     private IEnumerator DamageRoutine(int ability)
     {
-        print("Damaged!");
         GameObject droppedPart = Instantiate(leftOverBox, transform.position, transform.rotation);
         droppedPart.GetComponent<PlayerDupe>().SetModel(ability);
         droppedPart.transform.localScale = gameObject.transform.localScale;
@@ -348,9 +354,23 @@ public class PlayerController : MonoBehaviour
             canMove = false;
             rb.isKinematic = true;
             yield return new WaitForSeconds(1f);
-            GameController.ReloadLevel(); // Eventually set up Resettable
+            Resettable.ResetAll(); // Eventually set up Resettable
         }
         yield break;
+    }
+
+    private IEnumerator RespawnRoutine()
+    { 
+        for(int i = 0; i < 100; i++)
+        {
+            float size = healthToSize[health.Count];
+            Vector3 goalScale = new Vector3(size, size, size);
+            transform.localScale = Vector3.Lerp(transform.localScale, goalScale, 0.1f);
+            yield return new WaitForSeconds(0.005f);
+        }
+        UpdateAppearance();
+        canMove = true;
+        rb.isKinematic = false;
     }
 
     public void Powerup(int ability)
@@ -358,5 +378,18 @@ public class PlayerController : MonoBehaviour
         health.Add(ability);
         playerAudio.PlayOneShot(powerupSFX);
         UpdateAppearance();
+    }
+
+    protected override void ResetObject()
+    {
+        health = new List<int>(savedHealth);
+        transform.position = spawnpoint;
+        StartCoroutine(RespawnRoutine());
+    }
+
+    protected override void SaveDefault()
+    {
+        savedHealth = new List<int>(health);
+        spawnpoint = transform.position;
     }
 }

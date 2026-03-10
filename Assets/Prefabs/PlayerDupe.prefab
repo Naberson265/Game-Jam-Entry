@@ -1270,6 +1270,8 @@ GameObject:
   - component: {fileID: 5160862523083885482}
   - component: {fileID: 1755893321949885859}
   - component: {fileID: 7300595909114885353}
+  - component: {fileID: 3829367996580422029}
+  - component: {fileID: 8468648515728200780}
   m_Layer: 0
   m_Name: PlayerDupe
   m_TagString: Untagged
@@ -1364,6 +1366,30 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3829367996580422029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4534513083330989831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab553c9780074ed499748b191ff8af17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResetTransform
+--- !u!114 &8468648515728200780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4534513083330989831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 363c212f3a7ef784eb3008a64699645f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResetDestroy
 --- !u!1 &4543454720262270659
 GameObject:
   m_ObjectHideFlags: 0

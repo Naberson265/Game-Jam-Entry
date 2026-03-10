@@ -31,11 +31,6 @@ public class Powerup : Resettable
     // What everything should reset to.
     private bool defaultState = true;
 
-    protected override void ResetDefault()
-    {
-        defaultState = true;
-    }
-
     protected override void ResetObject()
     {
         canPickup = defaultState;

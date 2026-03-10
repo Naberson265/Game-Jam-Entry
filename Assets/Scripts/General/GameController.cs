@@ -39,6 +39,7 @@ public class GameController : MonoBehaviour
     }
     public void StartNewLevel()
     {
+        Resettable.SaveDefaults();
         ProgressionManager.SetRecord(timePassed);
         currentLevel++;
         ProgressionManager.SaveProgess(PlayerController.playerController.gameObject.transform.position);
