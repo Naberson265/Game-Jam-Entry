@@ -10,6 +10,7 @@ public class CheckpointTrigger : MonoBehaviour
         if (other.gameObject.layer == 3 && !triggerActivated)
         {
             Resettable.SaveDefaults();
+            triggerActivated = true;
         }
     }
 }
