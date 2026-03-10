@@ -3,13 +3,15 @@ using UnityEngine;
 public class ButtonTrigger : MonoBehaviour
 {
     [SerializeField] private Activatable[] activatables;
-    private float timeUntilClose;
+    public float onPressTime = 0.1f;
+    public float timeUntilClose;
 
     void Update()
     {
         if (timeUntilClose > 0f) timeUntilClose -= Time.deltaTime;
         else
-        {    
+        {
+            timeUntilClose = 0f;
             foreach (Activatable activatable in activatables)
             {
                 activatable.activated = false;
@@ -18,7 +20,7 @@ public class ButtonTrigger : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        timeUntilClose = 0.1f;
+        timeUntilClose = onPressTime;
         foreach (Activatable activatable in activatables)
         {
             activatable.activated = true;
