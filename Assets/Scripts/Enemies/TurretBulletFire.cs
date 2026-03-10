@@ -13,7 +13,11 @@ public class TurretBullet : MonoBehaviour
         GameObject hitObject = other.transform.gameObject;
         if (hitObject.layer == 3 || hitObject.layer == 6 || hitObject.layer == 7)
         {
-            expireTime = 0f;
+            if (!other.isTrigger)
+            {
+                if (hitObject.name != "PhysicalCollider") expireTime = 0f;
+                else expireTime = 10f;
+            }
         }
     }
     public float moveSpeed = 20f;

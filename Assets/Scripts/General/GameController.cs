@@ -39,9 +39,9 @@ public class GameController : MonoBehaviour
     }
     public void StartNewLevel()
     {
-        ProgressionManager.SetRecord(timePassed);
+        // ProgressionManager.SetRecord(timePassed);
         currentLevel++;
-        ProgressionManager.SaveProgess(PlayerController.playerController.gameObject.transform.position);
+        // ProgressionManager.SaveProgess(PlayerController.playerController.gameObject.transform.position);
         levelTimers[currentLevel].GetComponent<TMP_Text>().text = 
         "L" + currentLevel.ToString() + ": " + CalculateFormattedTime(timePassed);
         levelTimers[currentLevel].SetActive(true);

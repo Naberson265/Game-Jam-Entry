@@ -21,7 +21,6 @@ public class PlayerController : MonoBehaviour
     [Header("Objects")]
     public Transform camFixedDirTransform;
     public Animator modelAnimator;
-
     public GameObject leftOverBox;
 
     [Header("Movement")]
@@ -42,6 +41,16 @@ public class PlayerController : MonoBehaviour
 
     private bool canMove = true;
     private Vector3 movementDir = Vector3.zero;
+
+    [Header("Audio")]
+    private AudioSource playerAudio;
+    public AudioClip jumpSFX;
+    public AudioClip droneSFX;
+    public AudioClip hitSFX;
+    public AudioClip rocketSFX;
+    public AudioClip springSFX;
+    public AudioClip speedSFX;
+    public AudioClip powerupSFX;
 
     [Header("Ground Check")]
     public LayerMask whatIsGround;
@@ -80,7 +89,7 @@ public class PlayerController : MonoBehaviour
     {
         playerController = this;
         rb = GetComponent<Rigidbody>();
-
+        playerAudio = GetComponent<AudioSource>();
         UpdateAppearance();
     }
     void Update()
@@ -226,6 +235,7 @@ public class PlayerController : MonoBehaviour
         else if (GetAbility() == 4 && abilityCooldown <= 0f && health.Count > 1)
         {
             Damage(1, 3, true);
+            playerAudio.PlayOneShot(springSFX);
         }
     }
 
@@ -237,11 +247,13 @@ public class PlayerController : MonoBehaviour
 
     private void Jump(float mult = 1, bool playJumpAnim = true)
     {
-        if (playJumpAnim) modelAnimator.Play("Jump");
-
+        if (playJumpAnim)
+        {
+            modelAnimator.Play("Jump");
+            playerAudio.PlayOneShot(jumpSFX);
+        }
         // Reset y velocity
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
-
         // Calculates force needed to get to jump height
         float jumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(Physics.gravity.y) * jumpHeight);
         rb.AddForce(transform.up * jumpVelocity * mult, ForceMode.Impulse);
@@ -309,6 +321,7 @@ public class PlayerController : MonoBehaviour
         GameObject droppedPart = Instantiate(leftOverBox, transform.position, transform.rotation);
         droppedPart.GetComponent<PlayerDupe>().SetModel(ability);
         droppedPart.transform.localScale = gameObject.transform.localScale;
+        if (!playerAudio.isPlaying) playerAudio.PlayOneShot(hitSFX);
         UpdateAppearance();
 
         //Conserve horizontal momentum when taking Damage
@@ -343,6 +356,7 @@ public class PlayerController : MonoBehaviour
     public void Powerup(int ability)
     {
         health.Add(ability);
+        playerAudio.PlayOneShot(powerupSFX);
         UpdateAppearance();
     }
 }
