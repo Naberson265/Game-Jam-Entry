@@ -10,6 +10,9 @@ public class GameController : MonoBehaviour
     public AudioSource gameMusic;
     public AudioClip[] levelSongs;
     public int currentLevel;
+
+    // Set zone manually for each scene
+    public int zone;
     private void Awake()
     {
         if (gameController != null && gameController != this)
@@ -29,7 +32,10 @@ public class GameController : MonoBehaviour
     }
     public void StartNewLevel()
     {
+        ProgressionManager.SetRecord(timePassed);
         currentLevel++;
+        ProgressionManager.SaveProgess(PlayerController.playerController.transform.position);
+        Resettable.SaveDefaults();
         gameMusic.Stop();
         gameMusic.clip = levelSongs[currentLevel];
         gameMusic.Play();

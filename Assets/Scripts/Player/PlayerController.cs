@@ -115,6 +115,12 @@ public class PlayerController : MonoBehaviour
             DisableAbilities();
         }
 
+        // Cheats
+        if (Input.GetKey(KeyCode.O))
+        {
+            rb.AddForce(new Vector3(0,20,0));
+        }
+
         // Drag Changes in Air
         if (grounded)
         {
