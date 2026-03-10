@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
     public bool grounded;
 
     [Header("Health and Ability")]
-    // Abilities: 0-Default 1-Rocket/Dash 2-Feather/Lightweight 3-Metallic/Heavy 4-Explosive
+    // Abilities: 0-Default 1-Rocket/Dash 2-Feather/Drone 3-Metallic/Heavy 4-Spring
     public List<int> health = new List<int> { 0, 0, 0, 0, 0 };
     public float[] healthToSize = { 0f, 1f, 1.5f, 2f, 2.5f, 3f, 3.5f, 4f, 4.5f, 4.75f, 5f };
 
