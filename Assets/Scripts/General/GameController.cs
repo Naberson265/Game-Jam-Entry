@@ -12,6 +12,9 @@ public class GameController : MonoBehaviour
     public AudioSource gameMusic;
     public AudioClip[] levelSongs;
     public int currentLevel;
+
+    //Set manually every level
+    public int zone;
     private void Awake()
     {
         if (gameController != null && gameController != this)
@@ -37,7 +40,9 @@ public class GameController : MonoBehaviour
     }
     public void StartNewLevel()
     {
+        ProgressionManager.SetRecord(timePassed);
         currentLevel++;
+        ProgressionManager.SaveProgess(PlayerController.playerController.gameObject.transform.position);
         levelTimers[currentLevel].GetComponent<TMP_Text>().text = 
         "L" + currentLevel.ToString() + ": " + CalculateFormattedTime(timePassed);
         levelTimers[currentLevel].SetActive(true);
