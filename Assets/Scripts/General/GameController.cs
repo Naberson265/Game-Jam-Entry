@@ -12,7 +12,6 @@ public class GameController : MonoBehaviour
     public AudioSource gameMusic;
     public AudioClip[] levelSongs;
     public int currentLevel;
-
     //Set manually every level
     public int zone;
     private void Awake()
