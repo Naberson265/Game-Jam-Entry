@@ -5682,7 +5682,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonAnim
   destinationPos: {x: 280, y: 0}
-  timeUntilAnim: 1
+  timeUntilAnim: 0
 --- !u!1 &283467322
 GameObject:
   m_ObjectHideFlags: 0
@@ -12688,7 +12688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonAnim
   destinationPos: {x: 280, y: -200}
-  timeUntilAnim: 1.75
+  timeUntilAnim: 0.75
 --- !u!114 &676283686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19546,7 +19546,7 @@ PrefabInstance:
       objectReference: {fileID: 584547758}
     - target: {fileID: 7683854282527088461, guid: c36466281c14aea4886f709d34a09537, type: 3}
       propertyPath: m_VersionIndex
-      value: 3765
+      value: 3768
       objectReference: {fileID: 0}
     - target: {fileID: 8276988565869813615, guid: c36466281c14aea4886f709d34a09537, type: 3}
       propertyPath: m_LocalPosition.x
@@ -28537,7 +28537,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonAnim
   destinationPos: {x: 280, y: -133.33333}
-  timeUntilAnim: 1.5
+  timeUntilAnim: 0.5
 --- !u!114 &1673817283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32584,7 +32584,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonAnim
   destinationPos: {x: 280, y: -66.666664}
-  timeUntilAnim: 1.25
+  timeUntilAnim: 0.25
 --- !u!114 &1884146267
 MonoBehaviour:
   m_ObjectHideFlags: 0
