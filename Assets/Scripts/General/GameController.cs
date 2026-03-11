@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System;
 using TMPro;
 using UnityEngine.SceneManagement;
 
@@ -14,6 +15,8 @@ public class GameController : MonoBehaviour
     public int currentLevel;
     //Set manually every level
     public int zone;
+    public Color currentFogColor = Color.white;
+    public float currentFogDensity = 0f;
     private void Awake()
     {
         if (gameController != null && gameController != this)
@@ -25,6 +28,7 @@ public class GameController : MonoBehaviour
     }
     void Start()
     {
+        RenderSettings.fog = true;
         gameMusic = GetComponent<AudioSource>();
         // Make the timers only appear when needed besides the main one which is almost always on.
         foreach (GameObject timer in levelTimers)
@@ -36,6 +40,14 @@ public class GameController : MonoBehaviour
     void Update()
     {
         timePassed += Time.deltaTime;
+        RenderSettings.fogColor = Color.Lerp(RenderSettings.fogColor, currentFogColor, 0.075f);
+        RenderSettings.fogDensity = Mathf.Lerp(RenderSettings.fogDensity, currentFogDensity, 0.075f);
+    }
+    public void SetFog(float newDensity, Color newFogColor)
+    {
+        RenderSettings.fog = true;
+        currentFogDensity = newDensity;
+        currentFogColor = newFogColor;
     }
     public void StartNewLevel()
     {
