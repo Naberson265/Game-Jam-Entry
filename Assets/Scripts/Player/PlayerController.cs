@@ -20,6 +20,7 @@ public class PlayerController : Resettable
     private Rigidbody rb;
 
     [Header("Objects")]
+    public GameObject mainCam;
     public Transform camFixedDirTransform;
     public Animator modelAnimator;
     public GameObject leftOverBox;
@@ -67,6 +68,7 @@ public class PlayerController : Resettable
 
     public float abilityCooldown = 1f;
     public GameObject[] abilityModels;
+    public GameObject pModelParent;
 
     private bool usedAirAbility = false;
 
@@ -96,6 +98,8 @@ public class PlayerController : Resettable
         playerController = this;
         rb = GetComponent<Rigidbody>();
         playerAudio = GetComponent<AudioSource>();
+        pModelParent = abilityModels[0].transform.parent.gameObject;
+        mainCam = Camera.main.gameObject;
         UpdateAppearance();
         SaveDefault();
     }
@@ -106,12 +110,10 @@ public class PlayerController : Resettable
         movementDir = Input.GetAxisRaw("Vertical") * camFixedDirTransform.forward + Input.GetAxisRaw("Horizontal") * camFixedDirTransform.right;
         modelAnimator.SetBool("Grounded", grounded);
         modelAnimator.SetBool("Moving", movementDir.magnitude > 0.2);
-
         if (grounded)
         {
             usedAirAbility = false;
         }
-
         // Jumping
         if (Input.GetButton("Jump") && readyToJump && grounded)
         {
@@ -119,7 +121,6 @@ public class PlayerController : Resettable
             Jump();
             Invoke(nameof(ResetJump), jumpCooldown);
         }
-
         // Abilitying
         if (Input.GetButtonDown("Ability"))
         {
@@ -130,13 +131,11 @@ public class PlayerController : Resettable
         {
             DisableAbilities();
         }
-
         // Cheats
         if (Input.GetKey(KeyCode.O))
         {
             rb.AddForce(new Vector3(0,20,0));
         }
-
         // Drag Changes in Air
         if (grounded)
         {
@@ -146,17 +145,24 @@ public class PlayerController : Resettable
         {
             rb.linearDamping = airDrag;
         }
-
         // Invincibility Timer
         if (invincibleTime > 0f)
         {
             invincibleTime -= Time.deltaTime;
         }
-
         // Ability Cooldown
         if (abilityCooldown > 0)
         {
             abilityCooldown -= Time.deltaTime;
+        }
+        // If the camera is very close to or inside the player model, disable it.
+        if ((transform.position - mainCam.transform.position).magnitude < healthToSize[health.Count - 1] / 1.5f)
+        {
+            pModelParent.SetActive(false);
+        }
+        else
+        {
+            pModelParent.SetActive(true);
         }
     }
 	private void FixedUpdate()
