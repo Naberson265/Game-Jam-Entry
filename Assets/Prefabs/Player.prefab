@@ -4275,7 +4275,7 @@ MonoBehaviour:
   coyoteTime: 0.15
   currentCoyoteTime: 0
   terminalVelocity: 50
-  jumpSFX: {fileID: 8300000, guid: 998f4f817f877044992e1610dae324d1, type: 3}
+  jumpSFX: {fileID: 8300000, guid: f36c3e1e2bb1a114baba0a13e31afda7, type: 3}
   droneSFX: {fileID: 8300000, guid: 4ad437365faf62d49aaad6834650abcc, type: 3}
   hitSFX: {fileID: 8300000, guid: 998f4f817f877044992e1610dae324d1, type: 3}
   rocketSFX: {fileID: 8300000, guid: fc8e9f4703fdac242b12eb5342d85ecf, type: 3}

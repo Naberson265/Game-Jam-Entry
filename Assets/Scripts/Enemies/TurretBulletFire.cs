@@ -8,7 +8,7 @@ public class TurretBullet : MonoBehaviour
         expireTime -= Time.deltaTime;
         if (expireTime < 0f) Destroy(gameObject);
     }
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
         GameObject hitObject = other.transform.gameObject;
         if (hitObject.layer == 3 || hitObject.layer == 6 || hitObject.layer == 7)
