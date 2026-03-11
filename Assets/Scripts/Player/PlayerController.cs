@@ -89,7 +89,7 @@ public class PlayerController : Resettable
 
     // Resettable Defaults
     private List<int> savedHealth;
-    private Vector3 spawnpoint;
+    public Vector3 spawnpoint;
 
     void Start()
     {
@@ -390,6 +390,6 @@ public class PlayerController : Resettable
     protected override void SaveDefault()
     {
         savedHealth = new List<int>(health);
-        spawnpoint = transform.position;
+        // Spawnpoint is set by checkpoints because I'm lazy
     }
 }

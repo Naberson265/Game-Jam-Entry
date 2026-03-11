@@ -9,26 +9,37 @@ public class LevelStartTrigger : MonoBehaviour
     public Activatable[] activatablesOff;
     public GameObject[] objectsToActivate;
     public GameObject[] objectsToDeactivate;
-    public GameController gc;
-    void OnTriggerEnter()
+    public Transform spawnpointPosition;
+    void OnTriggerEnter(Collider other)
     {
-        gc.StartNewLevel();
-        foreach (GameObject activatingObj in objectsToActivate)
+        if (other.gameObject.layer == 3)
         {
-            activatingObj.SetActive(true);
+            GameController.gameController.StartNewLevel();
+            if (spawnpointPosition)
+            {
+                PlayerController.playerController.spawnpoint = spawnpointPosition.position;
+            } else
+            {
+                PlayerController.playerController.spawnpoint = transform.position;
+            }
+            Resettable.SaveDefaults();
+            foreach (GameObject activatingObj in objectsToActivate)
+            {
+                activatingObj.SetActive(true);
+            }
+            foreach (GameObject deactivatingObj in objectsToDeactivate)
+            {
+                deactivatingObj.SetActive(false);
+            }
+            foreach (Activatable actionObjectOn in activatablesOn)
+            {
+                actionObjectOn.activated = true;
+            }
+            foreach (Activatable actionObjectOff in activatablesOff)
+            {
+                actionObjectOff.activated = false;
+            }
+            Destroy(gameObject); // Make sure the player can't start a level multiple times using 1 trigger.
         }
-        foreach (GameObject deactivatingObj in objectsToDeactivate)
-        {
-            deactivatingObj.SetActive(false);
-        }
-        foreach (Activatable actionObjectOn in activatablesOn)
-        {
-            actionObjectOn.activated = true;
-        }
-        foreach (Activatable actionObjectOff in activatablesOff)
-        {
-            actionObjectOff.activated = false;
-        }
-        Destroy(gameObject); // Make sure the player can't start a level multiple times using 1 trigger.
     }
 }
