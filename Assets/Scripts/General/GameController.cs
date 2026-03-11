@@ -35,7 +35,10 @@ public class GameController : MonoBehaviour
         {
             timer.SetActive(false);
         }
-        levelTimers[0].SetActive(true);
+        if (levelTimers.Length > 0)
+        {
+            levelTimers[0].SetActive(true);
+        }
     }
     void Update()
     {

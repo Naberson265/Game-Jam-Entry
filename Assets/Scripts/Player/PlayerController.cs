@@ -20,7 +20,7 @@ public class PlayerController : Resettable
     private Rigidbody rb;
 
     [Header("Objects")]
-    public GameObject mainCam;
+    private GameObject mainCam;
     public Transform camFixedDirTransform;
     public Animator modelAnimator;
     public GameObject leftOverBox;
@@ -157,7 +157,8 @@ public class PlayerController : Resettable
             abilityCooldown -= Time.deltaTime;
         }
         // If the camera is very close to or inside the player model, disable it.
-        if ((transform.position - mainCam.transform.position).magnitude < healthToSize[health.Count - 1] / 1.5f)
+        print((transform.position - mainCam.transform.position).magnitude);
+        if ((transform.position - mainCam.transform.position).magnitude < healthToSize[health.Count])
         {
             pModelParent.SetActive(false);
         }
@@ -269,8 +270,8 @@ public class PlayerController : Resettable
         // Reset y velocity
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         // Calculates force needed to get to jump height
-        float jumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(Physics.gravity.y) * jumpHeight);
-        rb.AddForce(transform.up * jumpVelocity * mult, ForceMode.Impulse);
+        float jumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(Physics.gravity.y) * jumpHeight * mult);
+        rb.AddForce(transform.up * jumpVelocity, ForceMode.Impulse);
     }
     private void ResetJump()
     {

@@ -4262,6 +4262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c51783e41942d344aa66e4a5084d4242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  mainCam: {fileID: 0}
   camFixedDirTransform: {fileID: 0}
   modelAnimator: {fileID: 1336513829896303492}
   leftOverBox: {fileID: 4534513083330989831, guid: c36466281c14aea4886f709d34a09537, type: 3}
@@ -4308,12 +4309,14 @@ MonoBehaviour:
   - {fileID: 2215066279538607676}
   - {fileID: 259689283353896018}
   - {fileID: 915188823241432254}
+  pModelParent: {fileID: 0}
   rocketSpeedMultiplier: 1.5
   dashForce: 30
   floatTerminalVelocity: 0.2
   floatGravityPercentage: 0.5
   groundpoundForce: 50
-  springLaunchMultiplier: 1.5
+  springLaunchMultiplier: 2
+  spawnpoint: {x: 0, y: 0, z: 0}
 --- !u!54 &5729015269261786598
 Rigidbody:
   m_ObjectHideFlags: 0
