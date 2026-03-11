@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class PowerUpDisplay : MonoBehaviour
@@ -10,32 +11,18 @@ public class PowerUpDisplay : MonoBehaviour
     void Update()
     {
         List<int> health = PlayerController.playerController.health;
-        int healthCheckIndex = health.Count - 1;
-        int healthCheckIndexDisplay = 0;
-        if (health.Count > 0)
+
+        for (int i = powerQueueDisplays.Length; i >= 0; i--)
         {
-            foreach (Image display in powerQueueDisplays)
+            if (i < health.Count)
             {
-                if (healthCheckIndexDisplay > 0)
-                {
-                    if (healthCheckIndexDisplay < health.Count)
-                    {
-                        powerQueueDisplays[healthCheckIndexDisplay].sprite = IconManager.iconManager.powerUpIcons[health[healthCheckIndex]];
-                        powerQueueDisplays[healthCheckIndexDisplay].enabled = true;
-                    }
-                    else if (healthCheckIndexDisplay < powerQueueDisplays.Length)
-                    {
-                        powerQueueDisplays[healthCheckIndexDisplay].enabled = false;
-                    }
-                }
-                else
-                {
-                    powerQueueDisplays[healthCheckIndexDisplay].sprite = IconManager.iconManager.powerUpIcons[0];
-                }
-                healthCheckIndex--;
-                healthCheckIndexDisplay++;
+                powerQueueDisplays[health.Count - 1 - i].sprite = IconManager.iconManager.powerUpIcons[health[i]];
+                powerQueueDisplays[health.Count - 1 - i].enabled = true;
             }
-            powerQueueDisplays[health.Count - 1].sprite = IconManager.iconManager.powerUpIcons[health[0]];
+            else if (i < powerQueueDisplays.Length)
+            {
+                powerQueueDisplays[i].enabled = false;
+            }
         }
     }
 }
