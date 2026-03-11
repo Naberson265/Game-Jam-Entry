@@ -95,6 +95,7 @@ public class PlayerController : Resettable
 
     void Start()
     {
+        spawnpoint = transform.position;
         playerController = this;
         rb = GetComponent<Rigidbody>();
         playerAudio = GetComponent<AudioSource>();
