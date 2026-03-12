@@ -7,12 +7,10 @@ public class LevelButton : MonoBehaviour
     {
         if (pressed)
         {
-            buttonVis.transform.position = new Vector3(transform.position.x, transform.position.y - 1.25f, transform.position.z);
             GetComponent<Collider>().enabled = false;
         }
         else
         {
-            buttonVis.transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
             GetComponent<Collider>().enabled = true;
         }
     }
@@ -26,7 +24,6 @@ public class LevelButton : MonoBehaviour
     }
     public bool pressed = false;
     public string buttonName = "Temp";
-    public GameObject buttonVis;
-    public PlayerScript pScript;
+    public PlayerController pScript;
     public CameraScript cScript;
 }

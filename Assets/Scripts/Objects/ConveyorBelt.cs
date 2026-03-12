@@ -12,6 +12,7 @@ public class ConveyorBeltScript : MonoBehaviour
     private void Start()
     {
         moveSpeed = beltspeed / 4;
+        meshRenderer = transform.parent.gameObject.GetComponent<MeshRenderer>();
     }
     private void Update()
     {
@@ -56,13 +57,13 @@ public class ConveyorBeltScript : MonoBehaviour
         {
             addedVelocity = new Vector3(0, 0, -1);
         }
-        if (other.tag == "Player")
+        if (other.transform.gameObject.layer == 3)
         {
-            other.GetComponent<CharacterController>().Move(addedVelocity * MoveOffset * moveSpeed);
+            other.transform.position += addedVelocity * MoveOffset * moveSpeed;
         }
-        if (other.tag == "NPC")
+        if (other.transform.gameObject.layer == 7)
         {
-            other.transform.position += (addedVelocity * MoveOffset * moveSpeed);
+            other.transform.position += addedVelocity * MoveOffset * moveSpeed;
         }
     }
 }

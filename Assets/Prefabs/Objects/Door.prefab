@@ -68,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d832f7e8e36254844ae5317cdcd8a0dd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -126,9 +126,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
   activated: 0
-  isInitiallyOpen: 0
-  doorSpeed: 0.1
-  openDisplacement: {x: 0, y: 0, z: -3}
+  pushSpeed: 0.1
+  activeDisplacement: {x: 0, y: 0, z: -3}
 --- !u!1 &3196856452128103977
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,7 +196,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d832f7e8e36254844ae5317cdcd8a0dd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -255,9 +254,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
   activated: 0
-  isInitiallyOpen: 0
-  doorSpeed: 0.1
-  openDisplacement: {x: 0, y: 0, z: 3}
+  pushSpeed: 0.1
+  activeDisplacement: {x: 0, y: 0, z: 3}
 --- !u!1 &6600910264059063433
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,7 +266,7 @@ GameObject:
   m_Component:
   - component: {fileID: 279417101988720359}
   - component: {fileID: 3929998584789730968}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -305,6 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ActivateMultiple
   activated: 0
+  negated: 0
   activatables:
   - {fileID: 331216688578345270}
   - {fileID: 8432240853197647232}
