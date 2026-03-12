@@ -14,7 +14,13 @@ public class ButtonAnim : MonoBehaviour
     }
     void Update()
     {
-        if (timeUntilAnim > 0f) timeUntilAnim -= Time.deltaTime;
-        else rectTransform.anchoredPosition = Vector2.Lerp(rectTransform.anchoredPosition, destinationPos, Time.deltaTime);
+        if (timeUntilAnim > 0f)
+        {
+            timeUntilAnim -= Time.deltaTime;
+        }
+        else
+        {
+            rectTransform.anchoredPosition = Vector2.Lerp(rectTransform.anchoredPosition, destinationPos, Time.deltaTime);
+        }
     }
 }

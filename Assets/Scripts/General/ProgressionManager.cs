@@ -135,8 +135,8 @@ public class ProgressionManager: MonoBehaviour
 
     public static void Save()
     {
-        print("Saving");
         File.WriteAllText(SaveFileName(), JsonUtility.ToJson(_saveData));
+        print("Saved");
     }
 
     public static void Load()
@@ -145,6 +145,6 @@ public class ProgressionManager: MonoBehaviour
 
         SaveData saveData = JsonUtility.FromJson<SaveData>(saveContent);
         _saveData = saveData;
-        print("Loading");
+        print("Loaded");
     }
 }
