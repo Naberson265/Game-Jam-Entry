@@ -4276,6 +4276,7 @@ MonoBehaviour:
   coyoteTime: 0.15
   currentCoyoteTime: 0
   terminalVelocity: 50
+  canMove: 1
   jumpSFX: {fileID: 8300000, guid: f36c3e1e2bb1a114baba0a13e31afda7, type: 3}
   droneSFX: {fileID: 8300000, guid: 4ad437365faf62d49aaad6834650abcc, type: 3}
   hitSFX: {fileID: 8300000, guid: 998f4f817f877044992e1610dae324d1, type: 3}
@@ -4285,7 +4286,7 @@ MonoBehaviour:
   powerupSFX: {fileID: 8300000, guid: b675ee6db6a81d44297710aa46c3f95e, type: 3}
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 193
+    m_Bits: 192
   grounded: 0
   health: 0000000000000000000000000000000000000000
   healthToSize:
