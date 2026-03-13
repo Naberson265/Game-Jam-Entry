@@ -112,6 +112,13 @@ public class ProgressionManager: MonoBehaviour
         return _saveData.records[zoneNum * RECORDS_PER_LEVEL + levelNum];
     }
 
+    static async public void LoadLevel(int levelNum, string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+        await Awaitable.NextFrameAsync();
+        GameController.MovePlayerToLevel(levelNum);
+    }
+
     static public float GetCurrentRecord()
     {
         int levelNum = GameController.gameController.currentLevel;

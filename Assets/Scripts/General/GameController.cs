@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour
     public static GameController gameController { get; private set; }
     // Include the main (blue), and two level timers in the below array:
     public GameObject[] levelTimers;
+    public GameObject[] levelSpawnpoints;
     public float timePassed;
     public AudioSource gameMusic;
     public AudioClip[] levelSongs;
@@ -84,5 +85,10 @@ public class GameController : MonoBehaviour
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentSceneName);
+    }
+
+    public static void MovePlayerToLevel(int index)
+    {
+        PlayerController.playerController.gameObject.transform.position = gameController.levelSpawnpoints[index].transform.position;
     }
 }

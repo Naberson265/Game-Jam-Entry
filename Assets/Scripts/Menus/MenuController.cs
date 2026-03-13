@@ -15,4 +15,11 @@ public class MenuController : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
+
+    // Sadly Buttons can only have one argument so I did it this way
+    public void OpenLevel(string levelId)
+    {
+        string[] levelValues = levelId.Split("-");
+        ProgressionManager.LoadLevel(int.Parse(levelValues[1]) - 1, "Zone" + levelValues[0]);
+    }
 }
