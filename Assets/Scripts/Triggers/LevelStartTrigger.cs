@@ -10,11 +10,12 @@ public class LevelStartTrigger : MonoBehaviour
     public GameObject[] objectsToActivate;
     public GameObject[] objectsToDeactivate;
     public Transform spawnpointPosition;
+    // 0th is S, 1st is A, 2nd B and 3rd C. Any lower times are Ds (4th).
+    public int[] rankTimes = {90, 120, 150, 180};
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == 3)
         {
-            GameController.gameController.StartNewLevel();
             if (spawnpointPosition)
             {
                 PlayerController.playerController.spawnpoint = spawnpointPosition.position;
@@ -39,6 +40,25 @@ public class LevelStartTrigger : MonoBehaviour
             {
                 actionObjectOff.activated = false;
             }
+            // If you don't like nested if statements too bad.
+            if (GameController.gameController.timePassed >= rankTimes[3])
+            {
+                if (GameController.gameController.timePassed >= rankTimes[2])
+                {
+                    if (GameController.gameController.timePassed >= rankTimes[1])
+                    {
+                        if (GameController.gameController.timePassed >= rankTimes[0])
+                        {
+                            GameController.gameController.levelRanks.Add(0);
+                        }
+                        else GameController.gameController.levelRanks.Add(1);
+                    }
+                    else GameController.gameController.levelRanks.Add(1);
+                }
+                else GameController.gameController.levelRanks.Add(2);
+            }
+            else GameController.gameController.levelRanks.Add(4);
+            GameController.gameController.StartNewLevel();
             Destroy(gameObject); // Make sure the player can't start a level multiple times using 1 trigger.
         }
     }

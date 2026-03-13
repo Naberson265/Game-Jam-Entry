@@ -96,12 +96,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameController
   levelTimers: []
+  mainGUI: {fileID: 0}
+  endScreen: {fileID: 0}
   timePassed: 0
+  finalRank: 0
   gameMusic: {fileID: 4028765369042315540}
   levelSongs:
   - {fileID: 8300000, guid: f785d923c80d23f498adeeca89b26ae7, type: 3}
   - {fileID: 8300000, guid: 5fd9135101d97524486da00b5f1e7014, type: 3}
   - {fileID: 8300000, guid: 5fd9135101d97524486da00b5f1e7014, type: 3}
+  rankThemes:
+  - {fileID: 8300000, guid: 1558d8da130470541b075f84cdc1e467, type: 3}
+  - {fileID: 8300000, guid: 72d66b338663f6f4f8ce12074f2c6a3c, type: 3}
+  - {fileID: 8300000, guid: f1ac578563584704c842b3c4c28d644c, type: 3}
+  - {fileID: 8300000, guid: 0dcafb6bf89fd234d8fa87dc8f0d7bb2, type: 3}
+  - {fileID: 8300000, guid: 24cd9b63aba2fa348981fcbf4c19bfa3, type: 3}
+  levelRanks: 
   currentLevel: 0
   zone: 0
   currentFogColor: {r: 1, g: 1, b: 1, a: 1}

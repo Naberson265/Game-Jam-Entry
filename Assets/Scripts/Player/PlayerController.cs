@@ -20,7 +20,7 @@ public class PlayerController : Resettable
     private Rigidbody rb;
 
     [Header("Objects")]
-    private GameObject mainCam;
+    public GameObject mainCam;
     public Transform camFixedDirTransform;
     public Animator modelAnimator;
     public GameObject leftOverBox;
@@ -40,8 +40,7 @@ public class PlayerController : Resettable
     public float coyoteTime = 0.15f;
     public float currentCoyoteTime;
     public float terminalVelocity = 50f;
-
-    private bool canMove = true;
+    public bool canMove = true;
     private Vector3 movementDir = Vector3.zero;
 
     [Header("Audio")]
@@ -211,6 +210,7 @@ public class PlayerController : Resettable
             if(!col.isTrigger)
             {
                 Damage(10, 3, true);
+                print("Crushed!");
             }
         }
     }
@@ -339,11 +339,11 @@ public class PlayerController : Resettable
 
         //Conserve horizontal momentum when taking Damage
         Vector3 saveVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-        rb.isKinematic = true;
         canMove = false;
+        rb.isKinematic = true;
         yield return new WaitForSeconds(0.3f);
-        rb.isKinematic = false;
         canMove = true;
+        rb.isKinematic = false;
         if (health.Count > 0)
         {
             DisableAbilities();

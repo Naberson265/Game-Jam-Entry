@@ -1,6 +1,7 @@
 using UnityEngine;
-using System.Collections;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine.SceneManagement;
 
@@ -10,9 +11,15 @@ public class GameController : MonoBehaviour
     // Include the main (blue), and two level timers in the below array:
     public GameObject[] levelTimers;
     public GameObject[] levelSpawnpoints;
+    public GameObject mainGUI;
+    public GameObject endScreen;
     public float timePassed;
+    public int finalRank;
     public AudioSource gameMusic;
     public AudioClip[] levelSongs;
+    public AudioClip[] rankThemes;
+    // A rank (from 0(S)-4(D)) is added to this list each level, then averaged at the zone ending.
+    public List<int> levelRanks;
     public int currentLevel;
     //Set manually every level
     public int zone;
@@ -29,6 +36,8 @@ public class GameController : MonoBehaviour
     }
     void Start()
     {
+        endScreen.SetActive(false);
+        mainGUI.SetActive(true);
         RenderSettings.fog = true;
         gameMusic = GetComponent<AudioSource>();
         // Make the timers only appear when needed besides the main one which is almost always on.
@@ -55,12 +64,13 @@ public class GameController : MonoBehaviour
     }
     public void StartNewLevel()
     {
+        int lastLRank = levelRanks.Count - 1;
         Resettable.SaveDefaults();
         ProgressionManager.SetRecord(timePassed);
         currentLevel++;
         ProgressionManager.SaveProgess(PlayerController.playerController.gameObject.transform.position);
-        levelTimers[currentLevel].GetComponent<TMP_Text>().text = 
-        "L" + currentLevel.ToString() + ": " + CalculateFormattedTime(timePassed);
+        levelTimers[currentLevel].GetComponent<TMP_Text>().text = "(" + lastLRank.ToString() +
+        ") L" + currentLevel.ToString() + ": " + CalculateFormattedTime(timePassed);
         levelTimers[currentLevel].SetActive(true);
         gameMusic.Stop();
         gameMusic.clip = levelSongs[currentLevel];
@@ -77,9 +87,35 @@ public class GameController : MonoBehaviour
         else timeSeconds = 0;
         return string.Format("{0:00}:{1:00}", timeMinutes, timeSeconds);
     }
-    public void EndLevelSet()
+    public void EndLevelSet(Transform cameraPos, Transform playerPos)
     {
         gameMusic.Stop();
+        finalRank = 0;
+        if (levelRanks.Count != 0)
+        {
+            foreach (int lRank in levelRanks)
+            {
+                finalRank += lRank;
+            }
+            int newFR = finalRank /= levelRanks.Count;
+            finalRank = Mathf.RoundToInt(newFR);
+            gameMusic.PlayOneShot(rankThemes[finalRank]);
+        }
+        else
+        {
+            finalRank = 4;
+            gameMusic.PlayOneShot(rankThemes[4]);
+        }
+        PlayerController ps = PlayerController.playerController;
+        ps.canMove = false;
+        ps.transform.position = playerPos.position;
+        ps.transform.rotation = playerPos.rotation;
+        ps.mainCam.GetComponent<CameraScript>().canMove = false;
+        ps.mainCam.GetComponent<CameraScript>().UnlockMouse();
+        ps.mainCam.transform.position = cameraPos.position;
+        ps.mainCam.transform.rotation = cameraPos.rotation;
+        endScreen.SetActive(true);
+        mainGUI.SetActive(false);
     }
     public static void ReloadLevel()
     {

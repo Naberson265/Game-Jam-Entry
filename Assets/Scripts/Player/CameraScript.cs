@@ -9,7 +9,7 @@ public class CameraScript : MonoBehaviour
     void Update()
     {
         if (canMove && !paused) CamMove();
-        if (Input.GetButtonDown("Pause"))
+        if (Input.GetButtonDown("Pause") && canMove)
         {
             if (paused) UnpauseGame();
             else PauseGame();
