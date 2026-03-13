@@ -17,7 +17,10 @@ public class OneTimeTrigger : Resettable
         {
             foreach (Activatable activatable in activatables)
             {
-                activatable.activated = !setActivationTo;
+                if (activatable)
+                {
+                    activatable.activated = !setActivationTo;
+                }
             }
         }
     }

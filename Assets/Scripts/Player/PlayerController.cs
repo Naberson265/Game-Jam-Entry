@@ -227,10 +227,7 @@ public class PlayerController : Resettable
             } else if (!usedAirAbility)
             {
                 usedAirAbility = true;
-                // If the player is going the same direction as the dash, conserve that speed.
-                float speed = Vector3.Dot(rb.linearVelocity, camFixedDirTransform.forward);
-                rb.linearVelocity = Vector3.zero;
-                rb.AddForce(camFixedDirTransform.forward * (dashForce + speed), ForceMode.Impulse);
+                rb.AddForce(gameObject.transform.forward * dashForce, ForceMode.Impulse);
             }
         }
         // Drone
