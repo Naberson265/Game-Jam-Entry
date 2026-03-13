@@ -43,23 +43,27 @@ public class LevelStartTrigger : MonoBehaviour
                 actionObjectOff.activated = false;
             }
             // If you don't like nested if statements too bad.
-            if (GameController.gameController.timePassed <= rankTimes[3])
+            if (GameController.gameController.timePassed > 1f)
             {
-                if (GameController.gameController.timePassed <= rankTimes[2])
+                if (GameController.gameController.timePassed <= rankTimes[3])
                 {
-                    if (GameController.gameController.timePassed <= rankTimes[1])
+                    if (GameController.gameController.timePassed <= rankTimes[2])
                     {
-                        if (GameController.gameController.timePassed <= rankTimes[0])
+                        if (GameController.gameController.timePassed <= rankTimes[1])
                         {
-                            GameController.gameController.levelRanks.Add(0);
+                            if (GameController.gameController.timePassed <= rankTimes[0])
+                            {
+                                GameController.gameController.levelRanks.Add(0);
+                            }
+                            else GameController.gameController.levelRanks.Add(1);
                         }
-                        else GameController.gameController.levelRanks.Add(1);
+                        else GameController.gameController.levelRanks.Add(2);
                     }
-                    else GameController.gameController.levelRanks.Add(1);
+                    else GameController.gameController.levelRanks.Add(3);
                 }
-                else GameController.gameController.levelRanks.Add(2);
+                else GameController.gameController.levelRanks.Add(4);
             }
-            else GameController.gameController.levelRanks.Add(4);
+            else GameController.gameController.levelRanks.Add(5);
             // If there is a designated level, set the level to 1 before it so that when
             // the GameController level function runs the correct level is set.
             // Also if you want to start level 3 enter 2. This is for consistency.

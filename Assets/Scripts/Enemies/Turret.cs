@@ -8,17 +8,17 @@ public class Turret : MonoBehaviour
         {
             Vector3 newLookAt = new Vector3(playerTransform.position.x, transform.position.y, playerTransform.position.z);
             turretContainer.transform.LookAt(newLookAt);
-            turretTop.transform.LookAt(playerTransform.position);
             if (timeUntilShoot > 0f)
             {
                 timeUntilShoot -= Time.deltaTime;
             }
             else
             {
-                turretTop.transform.LookAt(playerTransform.position);
-                GameObject newBullet = Instantiate(bulletPrefab, transform.position + (transform.forward * 5f), transform.rotation);
+                turretContainer.transform.LookAt(playerTransform.position);
+                GameObject newBullet = Instantiate(bulletPrefab, transform.position + (transform.forward * 5f), turretTop.transform.rotation);
                 newBullet.GetComponent<TurretBullet>().moveSpeed = bulletSpeed;
                 timeUntilShoot = shotInterval;
+                turretContainer.transform.LookAt(newLookAt);
             }
         }
     }

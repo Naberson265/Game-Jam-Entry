@@ -16,23 +16,26 @@ public class LevelEndTrigger : MonoBehaviour
         if (other.gameObject.layer == 3)
         {
             Resettable.SaveDefaults();
-            if (GameController.gameController.timePassed <= rankTimes[3])
+            if (GameController.gameController.timePassed > 1f)
             {
-                if (GameController.gameController.timePassed <= rankTimes[2])
+                if (GameController.gameController.timePassed <= rankTimes[3])
                 {
-                    if (GameController.gameController.timePassed <= rankTimes[1])
+                    if (GameController.gameController.timePassed <= rankTimes[2])
                     {
-                        if (GameController.gameController.timePassed <= rankTimes[0])
+                        if (GameController.gameController.timePassed <= rankTimes[1])
                         {
-                            GameController.gameController.levelRanks.Add(0);
+                            if (GameController.gameController.timePassed <= rankTimes[0])
+                            {
+                                GameController.gameController.levelRanks.Add(0);
+                            }
+                            else GameController.gameController.levelRanks.Add(1);
                         }
-                        else GameController.gameController.levelRanks.Add(1);
+                        else GameController.gameController.levelRanks.Add(2);
                     }
-                    else GameController.gameController.levelRanks.Add(1);
+                    else GameController.gameController.levelRanks.Add(3);
                 }
-                else GameController.gameController.levelRanks.Add(2);
+                else GameController.gameController.levelRanks.Add(4);
             }
-            else GameController.gameController.levelRanks.Add(4);
             newPlayerPos.position += new Vector3(0f, PlayerController.playerController.healthToSize[
             PlayerController.playerController.health.Count] / 2f, 0f);
             newCamPos.position += new Vector3(0f, PlayerController.playerController.healthToSize[
