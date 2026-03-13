@@ -1272,7 +1272,7 @@ GameObject:
   - component: {fileID: 7300595909114885353}
   - component: {fileID: 3829367996580422029}
   - component: {fileID: 8468648515728200780}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PlayerDupe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
