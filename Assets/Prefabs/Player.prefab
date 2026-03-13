@@ -4287,6 +4287,9 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 192
+  whatCanCrush:
+    serializedVersion: 2
+    m_Bits: 64
   grounded: 0
   health: 0000000000000000000000000000000000000000
   healthToSize:

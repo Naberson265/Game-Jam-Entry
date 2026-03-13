@@ -55,6 +55,8 @@ public class PlayerController : Resettable
 
     [Header("Ground Check")]
     public LayerMask whatIsGround;
+    // Typically the same but excluding pushable objects so that player dupes don't kill.
+    public LayerMask whatCanCrush;
     public bool grounded;
 
     [Header("Health and Ability")]
@@ -204,7 +206,7 @@ public class PlayerController : Resettable
         terminalVelocity = savedTerminalVel;
 
         // Check for Wall Clip, If so die.
-        Collider[] cols = Physics.OverlapSphere(transform.position, 0.1f, whatIsGround);
+        Collider[] cols = Physics.OverlapSphere(transform.position, 0.1f, whatCanCrush);
         foreach( Collider col in cols)
         {
             if(!col.isTrigger)
