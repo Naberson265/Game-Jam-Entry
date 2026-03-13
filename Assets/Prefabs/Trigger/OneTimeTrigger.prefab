@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8431540529267586968}
   - component: {fileID: 2535667865573707367}
   - component: {fileID: 6399150195468059844}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: OneTimeTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67,6 +67,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea56ca60186c0a4789e911a39aa1130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OneTimeTrigger
+  activatables: []
+  setActivationTo: 1
 --- !u!1 &9091224993716566690
 GameObject:
   m_ObjectHideFlags: 0
@@ -78,7 +80,7 @@ GameObject:
   - component: {fileID: 5263907714919750956}
   - component: {fileID: 5520823981689302770}
   - component: {fileID: 603596281457346563}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Display
   m_TagString: EditorOnly
   m_Icon: {fileID: 0}

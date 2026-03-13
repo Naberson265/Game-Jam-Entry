@@ -22,4 +22,15 @@ public class MenuController : MonoBehaviour
         string[] levelValues = levelId.Split("-");
         ProgressionManager.LoadLevel(int.Parse(levelValues[1]) - 1, "Zone" + levelValues[0]);
     }
+
+    public void Continue()
+    {
+        ProgressionManager.LoadLevel(ProgressionManager._saveData.latestCheckpoint.levelNum, ProgressionManager._saveData.latestCheckpoint.levelScene);
+    }
+
+    public void NewGame()
+    {
+        ProgressionManager.ResetSave();
+        ProgressionManager.LoadLevel(0, "Zone1");
+    }
 }

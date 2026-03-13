@@ -130,7 +130,6 @@ public class ProgressionManager: MonoBehaviour
     {
         _saveData.latestCheckpoint = new CheckpointData(new Vector3(0, 0, 0), -1, -1);
         _saveData.records = new float[RECORDS_PER_LEVEL * LEVELS];
-        PlayerPrefs.SetInt("Difficulty", 1);
         Save();
     }
 
