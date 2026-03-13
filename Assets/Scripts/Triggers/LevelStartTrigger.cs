@@ -43,13 +43,13 @@ public class LevelStartTrigger : MonoBehaviour
                 actionObjectOff.activated = false;
             }
             // If you don't like nested if statements too bad.
-            if (GameController.gameController.timePassed >= rankTimes[3])
+            if (GameController.gameController.timePassed <= rankTimes[3])
             {
-                if (GameController.gameController.timePassed >= rankTimes[2])
+                if (GameController.gameController.timePassed <= rankTimes[2])
                 {
-                    if (GameController.gameController.timePassed >= rankTimes[1])
+                    if (GameController.gameController.timePassed <= rankTimes[1])
                     {
-                        if (GameController.gameController.timePassed >= rankTimes[0])
+                        if (GameController.gameController.timePassed <= rankTimes[0])
                         {
                             GameController.gameController.levelRanks.Add(0);
                         }

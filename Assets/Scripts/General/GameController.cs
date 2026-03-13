@@ -7,23 +7,28 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
+    [Header("Objects")]
     public static GameController gameController { get; private set; }
-    // Include the main (blue), and two level timers in the below array:
-    public GameObject[] levelTimers;
-    public GameObject[] levelSpawnpoints;
     public GameObject mainGUI;
     public GameObject endScreen;
     public float timePassed;
-    public int finalRank;
     public AudioSource gameMusic;
+
+    [Header("Level Related")]
+    public int currentLevel;
     public AudioClip[] levelSongs;
     public AudioClip[] rankThemes;
     // A rank (from 0(S)-4(D)) is added to this list each level, then averaged at the zone ending.
     public List<int> levelRanks;
-    public int currentLevel;
+    public int finalRank;
     // The below two are set manually every level.
     public int zone;
     public int levelCount;
+    // Include the main (blue), and two level timers in the below array:
+    public GameObject[] levelTimers;
+    public GameObject[] levelSpawnpoints;
+
+    [Header("Fog")]
     public Color currentFogColor = Color.white;
     public float currentFogDensity = 0f;
     private void Awake()
