@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameController
   levelTimers: []
+  levelSpawnpoints: []
   mainGUI: {fileID: 0}
   endScreen: {fileID: 0}
   timePassed: 0
@@ -114,6 +115,7 @@ MonoBehaviour:
   levelRanks: 
   currentLevel: 0
   zone: 0
+  levelCount: 3
   currentFogColor: {r: 1, g: 1, b: 1, a: 1}
   currentFogDensity: 0
 --- !u!82 &4028765369042315540

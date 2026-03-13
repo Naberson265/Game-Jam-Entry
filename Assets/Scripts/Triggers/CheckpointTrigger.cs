@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CheckpointTrigger : MonoBehaviour
 {
-    private bool triggerActivated = false;
+    public bool triggerActivated = false;
     public Transform spawnpointPosition;
 
     private void OnTriggerEnter(Collider other)

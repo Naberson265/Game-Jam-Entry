@@ -21,8 +21,9 @@ public class GameController : MonoBehaviour
     // A rank (from 0(S)-4(D)) is added to this list each level, then averaged at the zone ending.
     public List<int> levelRanks;
     public int currentLevel;
-    //Set manually every level
+    // The below two are set manually every level.
     public int zone;
+    public int levelCount;
     public Color currentFogColor = Color.white;
     public float currentFogDensity = 0f;
     private void Awake()
@@ -64,12 +65,18 @@ public class GameController : MonoBehaviour
     }
     public void StartNewLevel()
     {
-        int lastLRank = levelRanks.Count - 1;
+        string lastLRank;
+        if (levelRanks[levelRanks.Count - 1] == 0) lastLRank = "S";
+        else if (levelRanks[levelRanks.Count - 1] == 1) lastLRank = "A";
+        else if (levelRanks[levelRanks.Count - 1] == 2) lastLRank = "B";
+        else if (levelRanks[levelRanks.Count - 1] == 3) lastLRank = "C";
+        else if (levelRanks[levelRanks.Count - 1] == 4) lastLRank = "D";
+        else lastLRank = "N/A";
         Resettable.SaveDefaults();
         ProgressionManager.SetRecord(timePassed);
         currentLevel++;
         ProgressionManager.SaveProgess(PlayerController.playerController.gameObject.transform.position);
-        levelTimers[currentLevel].GetComponent<TMP_Text>().text = "(" + lastLRank.ToString() +
+        levelTimers[currentLevel].GetComponent<TMP_Text>().text = "(" + lastLRank +
         ") L" + currentLevel.ToString() + ": " + CalculateFormattedTime(timePassed);
         levelTimers[currentLevel].SetActive(true);
         gameMusic.Stop();
@@ -91,7 +98,7 @@ public class GameController : MonoBehaviour
     {
         gameMusic.Stop();
         finalRank = 0;
-        if (levelRanks.Count != 0)
+        if (levelRanks.Count != 0 && levelRanks.Count == levelCount)
         {
             foreach (int lRank in levelRanks)
             {
@@ -103,7 +110,7 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            finalRank = 4;
+            finalRank = 5;
             gameMusic.PlayOneShot(rankThemes[4]);
         }
         PlayerController ps = PlayerController.playerController;

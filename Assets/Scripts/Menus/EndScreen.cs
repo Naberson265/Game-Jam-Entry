@@ -17,7 +17,7 @@ public class ZoneEndScreen : MonoBehaviour
                 frText.text = "S RANK!!!";
                 if (frText.transform.name != "ZoneRankShadow") frText.color = Color.yellow;
             }
-            else if (gc.finalRank < 4)
+            else if (gc.finalRank < 5)
             {
                 if (gc.finalRank == 1)
                 {
@@ -34,11 +34,16 @@ public class ZoneEndScreen : MonoBehaviour
                     frText.text = "C RANK!";
                     if (frText.transform.name != "ZoneRankShadow") frText.color = Color.cyan;
                 }
+                else if (gc.finalRank == 4)
+                {
+                    frText.text = "D RANK...";
+                    if (frText.transform.name != "ZoneRankShadow") frText.color = Color.brown;
+                }
             }
             else
             {
-                frText.text = "D RANK...";
-                if (frText.transform.name != "ZoneRankShadow") frText.color = Color.brown;
+                frText.text = "UNRANKED";
+                if (frText.transform.name != "ZoneRankShadow") frText.color = Color.grey;
             }
         }
         int currentLRCount = 0;
@@ -51,7 +56,8 @@ public class ZoneEndScreen : MonoBehaviour
                 else if (gc.levelRanks[currentLRCount] == 1) rankLetter = "A";
                 else if (gc.levelRanks[currentLRCount] == 2) rankLetter = "B";
                 else if (gc.levelRanks[currentLRCount] == 3) rankLetter = "C";
-                else rankLetter = "D";
+                else if (gc.levelRanks[currentLRCount] == 4) rankLetter = "D";
+                else rankLetter = "N/A";
                 levelText.text = "Level " + gc.zone.ToString() + "-" + (currentLRCount + 1).ToString()
                 + ": " + rankLetter.ToString();
                 currentLRCount++;
@@ -59,7 +65,7 @@ public class ZoneEndScreen : MonoBehaviour
             else
             {
                 levelText.text = "Level " + gc.zone.ToString() + "-" +
-                (currentLRCount + 1).ToString() + ": D";
+                (currentLRCount + 1).ToString() + ": N/A";
                 currentLRCount++;
             }
         }
