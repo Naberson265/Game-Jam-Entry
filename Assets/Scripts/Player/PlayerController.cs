@@ -133,6 +133,11 @@ public class PlayerController : Resettable
         {
             DisableAbilities();
         }
+        // Restart from last Checkpoint
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Damage(10, 3, true);
+        }
         // Cheats
         if (Input.GetKey(KeyCode.O))
         {
@@ -211,8 +216,7 @@ public class PlayerController : Resettable
         {
             if(!col.isTrigger)
             {
-                Damage(10, 3, true);
-                print("Crushed!");
+                Damage(10, 3, false);
             }
         }
     }
