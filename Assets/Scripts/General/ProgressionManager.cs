@@ -141,6 +141,7 @@ public class ProgressionManager: MonoBehaviour
 
     public static void Save()
     {
+        print(Application.persistentDataPath);
         File.WriteAllText(SaveFileName(), JsonUtility.ToJson(_saveData));
         print("Saved");
     }

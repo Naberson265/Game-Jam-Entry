@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3027160802546119288}
   - component: {fileID: 2683112343621169641}
   - component: {fileID: 5307890792531492210}
+  - component: {fileID: 7305912827857712652}
   m_Layer: 5
   m_Name: RightLevelButton
   m_TagString: Untagged
@@ -117,7 +118,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 2683112343621169641}
+  m_TargetGraphic: {fileID: 7653778178585573165}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -157,6 +158,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7305912827857712652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 809310682311091013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b51be52f648276499838cf1a55574cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonDisable
+  levelRequired: 2
+  zoneRequired: 1
 --- !u!1 &1499600389328269476
 GameObject:
   m_ObjectHideFlags: 0
