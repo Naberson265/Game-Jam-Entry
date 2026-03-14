@@ -21,7 +21,10 @@ public class ButtonTrigger : MonoBehaviour
             timeUntilClose = 0f;
             foreach (Activatable activatable in activatables)
             {
-                activatable.activated = false;
+                if (activatable)
+                {
+                    activatable.activated = false;
+                }
             }
         }
     }
@@ -30,7 +33,10 @@ public class ButtonTrigger : MonoBehaviour
         timeUntilClose = onPressTime;
         foreach (Activatable activatable in activatables)
         {
-            activatable.activated = true;
+            if (activatable)
+            {
+                activatable.activated = true;
+            }
         }
     }
     private void OnTriggerEnter()

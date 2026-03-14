@@ -2,23 +2,28 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
+
+    private void Start()
+    {
+        playerTransform = PlayerController.playerController.transform;
+        lookPosition = transform.position + transform.forward * 5;
+        turretTop.transform.LookAt(lookPosition);
+    }
     void OnTriggerStay(Collider other)
     {
         if (other.tag == "Player")
         {
-            Vector3 newLookAt = new Vector3(playerTransform.position.x, transform.position.y, playerTransform.position.z);
-            transform.LookAt(newLookAt);
+            lookPosition = Vector3.Lerp(lookPosition, playerTransform.position, 0.2f);
+            turretTop.transform.LookAt(lookPosition);
             if (timeUntilShoot > 0f)
             {
                 timeUntilShoot -= Time.deltaTime;
             }
-            else
+            else if((lookPosition - playerTransform.position).magnitude < 3)
             {
-                transform.LookAt(playerTransform.position);
-                GameObject newBullet = Instantiate(bulletPrefab, transform.position + (transform.forward * 5f), transform.rotation);
+                GameObject newBullet = Instantiate(bulletPrefab, turretTop.transform.position + (turretTop.transform.forward * 5f), turretTop.transform.rotation);
                 newBullet.GetComponent<TurretBullet>().moveSpeed = bulletSpeed;
                 timeUntilShoot = shotInterval;
-                transform.LookAt(newLookAt);
             }
         }
     }
@@ -26,5 +31,7 @@ public class Turret : MonoBehaviour
 	private float timeUntilShoot;
 	public float bulletSpeed = 20f;
 	public GameObject bulletPrefab;
-	public Transform playerTransform;
+    public GameObject turretTop;
+    private Transform playerTransform;
+    private Vector3 lookPosition;
 }
