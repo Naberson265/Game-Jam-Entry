@@ -27,7 +27,7 @@ public class RBObjectShift : Activatable
         {
             if ((currentPos - activePoint).magnitude > 0.01f)
             {
-                objRB.position = (Vector3.Lerp(currentPos, activePoint, pushSpeed));
+                objRB.MovePosition(Vector3.Lerp(currentPos, activePoint, pushSpeed));
             }
             else
             {
@@ -37,7 +37,7 @@ public class RBObjectShift : Activatable
         {
             if ((currentPos - startPoint).magnitude > 0.01f)
             {
-                objRB.position = Vector3.Lerp(currentPos, startPoint, pushSpeed);
+                objRB.MovePosition(Vector3.Lerp(currentPos, startPoint, pushSpeed));
             }
             else
             {
