@@ -49,7 +49,7 @@ public class ZoneEndScreen : MonoBehaviour
         int currentLRCount = 0;
         foreach (TMP_Text levelText in levelRankTexts)
         {
-            if (gc.levelRanks.Count < currentLRCount)
+            if (gc.levelRanks.Count > currentLRCount)
             {
                 string rankLetter;
                 if (gc.levelRanks[currentLRCount] == 0) rankLetter = "S";
@@ -59,7 +59,7 @@ public class ZoneEndScreen : MonoBehaviour
                 else if (gc.levelRanks[currentLRCount] == 4) rankLetter = "D";
                 else rankLetter = "N/A";
                 levelText.text = "Level " + gc.zone.ToString() + "-" + (currentLRCount + 1).ToString()
-                + ": " + rankLetter.ToString();
+                + ": " + rankLetter;
                 currentLRCount++;
             }
             else
