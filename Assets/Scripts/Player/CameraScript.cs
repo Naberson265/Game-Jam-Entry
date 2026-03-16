@@ -4,10 +4,17 @@ public class CameraScript : MonoBehaviour
 {
     void Start()
     {
+        // Sets every pref to its default in case the settings were never opened until this point.
+        if (PlayerPrefs.GetFloat("Sensitivity") == 0) PlayerPrefs.SetFloat("Sensitivity", 1);
+        if (PlayerPrefs.GetFloat("RenderDist") == 0) PlayerPrefs.SetFloat("RenderDist", 1000);
+        if (PlayerPrefs.GetInt("OcclusionCulling") == 0) PlayerPrefs.SetInt("OcclusionCulling", 2);
+        if (PlayerPrefs.GetInt("TurnWithCamera") == 0) PlayerPrefs.SetInt("TurnWithCamera", 1);
         LockMouse();
+        camComp = GetComponent<Camera>();
     }
     void Update()
     {
+        SettingManagement();
         if (canMove && !paused) CamMove();
         if (Input.GetButtonDown("Pause") && canMove)
         {
@@ -16,6 +23,13 @@ public class CameraScript : MonoBehaviour
         }
         if (paused) Time.timeScale = 0f;
         else Time.timeScale = 1f;
+    }
+    public void SettingManagement()
+    {
+        mouseSensitivity = PlayerPrefs.GetFloat("Sensitivity");
+        camComp.farClipPlane = PlayerPrefs.GetFloat("RenderDist");
+        if (PlayerPrefs.GetInt("OcclusionCulling") == 2) camComp.useOcclusionCulling = true;
+        else camComp.useOcclusionCulling = false;
     }
 	private void CamMove()
     {
@@ -69,4 +83,5 @@ public class CameraScript : MonoBehaviour
 	public Transform playerTransform;
 	public Transform camFixedDirTransform;
 	public GameObject pauseMenu;
+    private Camera camComp;
 }

@@ -194,6 +194,8 @@ public class PlayerController : Resettable
             // Makes the player look in the direction they move.
             Vector3 directionToFace = transform.position + transform.forward + movementDir.normalized * 0.4f;
             transform.LookAt(directionToFace);
+            // Cancel out the above if Turn With Camera is enabled.
+            if (PlayerPrefs.GetInt("TurnWithCamera") == 2) transform.rotation = camFixedDirTransform.rotation;
         }
 
         // We only want terminal velocity to effect downwards speed. When floating change this terminal velocity temporarily.
