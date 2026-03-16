@@ -23,7 +23,7 @@ public class Powerup : Resettable
             {
                 respawnTime = 0;
                 canPickup = true;
-                iconRenderer.enabled = true;
+                iconRenderer.color = new Color(1f, 1f, 1f, 1f);
                 respawnHealth = -1;
             }
         }
@@ -39,7 +39,7 @@ public class Powerup : Resettable
 
     protected override void SaveDefault()
     {
-        defaultState = canPickup;
+        defaultState = canPickup || canRespawn;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -47,7 +47,13 @@ public class Powerup : Resettable
         if (other.gameObject.layer == 3 && canPickup)
         {
             canPickup = false;
-            iconRenderer.enabled = false;
+            if(canRespawn)
+            {
+                iconRenderer.color = new Color(0.7f, 0.7f, 0.7f, 0.5f);
+            } else
+            {
+                iconRenderer.enabled = false;
+            }
             respawnHealth = PlayerController.playerController.health.Count;
             PlayerController.playerController.Powerup(powerupType);
         }
