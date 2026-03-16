@@ -802,4 +802,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DamageTrigger
   damageAmount: 10
   damageLevel: 3
-  ignoreIFrames: 0
+  ignoreIFrames: 1

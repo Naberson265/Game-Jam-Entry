@@ -8,7 +8,6 @@ public class DamageTrigger : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        print(other);
         if (other.tag == "Player")
         {
             PlayerController ps = other.transform.gameObject.GetComponent<PlayerController>();

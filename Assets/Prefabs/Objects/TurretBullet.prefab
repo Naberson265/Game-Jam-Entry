@@ -385,7 +385,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageTrigger
   damageAmount: 1
-  damageLevel: 2
+  damageLevel: 3
   ignoreIFrames: 0
 --- !u!114 &8211447228336506825
 MonoBehaviour:
@@ -399,6 +399,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dc7424505796134399680c35fc0c35a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurretBullet
+  rayLayerMask:
+    serializedVersion: 2
+    m_Bits: 192
   moveSpeed: 20
   expireTime: 10
 --- !u!54 &3271286503670048720

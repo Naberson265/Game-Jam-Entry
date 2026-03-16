@@ -7,6 +7,11 @@ public class TurretBullet : MonoBehaviour
         transform.position += transform.forward * moveSpeed * Time.deltaTime;
         expireTime -= Time.deltaTime;
         if (expireTime < 0f) Destroy(gameObject);
+        RaycastHit raycastHit;
+        if (Physics.Raycast(transform.position, transform.forward, out raycastHit, moveSpeed / 5f, rayLayerMask, QueryTriggerInteraction.Ignore))
+        {
+            Destroy(gameObject);
+        }
     }
     void OnTriggerStay(Collider other)
     {
@@ -15,11 +20,12 @@ public class TurretBullet : MonoBehaviour
         {
             if (!other.isTrigger)
             {
-                if (hitObject.name != "PhysicalCollider") expireTime = 0f;
+                if (hitObject.name != "PhysicalCollider") Destroy(gameObject);
                 else expireTime = 10f;
             }
         }
     }
+	public LayerMask rayLayerMask;
     public float moveSpeed = 20f;
     public float expireTime = 10f;
 }

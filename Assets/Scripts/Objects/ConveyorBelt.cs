@@ -35,7 +35,8 @@ public class ConveyorBeltScript : MonoBehaviour
         }
         if (other.transform.gameObject.layer == 7)
         {
-            other.transform.position += addedVelocity * moveSpeed;
+            Rigidbody otherRb = other.transform.gameObject.GetComponent<Rigidbody>();
+            otherRb.position += addedVelocity * moveSpeed;
         }
     }
 }
