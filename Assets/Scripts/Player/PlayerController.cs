@@ -357,7 +357,8 @@ public class PlayerController : Resettable
                 launchMult *= springLaunchMultiplier;
             }
             Jump(launchMult, false);
-            rb.AddForce(saveVelocity,ForceMode.Impulse);
+            usedAirAbility = false;
+            rb.AddForce(saveVelocity, ForceMode.Impulse);
         }
         else
         {
