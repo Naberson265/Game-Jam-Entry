@@ -1,7 +1,10 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerDupe : MonoBehaviour
 {
+    public static PlayerDupe mostRecentDupe;
+
     public GameObject[] abilityModels;
 
     [SerializeField] private float clipTime = 0.4f;
@@ -14,6 +17,7 @@ public class PlayerDupe : MonoBehaviour
     {
         col = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
+        mostRecentDupe = this;
     }
     private void Update()
     {
@@ -42,5 +46,22 @@ public class PlayerDupe : MonoBehaviour
                 abilityModels[i].SetActive(false);
             }
         }
+    }
+
+    public void DestroyDupe()
+    {
+        StartCoroutine(DestroyDupeRoutine());
+    }
+
+    private IEnumerator DestroyDupeRoutine()
+    {
+        Vector3 decreaseAmount = transform.localScale * (1f/100);
+        print(decreaseAmount);
+        for (int i = 0; i < 100; i++)
+        {
+            transform.localScale = transform.localScale - decreaseAmount;
+            yield return new WaitForSeconds(0.02f);
+        }
+        Destroy(gameObject);
     }
 }

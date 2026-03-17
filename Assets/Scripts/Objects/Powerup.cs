@@ -10,6 +10,9 @@ public class Powerup : Resettable
     [SerializeField] private int powerupType = 0;
     [SerializeField] private SpriteRenderer iconRenderer;
 
+    private PlayerDupe playerDupe;
+    private bool resetPlayerDupe = true;
+
     private void Start()
     {
         iconRenderer.sprite = IconManager.iconManager.powerUpIcons[powerupType];
@@ -19,10 +22,16 @@ public class Powerup : Resettable
         if (canRespawn && !canPickup && PlayerController.playerController.health.Count <= respawnHealth)
         {
             respawnTime += Time.deltaTime;
+            if (respawnTime > 0.1f && resetPlayerDupe)
+            {
+                resetPlayerDupe = false;
+                playerDupe = PlayerDupe.mostRecentDupe;
+            }
             if (respawnTime > TimeBeforeRespawn)
             {
                 respawnTime = 0;
                 canPickup = true;
+                resetPlayerDupe = true;
                 iconRenderer.color = new Color(1f, 1f, 1f, 1f);
                 respawnHealth = -1;
             }
@@ -53,6 +62,10 @@ public class Powerup : Resettable
             } else
             {
                 iconRenderer.enabled = false;
+            }
+            if (playerDupe)
+            {
+                playerDupe.DestroyDupe();
             }
             respawnHealth = PlayerController.playerController.health.Count;
             PlayerController.playerController.Powerup(powerupType);

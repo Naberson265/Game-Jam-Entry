@@ -77,7 +77,7 @@ Transform:
   m_GameObject: {fileID: 3934943191422137187}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 14.75142, y: -1, z: 6.70504}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -95,13 +95,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1ba40e1fa49c0c46a1a470f871d3dd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameController
-  levelTimers: []
-  levelSpawnpoints: []
   mainGUI: {fileID: 0}
   endScreen: {fileID: 0}
   timePassed: 0
-  finalRank: 0
   gameMusic: {fileID: 4028765369042315540}
+  currentLevel: 0
   levelSongs:
   - {fileID: 8300000, guid: f785d923c80d23f498adeeca89b26ae7, type: 3}
   - {fileID: 8300000, guid: 5fd9135101d97524486da00b5f1e7014, type: 3}
@@ -113,9 +111,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0dcafb6bf89fd234d8fa87dc8f0d7bb2, type: 3}
   - {fileID: 8300000, guid: 24cd9b63aba2fa348981fcbf4c19bfa3, type: 3}
   levelRanks: 
-  currentLevel: 0
+  finalRank: 0
   zone: 0
   levelCount: 3
+  levelTimers: []
+  levelSpawnpoints: []
   currentFogColor: {r: 1, g: 1, b: 1, a: 1}
   currentFogDensity: 0
 --- !u!82 &4028765369042315540
@@ -127,7 +127,7 @@ AudioSource:
   m_GameObject: {fileID: 3934943191422137187}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300002, guid: 03fbfd05456256e438b81092fba82d06, type: 2}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 850181c93af06ef4d9fe435a24335f74, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: f785d923c80d23f498adeeca89b26ae7, type: 3}
   m_PlayOnAwake: 1
@@ -215,6 +215,52 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &4812379795009705202
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6558007735664459766}
+  - component: {fileID: 7525483404939227639}
+  m_Layer: 0
+  m_Name: VolumeController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6558007735664459766
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4812379795009705202}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6663720684676330798}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7525483404939227639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4812379795009705202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0d982bc82f4e1d4abde7fabc6cf6ac4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VolumeController
+  musicAudioMixer: {fileID: 24100000, guid: 850181c93af06ef4d9fe435a24335f74, type: 2}
+  suppressionAmount: -20
 --- !u!1 &8790304421534426931
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,5 +292,6 @@ Transform:
   m_Children:
   - {fileID: 1058300561266156926}
   - {fileID: 2120675623149592165}
+  - {fileID: 6558007735664459766}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
