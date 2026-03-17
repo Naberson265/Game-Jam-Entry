@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8405727029053103015}
   - component: {fileID: 7254718111913350383}
-  - component: {fileID: 5439001100870442308}
   - component: {fileID: 3246003201339420820}
   - component: {fileID: 4161718609894220295}
   - component: {fileID: 1491988191602390667}
@@ -499,32 +498,6 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
---- !u!114 &5439001100870442308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7867943608768884941}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ca002da428252441b92f28d83c8a65f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.ProBuilder::UnityEngine.ProBuilder.Shapes.ProBuilderShape
-  m_Shape:
-    rid: 4034776734167728322
-  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_UnmodifiedMeshVersion: 1678
-  m_Size: {x: 1, y: 1, z: 1}
-  m_LocalCenter: {x: 0, y: 0, z: 0}
-  references:
-    version: 2
-    RefIds:
-    - rid: 4034776734167728322
-      type: {class: Cone, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
-      data:
-        m_NumberOfSides: 8
-        m_Smooth: 1
 --- !u!23 &3246003201339420820
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -597,6 +570,7 @@ MonoBehaviour:
   damageAmount: 1
   damageLevel: 0
   ignoreIFrames: 0
+  breakable: 0
 --- !u!136 &2184840379080275432
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -803,3 +803,4 @@ MonoBehaviour:
   damageAmount: 10
   damageLevel: 3
   ignoreIFrames: 1
+  breakable: 0

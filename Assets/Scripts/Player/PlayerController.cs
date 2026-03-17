@@ -44,7 +44,7 @@ public class PlayerController : Resettable
     private Vector3 movementDir = Vector3.zero;
 
     [Header("Audio")]
-    private AudioSource playerAudio;
+    public AudioSource playerAudio;
     public AudioClip jumpSFX;
     public AudioClip droneSFX;
     public AudioClip hitSFX;
@@ -52,6 +52,7 @@ public class PlayerController : Resettable
     public AudioClip springSFX;
     public AudioClip speedSFX;
     public AudioClip powerupSFX;
+    public AudioClip spikeBreakSFX;
 
     [Header("Ground Check")]
     public LayerMask whatIsGround;
@@ -70,8 +71,7 @@ public class PlayerController : Resettable
     public float abilityCooldown = 1f;
     public GameObject[] abilityModels;
     public GameObject pModelParent;
-
-    private bool usedAirAbility = false;
+    public bool usedAirAbility = false;
 
     [Header("Rocket Properties")]
     public float rocketSpeedMultiplier = 1.5f;
@@ -352,6 +352,8 @@ public class PlayerController : Resettable
         if (health.Count > 0)
         {
             DisableAbilities();
+            // Prevents rotation issues.
+            movementDir = Vector3.zero;
             modelAnimator.Play("Damage");
             float launchMult = launchMultiplier;
             if (ability == 4)

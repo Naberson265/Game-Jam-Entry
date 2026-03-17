@@ -4,14 +4,14 @@ public class TurretBullet : MonoBehaviour
 {
     void Update()
     {
-        transform.position += transform.forward * moveSpeed * Time.deltaTime;
-        expireTime -= Time.deltaTime;
-        if (expireTime < 0f) Destroy(gameObject);
         RaycastHit raycastHit;
-        if (Physics.Raycast(transform.position, transform.forward, out raycastHit, moveSpeed / 5f, rayLayerMask, QueryTriggerInteraction.Ignore))
+        if (Physics.Raycast(transform.position, transform.forward, out raycastHit, 1f, rayLayerMask, QueryTriggerInteraction.Ignore))
         {
             Destroy(gameObject);
         }
+        transform.position += transform.forward * moveSpeed * Time.deltaTime;
+        expireTime -= Time.deltaTime;
+        if (expireTime < 0f) Destroy(gameObject);
     }
     void OnTriggerStay(Collider other)
     {
