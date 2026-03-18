@@ -18,6 +18,7 @@ public class PlayerController : Resettable
 {
     public static PlayerController playerController { get; private set; }
     private Rigidbody rb;
+    public float gravityMultiplier = 2f;
 
     [Header("Objects")]
     private GameObject mainCam;
@@ -183,11 +184,32 @@ public class PlayerController : Resettable
             // in air
             else
             {
-                rb.AddForce(movementDir.normalized * moveSpeed * 10f * airMultiplier * speedMultiplier, ForceMode.Force);
+                Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+                Vector3 desiredDir = movementDir.normalized;
+
+                if (desiredDir.magnitude > 0.1f)
+                {
+                    float currentSpeedInDir = Vector3.Dot(flatVel, desiredDir);
+                    float addSpeed = moveSpeed * speedMultiplier - currentSpeedInDir;
+
+                    if (addSpeed > 0)
+                    {
+                        rb.AddForce(desiredDir * addSpeed * airMultiplier, ForceMode.Acceleration);
+                    }
+                }
             }
-            // Makes the player look in the direction they move.
             Vector3 directionToFace = transform.position + transform.forward + movementDir.normalized * 0.4f;
-            transform.LookAt(directionToFace);
+            Vector3 lookDir = (directionToFace - transform.position).normalized;
+            if (movementDir.sqrMagnitude > 0.01f)
+            {
+                Vector3 flatMoveDir = new Vector3(movementDir.x, 0f, movementDir.z).normalized;
+                if (flatMoveDir.sqrMagnitude > 0.001f)
+                {
+                    Quaternion targetRotation = Quaternion.LookRotation(flatMoveDir);
+                    float turnSpeed = 720f; //speed
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
+                }
+            }
         }
 
         // We only want terminal velocity to effect downwards speed. When floating change this terminal velocity temporarily.
@@ -203,7 +225,7 @@ public class PlayerController : Resettable
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, -terminalVelocity, rb.linearVelocity.z);
         }
         terminalVelocity = savedTerminalVel;
-
+        rb.AddForce(Physics.gravity * (gravityMultiplier - 1) * rb.mass, ForceMode.Force);
         // Check for Wall Clip, If so die.
         Collider[] cols = Physics.OverlapSphere(transform.position, 0.1f, whatIsGround);
         foreach( Collider col in cols)
@@ -266,10 +288,8 @@ public class PlayerController : Resettable
             modelAnimator.Play("Jump");
             playerAudio.PlayOneShot(jumpSFX);
         }
-        // Reset y velocity
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
-        // Calculates force needed to get to jump height
-        float jumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(Physics.gravity.y) * jumpHeight * mult);
+        float jumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(Physics.gravity.y * gravityMultiplier) * jumpHeight * mult);
         rb.AddForce(transform.up * jumpVelocity, ForceMode.Impulse);
     }
     private void ResetJump()
