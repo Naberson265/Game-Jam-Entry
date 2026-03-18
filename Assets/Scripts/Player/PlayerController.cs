@@ -108,7 +108,8 @@ public class PlayerController : Resettable
     void Update()
     {
         // Grounded and Movement Direction
-        grounded = Physics.BoxCast(gameObject.transform.position, gameObject.transform.localScale * 0.47f, Vector3.down, gameObject.transform.rotation, gameObject.transform.localScale.y * 0.05f, whatIsGround);
+        grounded = Physics.BoxCast(gameObject.transform.position, gameObject.transform.localScale * 0.47f,
+        Vector3.down, gameObject.transform.rotation, gameObject.transform.localScale.y * 0.05f, whatIsGround);
         movementDir = Input.GetAxisRaw("Vertical") * camFixedDirTransform.forward + Input.GetAxisRaw("Horizontal") * camFixedDirTransform.right;
         modelAnimator.SetBool("Grounded", grounded);
         modelAnimator.SetBool("Moving", movementDir.magnitude > 0.2);
@@ -342,11 +343,11 @@ public class PlayerController : Resettable
         if (!playerAudio.isPlaying) playerAudio.PlayOneShot(hitSFX);
         UpdateAppearance();
 
-        //Conserve horizontal momentum when taking Damage
-        Vector3 saveVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+        // Conserve some horizontal momentum when taking damage, but not too much so that the player has control.
+        Vector3 saveVelocity = new Vector3(rb.linearVelocity.x / 3f, 0, rb.linearVelocity.z / 3f);
         canMove = false;
         rb.isKinematic = true;
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.05f);
         canMove = true;
         rb.isKinematic = false;
         if (health.Count > 0)

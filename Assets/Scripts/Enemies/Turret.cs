@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
-
     private void Start()
     {
+        turretAud = GetComponent<AudioSource>();
         playerTransform = PlayerController.playerController.transform;
         lookPosition = transform.position + transform.forward * 5;
         turretTop.transform.LookAt(lookPosition);
@@ -21,6 +21,7 @@ public class Turret : MonoBehaviour
             }
             else if((lookPosition - playerTransform.position).magnitude < 3)
             {
+                turretAud.PlayOneShot(shootSFX);
                 GameObject newBullet = Instantiate(bulletPrefab, turretTop.transform.position + (turretTop.transform.forward * 5f), turretTop.transform.rotation);
                 newBullet.GetComponent<TurretBullet>().moveSpeed = bulletSpeed;
                 timeUntilShoot = shotInterval;
@@ -30,6 +31,8 @@ public class Turret : MonoBehaviour
 	public float shotInterval = 0.5f;
 	private float timeUntilShoot;
 	public float bulletSpeed = 20f;
+    private AudioSource turretAud;
+    public AudioClip shootSFX;
 	public GameObject bulletPrefab;
     public GameObject turretTop;
     private Transform playerTransform;
