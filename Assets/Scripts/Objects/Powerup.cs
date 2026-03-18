@@ -10,6 +10,9 @@ public class Powerup : Resettable
     [SerializeField] private int powerupType = 0;
     [SerializeField] private SpriteRenderer iconRenderer;
 
+    private PlayerDupe playerDupe;
+    private bool resetPlayerDupe = true;
+
     private void Start()
     {
         iconRenderer.sprite = IconManager.iconManager.powerUpIcons[powerupType];
@@ -19,11 +22,17 @@ public class Powerup : Resettable
         if (canRespawn && !canPickup && PlayerController.playerController.health.Count <= respawnHealth)
         {
             respawnTime += Time.deltaTime;
+            if (respawnTime > 0.1f && resetPlayerDupe)
+            {
+                resetPlayerDupe = false;
+                playerDupe = PlayerDupe.mostRecentDupe;
+            }
             if (respawnTime > TimeBeforeRespawn)
             {
                 respawnTime = 0;
                 canPickup = true;
-                iconRenderer.enabled = true;
+                resetPlayerDupe = true;
+                iconRenderer.color = new Color(1f, 1f, 1f, 1f);
                 respawnHealth = -1;
             }
         }
@@ -39,7 +48,7 @@ public class Powerup : Resettable
 
     protected override void SaveDefault()
     {
-        defaultState = canPickup;
+        defaultState = canPickup || canRespawn;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -47,7 +56,17 @@ public class Powerup : Resettable
         if (other.gameObject.layer == 3 && canPickup)
         {
             canPickup = false;
-            iconRenderer.enabled = false;
+            if(canRespawn)
+            {
+                iconRenderer.color = new Color(0.7f, 0.7f, 0.7f, 0.5f);
+            } else
+            {
+                iconRenderer.enabled = false;
+            }
+            if (playerDupe)
+            {
+                playerDupe.DestroyDupe();
+            }
             respawnHealth = PlayerController.playerController.health.Count;
             PlayerController.playerController.Powerup(powerupType);
         }

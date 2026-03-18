@@ -21,7 +21,7 @@ public class PlayerController : Resettable
     public float gravityMultiplier = 2f;
 
     [Header("Objects")]
-    private GameObject mainCam;
+    public GameObject mainCam;
     public Transform camFixedDirTransform;
     public Animator modelAnimator;
     public GameObject leftOverBox;
@@ -41,12 +41,11 @@ public class PlayerController : Resettable
     public float coyoteTime = 0.15f;
     public float currentCoyoteTime;
     public float terminalVelocity = 50f;
-
-    private bool canMove = true;
+    public bool canMove = true;
     private Vector3 movementDir = Vector3.zero;
 
     [Header("Audio")]
-    private AudioSource playerAudio;
+    public AudioSource playerAudio;
     public AudioClip jumpSFX;
     public AudioClip droneSFX;
     public AudioClip hitSFX;
@@ -54,9 +53,12 @@ public class PlayerController : Resettable
     public AudioClip springSFX;
     public AudioClip speedSFX;
     public AudioClip powerupSFX;
+    public AudioClip spikeBreakSFX;
 
     [Header("Ground Check")]
     public LayerMask whatIsGround;
+    // Typically the same but excluding pushable objects so that player dupes don't kill.
+    public LayerMask whatCanCrush;
     public bool grounded;
 
     [Header("Health and Ability")]
@@ -70,8 +72,7 @@ public class PlayerController : Resettable
     public float abilityCooldown = 1f;
     public GameObject[] abilityModels;
     public GameObject pModelParent;
-
-    private bool usedAirAbility = false;
+    public bool usedAirAbility = false;
 
     [Header("Rocket Properties")]
     public float rocketSpeedMultiplier = 1.5f;
@@ -132,6 +133,11 @@ public class PlayerController : Resettable
         if (Input.GetButtonUp("Ability"))
         {
             DisableAbilities();
+        }
+        // Restart from last Checkpoint
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Damage(10, 3, true);
         }
         // Cheats
         if (Input.GetKey(KeyCode.O))
@@ -199,6 +205,7 @@ public class PlayerController : Resettable
                 }
             }
             Vector3 directionToFace = transform.position + transform.forward + movementDir.normalized * 0.4f;
+
             Vector3 lookDir = (directionToFace - transform.position).normalized;
             if (movementDir.sqrMagnitude > 0.01f)
             {
@@ -210,6 +217,11 @@ public class PlayerController : Resettable
                     transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
                 }
             }
+
+            transform.LookAt(directionToFace);
+            // Cancel out the above if Turn With Camera is enabled.
+            if (PlayerPrefs.GetInt("TurnWithCamera") == 2) transform.rotation = camFixedDirTransform.rotation;
+
         }
 
         // We only want terminal velocity to effect downwards speed. When floating change this terminal velocity temporarily.
@@ -227,12 +239,12 @@ public class PlayerController : Resettable
         terminalVelocity = savedTerminalVel;
         rb.AddForce(Physics.gravity * (gravityMultiplier - 1) * rb.mass, ForceMode.Force);
         // Check for Wall Clip, If so die.
-        Collider[] cols = Physics.OverlapSphere(transform.position, 0.1f, whatIsGround);
+        Collider[] cols = Physics.OverlapSphere(transform.position, 0.1f, whatCanCrush);
         foreach( Collider col in cols)
         {
             if(!col.isTrigger)
             {
-                Damage(10, 3, true);
+                Damage(10, 3, false);
             }
         }
     }
@@ -249,10 +261,7 @@ public class PlayerController : Resettable
             } else if (!usedAirAbility)
             {
                 usedAirAbility = true;
-                // If the player is going the same direction as the dash, conserve that speed.
-                float speed = Vector3.Dot(rb.linearVelocity, camFixedDirTransform.forward);
-                rb.linearVelocity = Vector3.zero;
-                rb.AddForce(camFixedDirTransform.forward * (dashForce + speed), ForceMode.Impulse);
+                rb.AddForce(gameObject.transform.forward * dashForce, ForceMode.Impulse);
             }
         }
         // Drone
@@ -359,14 +368,16 @@ public class PlayerController : Resettable
 
         //Conserve horizontal momentum when taking Damage
         Vector3 saveVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-        rb.isKinematic = true;
         canMove = false;
+        rb.isKinematic = true;
         yield return new WaitForSeconds(0.3f);
-        rb.isKinematic = false;
         canMove = true;
+        rb.isKinematic = false;
         if (health.Count > 0)
         {
             DisableAbilities();
+            // Prevents rotation issues.
+            movementDir = Vector3.zero;
             modelAnimator.Play("Damage");
             float launchMult = launchMultiplier;
             if (ability == 4)
@@ -374,7 +385,8 @@ public class PlayerController : Resettable
                 launchMult *= springLaunchMultiplier;
             }
             Jump(launchMult, false);
-            rb.AddForce(saveVelocity,ForceMode.Impulse);
+            usedAirAbility = false;
+            rb.AddForce(saveVelocity, ForceMode.Impulse);
         }
         else
         {

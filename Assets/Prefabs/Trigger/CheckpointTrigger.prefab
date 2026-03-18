@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5078517445214938627}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SpawnpointPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 7724308878483884167}
   - component: {fileID: 6923765828698678238}
   - component: {fileID: 2185982403534037399}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Display
   m_TagString: EditorOnly
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 3384127050663571822}
   - component: {fileID: 7792204502557908251}
   - component: {fileID: 2423747196407495483}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CheckpointTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}

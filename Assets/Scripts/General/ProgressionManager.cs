@@ -112,6 +112,13 @@ public class ProgressionManager: MonoBehaviour
         return _saveData.records[zoneNum * RECORDS_PER_LEVEL + levelNum];
     }
 
+    static async public void LoadLevel(int levelNum, string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+        await Awaitable.NextFrameAsync();
+        GameController.MovePlayerToLevel(levelNum);
+    }
+
     static public float GetCurrentRecord()
     {
         int levelNum = GameController.gameController.currentLevel;
@@ -123,7 +130,6 @@ public class ProgressionManager: MonoBehaviour
     {
         _saveData.latestCheckpoint = new CheckpointData(new Vector3(0, 0, 0), -1, -1);
         _saveData.records = new float[RECORDS_PER_LEVEL * LEVELS];
-        PlayerPrefs.SetInt("Difficulty", 1);
         Save();
     }
 
@@ -135,8 +141,9 @@ public class ProgressionManager: MonoBehaviour
 
     public static void Save()
     {
-        print("Saving");
+        print(Application.persistentDataPath);
         File.WriteAllText(SaveFileName(), JsonUtility.ToJson(_saveData));
+        print("Saved");
     }
 
     public static void Load()
@@ -145,6 +152,6 @@ public class ProgressionManager: MonoBehaviour
 
         SaveData saveData = JsonUtility.FromJson<SaveData>(saveContent);
         _saveData = saveData;
-        print("Loading");
+        print("Loaded");
     }
 }

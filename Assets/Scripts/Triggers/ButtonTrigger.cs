@@ -9,6 +9,8 @@ public class ButtonTrigger : MonoBehaviour
     public AudioClip pressSound;
     public AudioClip releaseSound;
 
+    private bool closed = true;
+
     void Start()
     {
         buttonAud = GetComponent<AudioSource>();
@@ -16,21 +18,29 @@ public class ButtonTrigger : MonoBehaviour
     void Update()
     {
         if (timeUntilClose > 0f) timeUntilClose -= Time.deltaTime;
-        else
+        else if (!closed)
         {
             timeUntilClose = 0f;
             foreach (Activatable activatable in activatables)
             {
-                activatable.activated = false;
+                if (activatable)
+                {
+                    activatable.activated = false;
+                }
             }
+            closed = true;
         }
     }
     private void OnTriggerStay(Collider other)
     {
         timeUntilClose = onPressTime;
+        closed = false;
         foreach (Activatable activatable in activatables)
         {
-            activatable.activated = true;
+            if (activatable)
+            {
+                activatable.activated = true;
+            }
         }
     }
     private void OnTriggerEnter()

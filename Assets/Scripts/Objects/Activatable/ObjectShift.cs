@@ -6,7 +6,6 @@ public class ObjectShift : Activatable
 {
     public float pushSpeed = 0.1f;
     public Vector3 activeDisplacement;
-
     private Vector3 startPoint;
     private Vector3 activePoint;
 
