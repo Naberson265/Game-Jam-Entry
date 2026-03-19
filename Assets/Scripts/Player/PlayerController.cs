@@ -18,7 +18,6 @@ public class PlayerController : Resettable
 {
     public static PlayerController playerController { get; private set; }
     private Rigidbody rb;
-    public float gravityMultiplier = 2f;
 
     [Header("Objects")]
     public GameObject mainCam;
@@ -72,6 +71,7 @@ public class PlayerController : Resettable
     public float abilityCooldown = 1f;
     public GameObject[] abilityModels;
     public GameObject pModelParent;
+
     public bool usedAirAbility = false;
 
     [Header("Rocket Properties")]
@@ -109,8 +109,7 @@ public class PlayerController : Resettable
     void Update()
     {
         // Grounded and Movement Direction
-        grounded = Physics.BoxCast(gameObject.transform.position, gameObject.transform.localScale * 0.47f,
-        Vector3.down, gameObject.transform.rotation, gameObject.transform.localScale.y * 0.05f, whatIsGround);
+        grounded = Physics.BoxCast(gameObject.transform.position, gameObject.transform.localScale * 0.47f, Vector3.down, gameObject.transform.rotation, gameObject.transform.localScale.y * 0.05f, whatIsGround);
         movementDir = Input.GetAxisRaw("Vertical") * camFixedDirTransform.forward + Input.GetAxisRaw("Horizontal") * camFixedDirTransform.right;
         modelAnimator.SetBool("Grounded", grounded);
         modelAnimator.SetBool("Moving", movementDir.magnitude > 0.2);
@@ -143,7 +142,7 @@ public class PlayerController : Resettable
         // Cheats
         if (Input.GetKey(KeyCode.O))
         {
-            rb.AddForce(new Vector3(0,20,0));
+            rb.AddForce(new Vector3(0, 20, 0));
         }
         // Drag Changes in Air
         if (grounded)
@@ -174,9 +173,10 @@ public class PlayerController : Resettable
             pModelParent.SetActive(true);
         }
     }
-	private void FixedUpdate()
-	{
-        if (canMove) {
+    private void FixedUpdate()
+    {
+        if (canMove)
+        {
             // on ground
             float speedMultiplier = 1;
             // Increase Speed while dashing
@@ -191,38 +191,13 @@ public class PlayerController : Resettable
             // in air
             else
             {
-                Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
-                Vector3 desiredDir = movementDir.normalized;
-
-                if (desiredDir.magnitude > 0.1f)
-                {
-                    float currentSpeedInDir = Vector3.Dot(flatVel, desiredDir);
-                    float addSpeed = moveSpeed * speedMultiplier - currentSpeedInDir;
-
-                    if (addSpeed > 0)
-                    {
-                        rb.AddForce(desiredDir * addSpeed * airMultiplier, ForceMode.Acceleration);
-                    }
-                }
+                rb.AddForce(movementDir.normalized * moveSpeed * 10f * airMultiplier * speedMultiplier, ForceMode.Force);
             }
+            // Makes the player look in the direction they move.
             Vector3 directionToFace = transform.position + transform.forward + movementDir.normalized * 0.4f;
-
-            Vector3 lookDir = (directionToFace - transform.position).normalized;
-            if (movementDir.sqrMagnitude > 0.01f)
-            {
-                Vector3 flatMoveDir = new Vector3(movementDir.x, 0f, movementDir.z).normalized;
-                if (flatMoveDir.sqrMagnitude > 0.001f)
-                {
-                    Quaternion targetRotation = Quaternion.LookRotation(flatMoveDir);
-                    float turnSpeed = 720f; //speed
-                    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
-                }
-            }
-
             transform.LookAt(directionToFace);
             // Cancel out the above if Turn With Camera is enabled.
             if (PlayerPrefs.GetInt("TurnWithCamera") == 2) transform.rotation = camFixedDirTransform.rotation;
-
         }
 
         // We only want terminal velocity to effect downwards speed. When floating change this terminal velocity temporarily.
@@ -238,12 +213,12 @@ public class PlayerController : Resettable
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, -terminalVelocity, rb.linearVelocity.z);
         }
         terminalVelocity = savedTerminalVel;
-        rb.AddForce(Physics.gravity * (gravityMultiplier - 1) * rb.mass, ForceMode.Force);
+
         // Check for Wall Clip, If so die.
         Collider[] cols = Physics.OverlapSphere(transform.position, 0.1f, whatCanCrush);
-        foreach( Collider col in cols)
+        foreach (Collider col in cols)
         {
-            if(!col.isTrigger)
+            if (!col.isTrigger)
             {
                 Damage(10, 3, false);
             }
@@ -256,10 +231,11 @@ public class PlayerController : Resettable
         // Rocket
         if (GetAbility() == 1)
         {
-            if(grounded)
+            if (grounded)
             {
                 isDashing = true;
-            } else if (!usedAirAbility)
+            }
+            else if (!usedAirAbility)
             {
                 usedAirAbility = true;
                 rb.AddForce(gameObject.transform.forward * dashForce, ForceMode.Impulse);
@@ -298,8 +274,10 @@ public class PlayerController : Resettable
             modelAnimator.Play("Jump");
             playerAudio.PlayOneShot(jumpSFX);
         }
+        // Reset y velocity
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
-        float jumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(Physics.gravity.y * gravityMultiplier) * jumpHeight * mult);
+        // Calculates force needed to get to jump height
+        float jumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(Physics.gravity.y) * jumpHeight * mult);
         rb.AddForce(transform.up * jumpVelocity, ForceMode.Impulse);
     }
     private void ResetJump()
@@ -312,7 +290,8 @@ public class PlayerController : Resettable
         if (health.Count > 0)
         {
             return health[health.Count - 1];
-        } else
+        }
+        else
         {
             return 0;
         }
@@ -325,11 +304,13 @@ public class PlayerController : Resettable
         gameObject.transform.localScale = new Vector3(size, size, size);
 
         // Update Model
-        for (int i = 0; i < abilityModels.Length; i++) {
+        for (int i = 0; i < abilityModels.Length; i++)
+        {
             if (i == GetAbility())
             {
                 abilityModels[i].SetActive(true);
-            } else
+            }
+            else
             {
                 abilityModels[i].SetActive(false);
             }
@@ -367,18 +348,16 @@ public class PlayerController : Resettable
         if (!playerAudio.isPlaying) playerAudio.PlayOneShot(hitSFX);
         UpdateAppearance();
 
-        // Conserve some horizontal momentum when taking damage, but not too much so that the player has control.
-        Vector3 saveVelocity = new Vector3(rb.linearVelocity.x / 3f, 0, rb.linearVelocity.z / 3f);
+        //Conserve horizontal momentum when taking Damage
+        Vector3 saveVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
         canMove = false;
         rb.isKinematic = true;
-        yield return new WaitForSeconds(0.05f);
+        yield return new WaitForSeconds(0.2f);
         canMove = true;
         rb.isKinematic = false;
         if (health.Count > 0)
         {
             DisableAbilities();
-            // Prevents rotation issues.
-            movementDir = Vector3.zero;
             modelAnimator.Play("Damage");
             float launchMult = launchMultiplier;
             if (ability == 4)
@@ -400,8 +379,8 @@ public class PlayerController : Resettable
     }
 
     private IEnumerator RespawnRoutine()
-    { 
-        for(int i = 0; i < 100; i++)
+    {
+        for (int i = 0; i < 100; i++)
         {
             float size = healthToSize[health.Count];
             Vector3 goalScale = new Vector3(size, size, size);
