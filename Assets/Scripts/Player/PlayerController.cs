@@ -192,6 +192,9 @@ public class PlayerController : Resettable
             else
             {
                 rb.AddForce(movementDir.normalized * moveSpeed * 10f * airMultiplier * speedMultiplier, ForceMode.Force);
+
+                // Counteract drag on the y axis so gravity is dragless.
+                rb.AddForce((rb.linearDamping * rb.linearVelocity.y) * Vector3.up, ForceMode.Force);
             }
             // Makes the player look in the direction they move.
             Vector3 directionToFace = transform.position + transform.forward + movementDir.normalized * 0.4f;

@@ -4269,7 +4269,7 @@ MonoBehaviour:
   moveSpeed: 7.2
   groundDrag: 3
   airDrag: 1
-  jumpHeight: 10
+  jumpHeight: 7.5
   launchMultiplier: 1.6
   jumpCooldown: 0.25
   airMultiplier: 0.4
