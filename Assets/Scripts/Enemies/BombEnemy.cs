@@ -28,7 +28,8 @@ public class BombEnemy : Resettable
 
     [Header("Audio")]
     public AudioSource bombAud;
-    public AudioClip explodeSFX;
+    public AudioClip timedExplodeSFX;
+    public AudioClip instantExplodeSFX;
 
     [Header("Ground Check")]
     public bool grounded;
@@ -146,9 +147,16 @@ public class BombEnemy : Resettable
         float explodeVelocity = Mathf.Sqrt(2 * Mathf.Abs(Physics.gravity.y) * launchHeight * mult);
         canMove = false;
         rb.isKinematic = true;
-        bombAud.PlayOneShot(explodeSFX);
+        if (waitTime == 0.7f) 
+        {
+            bombAud.PlayOneShot(timedExplodeSFX);
+        }
         // modelAnimator.Play("Explode");
         yield return new WaitForSeconds(waitTime);
+        if (waitTime != 0.7f) 
+        {
+            bombAud.PlayOneShot(instantExplodeSFX);
+        }
         rb.isKinematic = false;
         rb.AddForce(transform.up * explodeVelocity, ForceMode.Impulse);
         if (willHurtTime > 0f)

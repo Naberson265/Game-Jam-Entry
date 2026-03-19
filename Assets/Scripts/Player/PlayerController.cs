@@ -295,7 +295,7 @@ public class PlayerController : Resettable
     }
 
     // Update Size and Model based on health
-    private void UpdateAppearance()
+    public void UpdateAppearance()
     {
         float size = healthToSize[health.Count];
         gameObject.transform.localScale = new Vector3(size, size, size);
