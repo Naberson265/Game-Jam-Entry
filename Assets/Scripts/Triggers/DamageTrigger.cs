@@ -11,8 +11,7 @@ public class DamageTrigger : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            PlayerController ps = other.transform.gameObject.GetComponent<PlayerController>();
-            ps.Damage(damageAmount, damageLevel, ignoreIFrames);
+            PlayerController ps = PlayerController.playerController;
             if (breakable)
             {
                 if (damageLevel >= 3 ||
@@ -22,6 +21,14 @@ public class DamageTrigger : MonoBehaviour
                     ps.playerAudio.PlayOneShot(ps.spikeBreakSFX);
                     Destroy(gameObject);
                 }
+                else
+                {
+                    ps.Damage(damageAmount, damageLevel, ignoreIFrames);
+                }
+            }
+            else
+            {
+                ps.Damage(damageAmount, damageLevel, ignoreIFrames);
             }
         }
     }
