@@ -441,6 +441,7 @@ GameObject:
   - component: {fileID: 1102440318670506395}
   - component: {fileID: 4698346465892746253}
   - component: {fileID: 8068211781934953856}
+  - component: {fileID: 5853595244155657382}
   m_Layer: 3
   m_Name: Spring
   m_TagString: Untagged
@@ -490,9 +491,9 @@ MeshRenderer:
   m_Materials:
   - {fileID: 2100000, guid: f81231b265b9c0647b04ab09fd4f40ae, type: 2}
   - {fileID: 2100000, guid: b4f9e4940c6412b4299a9c21bdbe345b, type: 2}
-  - {fileID: 2100000, guid: 916185c8d4df94f48b56953982de2451, type: 2}
-  - {fileID: 2100000, guid: d338ad3e70fd64a4099c62ebe1ddd7d3, type: 2}
   - {fileID: 2100000, guid: e887307000b8ed14eb4cb68a9d11f9a3, type: 2}
+  - {fileID: 2100000, guid: d338ad3e70fd64a4099c62ebe1ddd7d3, type: 2}
+  - {fileID: 2100000, guid: 916185c8d4df94f48b56953982de2451, type: 2}
   - {fileID: 2100000, guid: 74e0fd3bc8110d242aa640ede4a2cd83, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -758,6 +759,14 @@ MonoBehaviour:
     - rid: 4034776734167728317
       type: {class: Cube, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
       data: 
+--- !u!33 &5853595244155657382
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 915188823241432254}
+  m_Mesh: {fileID: 0}
 --- !u!1 &1144435322256196583
 GameObject:
   m_ObjectHideFlags: 0
@@ -777,7 +786,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6768931958554549995
 Transform:
   m_ObjectHideFlags: 0
