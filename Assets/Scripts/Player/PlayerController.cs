@@ -32,6 +32,10 @@ public class PlayerController : Resettable
     public float airDrag = 0.4f;
 
     public float jumpHeight = 25f;
+    public float minJumpHeight = 15f;
+    private bool jumping = false;
+    private bool launching = false;
+
     public float launchMultiplier = 1.5f;
     public float jumpCooldown = 0.25f;
     public float airMultiplier = 0.4f;
@@ -124,6 +128,14 @@ public class PlayerController : Resettable
             Jump();
             Invoke(nameof(ResetJump), jumpCooldown);
         }
+        // Boolean to track if player is holding down jump
+        if (Input.GetButton("Jump"))
+        {
+            jumping = true;
+        } else
+        {
+            jumping = false;
+        }
         // Abilitying
         if (Input.GetButtonDown("Ability"))
         {
@@ -187,6 +199,7 @@ public class PlayerController : Resettable
             if (grounded)
             {
                 rb.AddForce(movementDir.normalized * moveSpeed * 10f * speedMultiplier, ForceMode.Force);
+                launching = false;
             }
             // in air
             else
@@ -216,6 +229,12 @@ public class PlayerController : Resettable
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, -terminalVelocity, rb.linearVelocity.z);
         }
         terminalVelocity = savedTerminalVel;
+
+        // If player is holding down jump, counteract gravity so the jump height reaches jumpHeight instead of minJumpHeight
+        if ((jumping || launching) && rb.linearVelocity.y > 0 )
+        {
+            rb.AddForce(transform.up * (Physics.gravity.y * (minJumpHeight - jumpHeight) / jumpHeight), ForceMode.Force);
+        }
 
         // Check for Wall Clip, If so die.
         Collider[] cols = Physics.OverlapSphere(transform.position, 0.1f, whatCanCrush);
@@ -280,7 +299,7 @@ public class PlayerController : Resettable
         // Reset y velocity
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         // Calculates force needed to get to jump height
-        float jumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(Physics.gravity.y) * jumpHeight * mult);
+        float jumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(Physics.gravity.y) * minJumpHeight * mult);
         rb.AddForce(transform.up * jumpVelocity, ForceMode.Impulse);
     }
     private void ResetJump()
@@ -368,6 +387,7 @@ public class PlayerController : Resettable
                 launchMult *= springLaunchMultiplier;
             }
             Jump(launchMult, false);
+            launching = true;
             usedAirAbility = false;
             rb.AddForce(saveVelocity, ForceMode.Impulse);
         }
