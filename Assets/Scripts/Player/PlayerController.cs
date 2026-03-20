@@ -417,6 +417,7 @@ public class PlayerController : Resettable
 
     public void Powerup(int ability)
     {
+        DisableAbilities();
         health.Add(ability);
         playerAudio.PlayOneShot(powerupSFX);
         UpdateAppearance();
