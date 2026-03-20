@@ -35,7 +35,8 @@ public class PlayerController : Resettable
     public float minJumpHeight = 15f;
     private bool jumping = false;
     private bool launching = false;
-
+    // To make jumping run in FixedUpdate and not Update.
+    private bool aboutToJump = false;
     public float launchMultiplier = 1.5f;
     public float jumpCooldown = 0.25f;
     public float airMultiplier = 0.4f;
@@ -119,13 +120,18 @@ public class PlayerController : Resettable
         modelAnimator.SetBool("Moving", movementDir.magnitude > 0.2);
         if (grounded)
         {
+            currentCoyoteTime = coyoteTime;
             usedAirAbility = false;
         }
+        else if (currentCoyoteTime > 0f)
+        {
+            currentCoyoteTime -= Time.deltaTime;
+        }
         // Jumping
-        if (Input.GetButton("Jump") && readyToJump && grounded)
+        if (Input.GetButton("Jump") && readyToJump && (grounded || currentCoyoteTime > 0f))
         {
             readyToJump = false;
-            Jump();
+            aboutToJump = true;
             Invoke(nameof(ResetJump), jumpCooldown);
         }
         // Boolean to track if player is holding down jump
@@ -151,11 +157,6 @@ public class PlayerController : Resettable
         {
             Damage(10, 3, true);
         }
-        // Cheats
-        if (Input.GetKey(KeyCode.O))
-        {
-            rb.AddForce(new Vector3(0, 20, 0));
-        }
         // Drag Changes in Air
         if (grounded)
         {
@@ -164,6 +165,11 @@ public class PlayerController : Resettable
         else
         {
             rb.linearDamping = airDrag;
+        }
+        // Cheats
+        if (Input.GetKey(KeyCode.O))
+        {
+            rb.AddForce(new Vector3(0, 25, 0));
         }
         // Invincibility Timer
         if (invincibleTime > 0f)
@@ -208,6 +214,11 @@ public class PlayerController : Resettable
 
                 // Counteract drag on the y axis so gravity is dragless.
                 rb.AddForce((rb.linearDamping * rb.linearVelocity.y) * Vector3.up, ForceMode.Force);
+            }
+            if (aboutToJump)
+            {
+                aboutToJump = false;
+                Jump();
             }
             // Makes the player look in the direction they move.
             Vector3 directionToFace = transform.position + transform.forward + movementDir.normalized * 0.4f;
@@ -288,7 +299,6 @@ public class PlayerController : Resettable
         isFloating = false;
         isDashing = false;
     }
-
     private void Jump(float mult = 1, bool playJumpAnim = true)
     {
         if (playJumpAnim)

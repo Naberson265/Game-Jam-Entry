@@ -2262,6 +2262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c51783e41942d344aa66e4a5084d4242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  rb: {fileID: 0}
   mainCam: {fileID: 0}
   camFixedDirTransform: {fileID: 0}
   modelAnimator: {fileID: 1336513829896303492}
@@ -2270,7 +2271,7 @@ MonoBehaviour:
   groundDrag: 4
   airDrag: 2
   jumpHeight: 8
-  minJumpHeight: 5
+  minJumpHeight: 2
   launchMultiplier: 1.6
   jumpCooldown: 0.25
   airMultiplier: 0.6
