@@ -16,14 +16,15 @@ public class DamageTrigger : MonoBehaviour
             {
                 if (damageLevel >= 3 ||
                 damageLevel == 2 && !(ps.GetAbility() == 3 && ps.usedAirAbility) ||
-                damageLevel == 1 && ps.GetAbility() != 3)
+                damageLevel == 1 && ps.GetAbility() != 3 ||
+                damageLevel == 0 && ps.GetAbility() != 3 && ps.rb.linearVelocity.magnitude < 35f)
                 {
-                    ps.playerAudio.PlayOneShot(ps.spikeBreakSFX);
-                    Destroy(gameObject);
+                    ps.Damage(damageAmount, damageLevel, ignoreIFrames);
                 }
                 else
                 {
-                    ps.Damage(damageAmount, damageLevel, ignoreIFrames);
+                    ps.playerAudio.PlayOneShot(ps.spikeBreakSFX);
+                    Destroy(gameObject);
                 }
             }
             else

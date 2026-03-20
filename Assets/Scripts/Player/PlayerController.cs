@@ -17,7 +17,7 @@ public enum PlayerAbility : int
 public class PlayerController : Resettable
 {
     public static PlayerController playerController { get; private set; }
-    private Rigidbody rb;
+    public Rigidbody rb;
 
     [Header("Objects")]
     public GameObject mainCam;
