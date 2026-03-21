@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
@@ -50,6 +51,7 @@ public class PlayerController : Resettable
 
     [Header("Audio")]
     public AudioSource playerAudio;
+    public AudioSource playerLoopingAudio;
     public AudioClip jumpSFX;
     public AudioClip droneSFX;
     public AudioClip hitSFX;
@@ -58,6 +60,7 @@ public class PlayerController : Resettable
     public AudioClip speedSFX;
     public AudioClip powerupSFX;
     public AudioClip spikeBreakSFX;
+    public AudioClip poundSFX;
 
     [Header("Ground Check")]
     public LayerMask whatIsGround;
@@ -83,6 +86,9 @@ public class PlayerController : Resettable
     public float rocketSpeedMultiplier = 1.5f;
     public float dashForce = 40;
     private bool isDashing = false;
+    public ParticleSystem runParticle1;
+    public ParticleSystem runParticle2;
+    public ParticleSystem dashParticle;
 
     [Header("Drone Properties")]
     public float floatTerminalVelocity = 0.2f;
@@ -90,7 +96,13 @@ public class PlayerController : Resettable
     private bool isFloating = false;
 
     [Header("Metal Properties")]
-    public float groundpoundForce = 50f;
+    public float groundPoundForce = 50f;
+    public float groundPoundHeight = 2f;
+    public float groundPoundUpTime = 0.15f;
+    public float groundPoundPause = 0.15f;
+    public ParticleSystem groundPoundParticle;
+
+
 
     [Header("Spring Properties")]
     public float springLaunchMultiplier = 1.5f;
@@ -111,8 +123,10 @@ public class PlayerController : Resettable
         UpdateAppearance();
         SaveDefault();
     }
+    
     void Update()
     {
+        
         // Grounded and Movement Direction
         grounded = Physics.BoxCast(gameObject.transform.position, gameObject.transform.localScale * 0.47f, Vector3.down, gameObject.transform.rotation, gameObject.transform.localScale.y * 0.05f, whatIsGround);
         movementDir = Input.GetAxisRaw("Vertical") * camFixedDirTransform.forward + Input.GetAxisRaw("Horizontal") * camFixedDirTransform.right;
@@ -196,21 +210,19 @@ public class PlayerController : Resettable
         if (canMove)
         {
             // on ground
-            float speedMultiplier = 1;
-            // Increase Speed while dashing
             if (isDashing)
             {
-                speedMultiplier = rocketSpeedMultiplier;
+                rb.AddForce(gameObject.transform.forward * moveSpeed * 10f * (rocketSpeedMultiplier - 1), ForceMode.Force);
             }
             if (grounded)
             {
-                rb.AddForce(movementDir.normalized * moveSpeed * 10f * speedMultiplier, ForceMode.Force);
+                rb.AddForce(movementDir.normalized * moveSpeed * 10f, ForceMode.Force);
                 launching = false;
             }
             // in air
             else
             {
-                rb.AddForce(movementDir.normalized * moveSpeed * 10f * airMultiplier * speedMultiplier, ForceMode.Force);
+                rb.AddForce(movementDir.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
 
                 // Counteract drag on the y axis so gravity is dragless.
                 rb.AddForce((rb.linearDamping * rb.linearVelocity.y) * Vector3.up, ForceMode.Force);
@@ -242,7 +254,7 @@ public class PlayerController : Resettable
         terminalVelocity = savedTerminalVel;
 
         // If player is holding down jump, counteract gravity so the jump height reaches jumpHeight instead of minJumpHeight
-        if ((jumping || launching) && rb.linearVelocity.y > 0 )
+        if ((jumping || launching) && rb.linearVelocity.y > 0)
         {
             rb.AddForce(transform.up * (Physics.gravity.y * (minJumpHeight - jumpHeight) / jumpHeight), ForceMode.Force);
         }
@@ -266,10 +278,15 @@ public class PlayerController : Resettable
         {
             if (grounded)
             {
+                runParticle1.Play();
+                runParticle2.Play();
+                playerLoopingAudio.PlayOneShot(rocketSFX);
                 isDashing = true;
             }
             else if (!usedAirAbility)
             {
+                dashParticle.Play();
+                playerAudio.PlayOneShot(speedSFX);
                 usedAirAbility = true;
                 rb.AddForce(gameObject.transform.forward * dashForce, ForceMode.Impulse);
             }
@@ -277,12 +294,13 @@ public class PlayerController : Resettable
         // Drone
         else if (GetAbility() == 2)
         {
+            playerLoopingAudio.PlayOneShot(droneSFX);
             isFloating = true;
         }
         // Metal
         else if (GetAbility() == 3 && !grounded && currentCoyoteTime <= 0f && !usedAirAbility)
         {
-            rb.AddForce(Vector3.down * groundpoundForce, ForceMode.Impulse);
+            StartCoroutine(GroundPound());
             invincibleTime = 5f;
             usedAirAbility = true;
         }
@@ -293,11 +311,53 @@ public class PlayerController : Resettable
             playerAudio.PlayOneShot(springSFX);
         }
     }
+    private IEnumerator GroundPound()
+    {
+        playerAudio.PlayOneShot(speedSFX);
+        canMove = false;
+        rb.useGravity = false;
+        rb.linearVelocity = Vector3.zero;
 
+        Vector3 startPos = transform.position;
+        Vector3 targetPos = startPos + Vector3.up * groundPoundHeight;
+
+        float time = 0f;
+
+        // 1. Lerp upward
+        while (time < groundPoundUpTime)
+        {
+            transform.position = Vector3.Lerp(startPos, targetPos, time / groundPoundUpTime);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        // Snap exactly to top (prevents tiny float errors)
+        transform.position = targetPos;
+
+        // 2. Pause (completely still)
+        yield return new WaitForSeconds(groundPoundPause);
+
+        // 3. Slam down
+        rb.useGravity = true;
+        rb.linearVelocity = new Vector3(0f, -groundPoundForce, 0f);
+        playerAudio.PlayOneShot(jumpSFX);
+
+        while (rb.linearVelocity.y < -2)
+        {
+            yield return new WaitForSeconds(0.02f);
+        }
+        playerAudio.PlayOneShot(poundSFX);
+        groundPoundParticle.Play();
+        canMove = true;
+    }
     public void DisableAbilities()
     {
+        playerLoopingAudio.Stop();
         isFloating = false;
         isDashing = false;
+        runParticle1.Stop();
+        runParticle2.Stop();
+
     }
     private void Jump(float mult = 1, bool playJumpAnim = true)
     {

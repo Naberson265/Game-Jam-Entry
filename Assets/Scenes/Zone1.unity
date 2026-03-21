@@ -199362,6 +199362,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 130539083}
     - target: {fileID: 2063435087871181196, guid: 568b013e936afb94d986c4076905dcfb, type: 3}
+      propertyPath: playerPhysicsMaterial
+      value: 
+      objectReference: {fileID: 13400000, guid: 48c830bce9d17aa4b8023456cc51fe71, type: 2}
+    - target: {fileID: 2063435087871181196, guid: 568b013e936afb94d986c4076905dcfb, type: 3}
       propertyPath: powerQueueDisplays.Array.size
       value: 10
       objectReference: {fileID: 0}
