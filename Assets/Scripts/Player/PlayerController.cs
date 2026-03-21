@@ -309,7 +309,6 @@ public class PlayerController : Resettable
         else if (GetAbility() == 4 && abilityCooldown <= 0f && health.Count > 1)
         {
             Damage(1, 3, true);
-            //playerAudio.PlayOneShot(springSFX);
         }
     }
     private IEnumerator GroundPound()
@@ -339,6 +338,7 @@ public class PlayerController : Resettable
         yield return new WaitForSeconds(groundPoundPause);
 
         // 3. Slam down
+        modelAnimator.Play("GroundPound");
         rb.useGravity = true;
         rb.linearVelocity = new Vector3(0f, -groundPoundForce, 0f);
         playerAudio.PlayOneShot(jumpSFX);
