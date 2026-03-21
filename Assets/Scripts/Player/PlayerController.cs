@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
@@ -85,7 +86,12 @@ public class PlayerController : Resettable
     private bool isFloating = false;
 
     [Header("Metal Properties")]
-    public float groundpoundForce = 50f;
+    public float groundPoundForce = 50f;
+    public float groundPoundHeight = 2f;
+    public float groundPoundUpTime = 0.15f;
+    public float groundPoundPause = 0.15f;
+    
+    
 
     [Header("Spring Properties")]
     public float springLaunchMultiplier = 1.5f;
@@ -106,8 +112,10 @@ public class PlayerController : Resettable
         UpdateAppearance();
         SaveDefault();
     }
+    
     void Update()
     {
+        
         // Grounded and Movement Direction
         grounded = Physics.BoxCast(gameObject.transform.position, gameObject.transform.localScale * 0.47f, Vector3.down, gameObject.transform.rotation, gameObject.transform.localScale.y * 0.05f, whatIsGround);
         movementDir = Input.GetAxisRaw("Vertical") * camFixedDirTransform.forward + Input.GetAxisRaw("Horizontal") * camFixedDirTransform.right;
@@ -252,9 +260,10 @@ public class PlayerController : Resettable
         // Metal
         else if (GetAbility() == 3 && !grounded && currentCoyoteTime <= 0f && !usedAirAbility)
         {
-            rb.AddForce(Vector3.down * groundpoundForce, ForceMode.Impulse);
+            StartCoroutine(GroundPound());
             invincibleTime = 5f;
             usedAirAbility = true;
+            
         }
         // Spring
         else if (GetAbility() == 4 && abilityCooldown <= 0f && health.Count > 1)
@@ -263,7 +272,34 @@ public class PlayerController : Resettable
             playerAudio.PlayOneShot(springSFX);
         }
     }
+    IEnumerator GroundPound()
+    {
+        rb.useGravity = false;
+        rb.linearVelocity = Vector3.zero;
 
+        Vector3 startPos = transform.position;
+        Vector3 targetPos = startPos + Vector3.up * groundPoundHeight;
+
+        float time = 0f;
+
+        // 1. Lerp upward
+        while (time < groundPoundUpTime)
+        {
+            transform.position = Vector3.Lerp(startPos, targetPos, time / groundPoundUpTime);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        // Snap exactly to top (prevents tiny float errors)
+        transform.position = targetPos;
+
+        // 2. Pause (completely still)
+        yield return new WaitForSeconds(groundPoundPause);
+
+        // 3. Slam down
+        rb.useGravity = true;
+        rb.linearVelocity = new Vector3(0f, -groundPoundForce, 0f);
+    }
     public void DisableAbilities()
     {
         isFloating = false;

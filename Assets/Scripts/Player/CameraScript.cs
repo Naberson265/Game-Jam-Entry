@@ -12,8 +12,9 @@ public class CameraScript : MonoBehaviour
         LockMouse();
         camComp = GetComponent<Camera>();
     }
-    void Update()
+    void LateUpdate()
     {
+        //
         SettingManagement();
         if (canMove && !paused) CamMove();
         if (Input.GetButtonDown("Pause") && canMove)
