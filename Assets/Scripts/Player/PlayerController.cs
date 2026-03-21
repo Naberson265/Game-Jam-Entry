@@ -309,7 +309,7 @@ public class PlayerController : Resettable
         else if (GetAbility() == 4 && abilityCooldown <= 0f && health.Count > 1)
         {
             Damage(1, 3, true);
-            playerAudio.PlayOneShot(springSFX);
+            //playerAudio.PlayOneShot(springSFX);
         }
     }
     private IEnumerator GroundPound()
@@ -456,6 +456,7 @@ public class PlayerController : Resettable
             if (ability == 4)
             {
                 launchMult *= springLaunchMultiplier;
+                playerAudio.PlayOneShot(springSFX);
             }
             Jump(launchMult, false);
             launching = true;
