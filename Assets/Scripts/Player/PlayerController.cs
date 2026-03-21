@@ -48,6 +48,7 @@ public class PlayerController : Resettable
     public float terminalVelocity = 50f;
     public bool canMove = true;
     private Vector3 movementDir = Vector3.zero;
+    private bool resetAnimBool =  false;
 
     [Header("Audio")]
     public AudioSource playerAudio;
@@ -135,7 +136,12 @@ public class PlayerController : Resettable
         modelAnimator.SetBool("Moving", movementDir.magnitude > 0.2);
         if (grounded)
         {
-            modelAnimator.Play("Idle", 0, 0f);
+            if (resetAnimBool)
+            {
+                modelAnimator.Play("Idle", 0, 0f);
+                resetAnimBool = false;
+            }
+            
             transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
             currentCoyoteTime = coyoteTime;
             usedAirAbility = false;
@@ -434,10 +440,17 @@ public class PlayerController : Resettable
             }
         }
     }
+
+    private IEnumerator resetAnim()
+    {
+        yield return new WaitForSeconds(1f);
+        resetAnimBool = true;
+    }
     
     // Deal with damage animation and consequences here.
     private IEnumerator DamageRoutine(int ability)
     {
+        StartCoroutine(resetAnim());
         GameObject droppedPart = Instantiate(leftOverBox, transform.position, transform.rotation);
         droppedPart.GetComponent<PlayerDupe>().SetModel(ability);
         droppedPart.transform.localScale = gameObject.transform.localScale;
