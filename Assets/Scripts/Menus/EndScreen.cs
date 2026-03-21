@@ -6,7 +6,9 @@ public class ZoneEndScreen : MonoBehaviour
 {
     // The first is the actual colored text, second is the "shadow".
     public TMP_Text[] finalRankTexts;
+    // The amount doesn't matter but preferably 3+ if this is used.
     public TMP_Text[] levelRankTexts;
+
     void Start()
     {
         GameController gc = GameController.gameController;

@@ -18,7 +18,7 @@ public enum PlayerAbility : int
 public class PlayerController : Resettable
 {
     public static PlayerController playerController { get; private set; }
-    private Rigidbody rb;
+    public Rigidbody rb;
 
     [Header("Objects")]
     public GameObject mainCam;
@@ -33,6 +33,11 @@ public class PlayerController : Resettable
     public float airDrag = 0.4f;
 
     public float jumpHeight = 25f;
+    public float minJumpHeight = 15f;
+    private bool jumping = false;
+    private bool launching = false;
+    // To make jumping run in FixedUpdate and not Update.
+    private bool aboutToJump = false;
     public float launchMultiplier = 1.5f;
     public float jumpCooldown = 0.25f;
     public float airMultiplier = 0.4f;
@@ -123,14 +128,27 @@ public class PlayerController : Resettable
         modelAnimator.SetBool("Moving", movementDir.magnitude > 0.2);
         if (grounded)
         {
+            currentCoyoteTime = coyoteTime;
             usedAirAbility = false;
         }
+        else if (currentCoyoteTime > 0f)
+        {
+            currentCoyoteTime -= Time.deltaTime;
+        }
         // Jumping
-        if (Input.GetButton("Jump") && readyToJump && grounded)
+        if (Input.GetButton("Jump") && readyToJump && (grounded || currentCoyoteTime > 0f))
         {
             readyToJump = false;
-            Jump();
+            aboutToJump = true;
             Invoke(nameof(ResetJump), jumpCooldown);
+        }
+        // Boolean to track if player is holding down jump
+        if (Input.GetButton("Jump"))
+        {
+            jumping = true;
+        } else
+        {
+            jumping = false;
         }
         // Abilitying
         if (Input.GetButtonDown("Ability"))
@@ -147,11 +165,6 @@ public class PlayerController : Resettable
         {
             Damage(10, 3, true);
         }
-        // Cheats
-        if (Input.GetKey(KeyCode.O))
-        {
-            rb.AddForce(new Vector3(0, 20, 0));
-        }
         // Drag Changes in Air
         if (grounded)
         {
@@ -160,6 +173,11 @@ public class PlayerController : Resettable
         else
         {
             rb.linearDamping = airDrag;
+        }
+        // Cheats
+        if (Input.GetKey(KeyCode.O))
+        {
+            rb.AddForce(new Vector3(0, 25, 0));
         }
         // Invincibility Timer
         if (invincibleTime > 0f)
@@ -195,6 +213,7 @@ public class PlayerController : Resettable
             if (grounded)
             {
                 rb.AddForce(movementDir.normalized * moveSpeed * 10f * speedMultiplier, ForceMode.Force);
+                launching = false;
             }
             // in air
             else
@@ -203,6 +222,11 @@ public class PlayerController : Resettable
 
                 // Counteract drag on the y axis so gravity is dragless.
                 rb.AddForce((rb.linearDamping * rb.linearVelocity.y) * Vector3.up, ForceMode.Force);
+            }
+            if (aboutToJump)
+            {
+                aboutToJump = false;
+                Jump();
             }
             // Makes the player look in the direction they move.
             Vector3 directionToFace = transform.position + transform.forward + movementDir.normalized * 0.4f;
@@ -224,6 +248,12 @@ public class PlayerController : Resettable
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, -terminalVelocity, rb.linearVelocity.z);
         }
         terminalVelocity = savedTerminalVel;
+
+        // If player is holding down jump, counteract gravity so the jump height reaches jumpHeight instead of minJumpHeight
+        if ((jumping || launching) && rb.linearVelocity.y > 0 )
+        {
+            rb.AddForce(transform.up * (Physics.gravity.y * (minJumpHeight - jumpHeight) / jumpHeight), ForceMode.Force);
+        }
 
         // Check for Wall Clip, If so die.
         Collider[] cols = Physics.OverlapSphere(transform.position, 0.1f, whatCanCrush);
@@ -305,7 +335,6 @@ public class PlayerController : Resettable
         isFloating = false;
         isDashing = false;
     }
-
     private void Jump(float mult = 1, bool playJumpAnim = true)
     {
         if (playJumpAnim)
@@ -316,7 +345,7 @@ public class PlayerController : Resettable
         // Reset y velocity
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         // Calculates force needed to get to jump height
-        float jumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(Physics.gravity.y) * jumpHeight * mult);
+        float jumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(Physics.gravity.y) * minJumpHeight * mult);
         rb.AddForce(transform.up * jumpVelocity, ForceMode.Impulse);
     }
     private void ResetJump()
@@ -404,6 +433,7 @@ public class PlayerController : Resettable
                 launchMult *= springLaunchMultiplier;
             }
             Jump(launchMult, false);
+            launching = true;
             usedAirAbility = false;
             rb.AddForce(saveVelocity, ForceMode.Impulse);
         }
@@ -433,6 +463,7 @@ public class PlayerController : Resettable
 
     public void Powerup(int ability)
     {
+        DisableAbilities();
         health.Add(ability);
         playerAudio.PlayOneShot(powerupSFX);
         UpdateAppearance();
