@@ -296,6 +296,7 @@ public class PlayerController : Resettable
         {
             playerLoopingAudio.PlayOneShot(droneSFX);
             isFloating = true;
+            modelAnimator.SetBool("Floating", true);
         }
         // Metal
         else if (GetAbility() == 3 && !grounded && currentCoyoteTime <= 0f && !usedAirAbility)
@@ -308,7 +309,6 @@ public class PlayerController : Resettable
         else if (GetAbility() == 4 && abilityCooldown <= 0f && health.Count > 1)
         {
             Damage(1, 3, true);
-            playerAudio.PlayOneShot(springSFX);
         }
     }
     private IEnumerator GroundPound()
@@ -338,6 +338,7 @@ public class PlayerController : Resettable
         yield return new WaitForSeconds(groundPoundPause);
 
         // 3. Slam down
+        modelAnimator.Play("GroundPound");
         rb.useGravity = true;
         rb.linearVelocity = new Vector3(0f, -groundPoundForce, 0f);
         playerAudio.PlayOneShot(jumpSFX);
@@ -357,7 +358,7 @@ public class PlayerController : Resettable
         isDashing = false;
         runParticle1.Stop();
         runParticle2.Stop();
-
+        modelAnimator.SetBool("Floating", false);
     }
     private void Jump(float mult = 1, bool playJumpAnim = true)
     {
@@ -455,6 +456,7 @@ public class PlayerController : Resettable
             if (ability == 4)
             {
                 launchMult *= springLaunchMultiplier;
+                playerAudio.PlayOneShot(springSFX);
             }
             Jump(launchMult, false);
             launching = true;

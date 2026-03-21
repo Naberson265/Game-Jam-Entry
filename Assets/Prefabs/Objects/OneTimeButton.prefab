@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2300516062013700069}
   - component: {fileID: 2585659659522014752}
   - component: {fileID: 4386180837322524506}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TorusSlope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
