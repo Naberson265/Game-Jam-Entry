@@ -61,6 +61,7 @@ public class PlayerController : Resettable
     public AudioClip powerupSFX;
     public AudioClip spikeBreakSFX;
     public AudioClip poundSFX;
+    
 
     [Header("Ground Check")]
     public LayerMask whatIsGround;
@@ -134,6 +135,8 @@ public class PlayerController : Resettable
         modelAnimator.SetBool("Moving", movementDir.magnitude > 0.2);
         if (grounded)
         {
+            modelAnimator.Play("Idle", 0, 0f);
+            transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
             currentCoyoteTime = coyoteTime;
             usedAirAbility = false;
         }
@@ -431,7 +434,7 @@ public class PlayerController : Resettable
             }
         }
     }
-
+    
     // Deal with damage animation and consequences here.
     private IEnumerator DamageRoutine(int ability)
     {
