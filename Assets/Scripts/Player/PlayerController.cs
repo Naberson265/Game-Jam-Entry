@@ -296,6 +296,7 @@ public class PlayerController : Resettable
         {
             playerLoopingAudio.PlayOneShot(droneSFX);
             isFloating = true;
+            modelAnimator.SetBool("Floating", true);
         }
         // Metal
         else if (GetAbility() == 3 && !grounded && currentCoyoteTime <= 0f && !usedAirAbility)
@@ -357,7 +358,7 @@ public class PlayerController : Resettable
         isDashing = false;
         runParticle1.Stop();
         runParticle2.Stop();
-
+        modelAnimator.SetBool("Floating", false);
     }
     private void Jump(float mult = 1, bool playJumpAnim = true)
     {
