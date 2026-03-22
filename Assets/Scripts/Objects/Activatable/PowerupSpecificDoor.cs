@@ -5,7 +5,7 @@ public class PowerUpSpecificDoor : Activatable
 {
     [SerializeField] private bool negated = false;
     [SerializeField] private Activatable[] activatables;
-    [SerializeField] private Sprite[] powerIcons;
+    //[SerializeField] private Sprite[] powerIcons;
     private bool currentActivation;
     public GameObject[] deniedCrosses;
     public SpriteRenderer[] iconImages;
@@ -21,7 +21,7 @@ public class PowerUpSpecificDoor : Activatable
         }
         foreach (SpriteRenderer iconImg in iconImages)
         {
-            iconImg.sprite = powerIcons[abilityRequired];
+            iconImg.sprite = IconManager.iconManager.powerUpIcons[abilityRequired];
         }
     }
     private void FixedUpdate()
