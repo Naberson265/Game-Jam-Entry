@@ -48,7 +48,7 @@ public class PlayerController : Resettable
     public float terminalVelocity = 50f;
     public bool canMove = true;
     private Vector3 movementDir = Vector3.zero;
-    private bool resetAnimBool =  false;
+    private bool resetAnimBool = false;
 
     [Header("Audio")]
     public AudioSource playerAudio;
