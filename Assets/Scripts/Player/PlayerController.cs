@@ -365,7 +365,6 @@ public class PlayerController : Resettable
     {
         if (playJumpAnim)
         {
-            print("JUmping");
             modelAnimator.SetTrigger("Jump");
             playerAudio.PlayOneShot(jumpSFX);
         }
