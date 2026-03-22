@@ -6037,7 +6037,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1697889721}
+  m_Mesh: {fileID: 1975134532}
 --- !u!33 &103783773
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -64069,7 +64069,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8369324492942407446, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8642838395907745710, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
       propertyPath: m_SizeDelta.x
