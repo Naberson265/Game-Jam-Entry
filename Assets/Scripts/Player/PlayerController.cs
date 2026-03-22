@@ -25,6 +25,7 @@ public class PlayerController : Resettable
     public Transform camFixedDirTransform;
     public Animator modelAnimator;
     public GameObject leftOverBox;
+    public GameObject face;
 
     [Header("Movement")]
     public float moveSpeed = 8f;
@@ -48,7 +49,6 @@ public class PlayerController : Resettable
     public float terminalVelocity = 50f;
     public bool canMove = true;
     private Vector3 movementDir = Vector3.zero;
-    private bool resetAnimBool = false;
 
     [Header("Audio")]
     public AudioSource playerAudio;
@@ -80,7 +80,6 @@ public class PlayerController : Resettable
 
     public float abilityCooldown = 1f;
     public GameObject[] abilityModels;
-    public GameObject pModelParent;
 
     public bool usedAirAbility = false;
 
@@ -120,7 +119,6 @@ public class PlayerController : Resettable
         playerController = this;
         rb = GetComponent<Rigidbody>();
         playerAudio = GetComponent<AudioSource>();
-        pModelParent = abilityModels[0].transform.parent.gameObject;
         mainCam = Camera.main.gameObject;
         UpdateAppearance();
         SaveDefault();
@@ -132,16 +130,8 @@ public class PlayerController : Resettable
         // Grounded and Movement Direction
         grounded = Physics.BoxCast(gameObject.transform.position, gameObject.transform.localScale * 0.47f, Vector3.down, gameObject.transform.rotation, gameObject.transform.localScale.y * 0.05f, whatIsGround);
         movementDir = Input.GetAxisRaw("Vertical") * camFixedDirTransform.forward + Input.GetAxisRaw("Horizontal") * camFixedDirTransform.right;
-        modelAnimator.SetBool("Grounded", grounded);
-        modelAnimator.SetBool("Moving", movementDir.magnitude > 0.2);
         if (grounded)
         {
-            if (resetAnimBool)
-            {
-                modelAnimator.Play("Idle", 0, 0f);
-                resetAnimBool = false;
-            }
-            
             transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
             currentCoyoteTime = coyoteTime;
             usedAirAbility = false;
@@ -207,15 +197,17 @@ public class PlayerController : Resettable
         // If the camera is very close to or inside the player model, disable it.
         if ((transform.position - mainCam.transform.position).magnitude < healthToSize[health.Count])
         {
-            pModelParent.SetActive(false);
+            face.SetActive(false);
         }
         else
         {
-            pModelParent.SetActive(true);
+            face.SetActive(true);
         }
     }
     private void FixedUpdate()
     {
+        modelAnimator.SetBool("Grounded", grounded);
+        modelAnimator.SetBool("Moving", movementDir.magnitude > 0.2);
         if (canMove)
         {
             // on ground
@@ -347,7 +339,7 @@ public class PlayerController : Resettable
         yield return new WaitForSeconds(groundPoundPause);
 
         // 3. Slam down
-        modelAnimator.Play("GroundPound");
+        modelAnimator.SetTrigger("GroundPound");
         rb.useGravity = true;
         rb.linearVelocity = new Vector3(0f, -groundPoundForce, 0f);
         playerAudio.PlayOneShot(jumpSFX);
@@ -373,7 +365,8 @@ public class PlayerController : Resettable
     {
         if (playJumpAnim)
         {
-            modelAnimator.Play("Jump");
+            print("JUmping");
+            modelAnimator.SetTrigger("Jump");
             playerAudio.PlayOneShot(jumpSFX);
         }
         // Reset y velocity
@@ -440,17 +433,10 @@ public class PlayerController : Resettable
             }
         }
     }
-
-    private IEnumerator resetAnim()
-    {
-        yield return new WaitForSeconds(1f);
-        resetAnimBool = true;
-    }
     
     // Deal with damage animation and consequences here.
     private IEnumerator DamageRoutine(int ability)
     {
-        StartCoroutine(resetAnim());
         GameObject droppedPart = Instantiate(leftOverBox, transform.position, transform.rotation);
         droppedPart.GetComponent<PlayerDupe>().SetModel(ability);
         droppedPart.transform.localScale = gameObject.transform.localScale;
@@ -467,7 +453,7 @@ public class PlayerController : Resettable
         if (health.Count > 0)
         {
             DisableAbilities();
-            modelAnimator.Play("Damage");
+            modelAnimator.SetTrigger("Damage");
             float launchMult = launchMultiplier;
             if (ability == 4)
             {
