@@ -64,6 +64,18 @@ public class CameraScript : MonoBehaviour
         LockMouse();
         paused = false;
         pauseMenu.SetActive(false);
+        bool first = true;
+        foreach (Transform child in pauseMenu.transform)
+        {
+            if(first)
+            {
+                child.gameObject.SetActive(true);
+                first = false;
+            } else
+            {
+                child.gameObject.SetActive(false);
+            }
+        }
     }
     public void LockMouse()
     {
