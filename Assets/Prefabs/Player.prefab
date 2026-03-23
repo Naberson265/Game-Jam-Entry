@@ -61883,8 +61883,8 @@ MonoBehaviour:
   runParticle1: {fileID: 4423414929372382144}
   runParticle2: {fileID: 4990627725852619433}
   dashParticle: {fileID: 608529281768637447}
-  floatTerminalVelocity: 2
-  floatGravityPercentage: 0.5
+  floatTerminalVelocity: 2.5
+  floatGravityPercentage: 0.3
   groundPoundForce: 100
   groundPoundHeight: 2
   groundPoundUpTime: 0.15
