@@ -32845,7 +32845,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 406445898}
         m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
         m_MethodName: Continue
         m_Mode: 1
