@@ -46,6 +46,15 @@ public class PlayerDupe : MonoBehaviour
                 abilityModels[i].SetActive(false);
             }
         }
+
+        // A rough patch to stop animation on death
+        if (PlayerController.playerController)
+        {
+            if (PlayerController.playerController.health.Count == 0)
+            {
+                abilityModels[ability].gameObject.GetComponent<Animator>().enabled = false;
+            }
+        }
     }
 
     public void DestroyDupe()

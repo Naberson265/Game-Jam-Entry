@@ -1360,6 +1360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonAnim
   destinationPos: {x: 0, y: -50}
   timeUntilAnim: 1
+  speed: 0.1
 --- !u!1 &2683461841141562053
 GameObject:
   m_ObjectHideFlags: 0
@@ -1746,6 +1747,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonAnim
   destinationPos: {x: 250, y: -150}
   timeUntilAnim: 1
+  speed: 0.1
 --- !u!1 &3289118619762859986
 GameObject:
   m_ObjectHideFlags: 0
@@ -3138,6 +3140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonAnim
   destinationPos: {x: -250, y: -150}
   timeUntilAnim: 1
+  speed: 0.1
 --- !u!1 &5218417877375865414
 GameObject:
   m_ObjectHideFlags: 0
@@ -3577,6 +3580,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonAnim
   destinationPos: {x: 0, y: 0}
   timeUntilAnim: 1
+  speed: 0.1
 --- !u!1 &6174770872170949081
 GameObject:
   m_ObjectHideFlags: 0
@@ -3736,6 +3740,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonAnim
   destinationPos: {x: 0, y: 100}
   timeUntilAnim: 5
+  speed: 0.1
 --- !u!1 &6471047711100857178
 GameObject:
   m_ObjectHideFlags: 0
@@ -4370,6 +4375,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonAnim
   destinationPos: {x: 0, y: 200}
   timeUntilAnim: 0
+  speed: 0.1
 --- !u!1 &8254726624883552369
 GameObject:
   m_ObjectHideFlags: 0
@@ -4522,6 +4528,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonAnim
   destinationPos: {x: 0, y: -100}
   timeUntilAnim: 1
+  speed: 0.1
 --- !u!1 &8685502542404390659
 GameObject:
   m_ObjectHideFlags: 0
@@ -4952,11 +4959,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 553504520781735093, guid: a1bd71d773b8d9b4aae7592d43fc0062, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.09090909
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 553504520781735093, guid: a1bd71d773b8d9b4aae7592d43fc0062, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 810163896168278270, guid: a1bd71d773b8d9b4aae7592d43fc0062, type: 3}
       propertyPath: m_Pivot.x
@@ -5052,15 +5059,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2475518261537694614, guid: a1bd71d773b8d9b4aae7592d43fc0062, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.09090909
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2475518261537694614, guid: a1bd71d773b8d9b4aae7592d43fc0062, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2475518261537694614, guid: a1bd71d773b8d9b4aae7592d43fc0062, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.09090909
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2729796628171577677, guid: a1bd71d773b8d9b4aae7592d43fc0062, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 136.13861
       objectReference: {fileID: 0}
     - target: {fileID: 3086038884564330605, guid: a1bd71d773b8d9b4aae7592d43fc0062, type: 3}
       propertyPath: m_MinValue
@@ -5068,23 +5079,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7950699100302321890, guid: a1bd71d773b8d9b4aae7592d43fc0062, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.05263158
+      value: 0.11111111
       objectReference: {fileID: 0}
     - target: {fileID: 7950699100302321890, guid: a1bd71d773b8d9b4aae7592d43fc0062, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7950699100302321890, guid: a1bd71d773b8d9b4aae7592d43fc0062, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.05263158
+      value: 0.11111111
       objectReference: {fileID: 0}
     - target: {fileID: 9058452411537318562, guid: a1bd71d773b8d9b4aae7592d43fc0062, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.05263158
+      value: 0.11111111
       objectReference: {fileID: 0}
     - target: {fileID: 9058452411537318562, guid: a1bd71d773b8d9b4aae7592d43fc0062, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

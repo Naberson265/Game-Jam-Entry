@@ -289,6 +289,7 @@ public class PlayerController : Resettable
                 dashParticle.Play();
                 playerAudio.PlayOneShot(speedSFX);
                 usedAirAbility = true;
+                rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
                 rb.AddForce(gameObject.transform.forward * dashForce, ForceMode.Impulse);
             }
         }
@@ -439,7 +440,7 @@ public class PlayerController : Resettable
         GameObject droppedPart = Instantiate(leftOverBox, transform.position, transform.rotation);
         droppedPart.GetComponent<PlayerDupe>().SetModel(ability);
         droppedPart.transform.localScale = gameObject.transform.localScale;
-        if (!playerAudio.isPlaying) playerAudio.PlayOneShot(hitSFX);
+        playerAudio.PlayOneShot(hitSFX);
         UpdateAppearance();
 
         //Conserve horizontal momentum when taking Damage
@@ -449,9 +450,9 @@ public class PlayerController : Resettable
         yield return new WaitForSeconds(0.2f);
         canMove = true;
         rb.isKinematic = false;
+        DisableAbilities();
         if (health.Count > 0)
         {
-            DisableAbilities();
             modelAnimator.SetTrigger("Damage");
             float launchMult = launchMultiplier;
             if (ability == 4)

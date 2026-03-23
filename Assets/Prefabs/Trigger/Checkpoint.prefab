@@ -59,7 +59,7 @@ Transform:
   m_GameObject: {fileID: 1436479421863470733}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.61, y: 3.49, z: 0}
+  m_LocalPosition: {x: 1.61, y: -2.5, z: 0}
   m_LocalScale: {x: 3, y: 2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -243,7 +243,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5814455c509b1b84dad47c1385459310, type: 2}
+  - {fileID: 2100000, guid: ad74fb7cbf550254bbb3ce5b5fd8c0a0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -483,3 +483,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CheckpointTrigger
   triggerActivated: 0
   spawnpointPosition: {fileID: 5078517445214938627}
+  flagTop: {fileID: 342261815785411257}
