@@ -269,6 +269,11 @@ public class PlayerController : Resettable
                 Damage(10, 3, false);
             }
         }
+        // If fallen off map, die
+        if (transform.position.y < -500)
+        {
+            Damage(10, 3, false);
+        }
     }
 
     public void Ability()
