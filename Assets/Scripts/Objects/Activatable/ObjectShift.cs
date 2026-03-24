@@ -11,35 +11,35 @@ public class ObjectShift : Activatable
 
     private void Start()
     {
-        startPoint = transform.localPosition;
+        startPoint = transform.position;
         activePoint = startPoint + activeDisplacement;
         if (activated)
         {
-            transform.localPosition = activePoint;
+            transform.position = activePoint;
         }
     }
     private void FixedUpdate()
     {
-        Vector3 currentPos = transform.localPosition;
+        Vector3 currentPos = transform.position;
         if (activated)
         {
             if ((currentPos - activePoint).magnitude > 0.01f)
             {
-                transform.localPosition = Vector3.Lerp(currentPos, activePoint, pushSpeed);
+                transform.position = Vector3.Lerp(currentPos, activePoint, pushSpeed);
             }
             else
             {
-                transform.localPosition = activePoint;
+                transform.position = activePoint;
             }
         } else 
         {
             if ((currentPos - startPoint).magnitude > 0.01f)
             {
-                transform.localPosition = Vector3.Lerp(currentPos, startPoint, pushSpeed);
+                transform.position = Vector3.Lerp(currentPos, startPoint, pushSpeed);
             }
             else
             {
-                transform.localPosition = startPoint;
+                transform.position = startPoint;
             }
         }
     }
