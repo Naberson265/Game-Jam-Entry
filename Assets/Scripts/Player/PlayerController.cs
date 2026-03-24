@@ -62,8 +62,8 @@ public class PlayerController : Resettable
     public AudioClip powerupSFX;
     public AudioClip spikeBreakSFX;
     public AudioClip poundSFX;
+    public AudioClip landSFX;
     
-
     [Header("Ground Check")]
     public LayerMask whatIsGround;
     // Typically the same but excluding pushable objects so that player dupes don't kill.

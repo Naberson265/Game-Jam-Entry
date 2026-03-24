@@ -61848,6 +61848,7 @@ MonoBehaviour:
   powerupSFX: {fileID: 8300000, guid: b675ee6db6a81d44297710aa46c3f95e, type: 3}
   spikeBreakSFX: {fileID: 8300000, guid: 31ed83adcbe54a148be4439ef48adbda, type: 3}
   poundSFX: {fileID: 8300000, guid: 305af0d3def3e184aa250f9826c44857, type: 3}
+  landSFX: {fileID: 8300000, guid: ee71e041718ac594f9aba1fa4e95356d, type: 3}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 192
