@@ -123,7 +123,8 @@ public class PlayerController : Resettable
         UpdateAppearance();
         SaveDefault();
     }
-    
+
+
     void Update()
     {
         
@@ -141,14 +142,12 @@ public class PlayerController : Resettable
             currentCoyoteTime -= Time.deltaTime;
         }
         // Jumping
-        if (Input.GetButton("Jump") && readyToJump && (grounded || currentCoyoteTime > 0f))
+        if (Input.GetButton("Jump") && readyToJump && (grounded || currentCoyoteTime > 0f) && canMove)
         {
-            readyToJump = false;
             aboutToJump = true;
-            Invoke(nameof(ResetJump), jumpCooldown);
         }
         // Boolean to track if player is holding down jump
-        if (Input.GetButton("Jump"))
+        if (Input.GetButton("Jump") && canMove)
         {
             jumping = true;
         } else
@@ -379,6 +378,9 @@ public class PlayerController : Resettable
         // Calculates force needed to get to jump height
         float jumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(Physics.gravity.y) * minJumpHeight * mult);
         rb.AddForce(transform.up * jumpVelocity, ForceMode.Impulse);
+
+        readyToJump = false;
+        Invoke(nameof(ResetJump), jumpCooldown);
     }
     private void ResetJump()
     {
