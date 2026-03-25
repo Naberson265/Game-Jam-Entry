@@ -30,6 +30,18 @@ public class FallingPlatform : Activatable
             calledCoroutine = true;
         }
     }
+
+    public void ResetObject()
+    {
+        StopAllCoroutines();
+        transform.position = startPoint;
+        transform.rotation = startRotation;
+        transform.localScale = startScale;
+        calledCoroutine = false;
+        activated = false;
+        objRB.isKinematic = true;
+    }
+
     IEnumerator Fall()
     {
         for (int i = 0; i < 100; i++)
@@ -45,7 +57,7 @@ public class FallingPlatform : Activatable
         objRB.isKinematic = false;
         objRB.linearVelocity = Vector3.zero;
         yield return new WaitForSeconds(1);
-        for (int i = 0; i < 400; i++)
+        for (int i = 0; i < 300; i++)
         {
             transform.localScale = Vector3.Lerp(transform.localScale, Vector3.zero, 0.02f);
             yield return new WaitForSeconds(0.01f);
