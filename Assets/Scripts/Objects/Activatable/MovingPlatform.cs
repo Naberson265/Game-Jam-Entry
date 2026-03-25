@@ -7,29 +7,64 @@ public class MovingPlatform : Activatable
     public float platformSpeed = 10f;
     public int currentTarget = 1;
     public Vector3[] platformDestination;
-    // Make sure the first vector on the list is the platform origin.
+
     private Vector3 platformOrigin;
+    private Vector3 lastPosition;
+    private Rigidbody playerRb;
+    private bool playerOnPlatform = false;
+    private Rigidbody rb;
 
     private void Start()
     {
-        platformOrigin = gameObject.transform.localPosition;
+        platformOrigin = transform.localPosition;
+        lastPosition = transform.position;
+        rb = GetComponent<Rigidbody>();
     }
+
     private void FixedUpdate()
     {
-        Vector3 currentPos = gameObject.transform.localPosition;
-        if (activated)
+        Vector3 platformDelta = Vector3.zero;
+
+        if (activated && platformDestination.Length > 0)
         {
-            if ((currentPos - platformDestination[currentTarget]).magnitude > 0.01f)
+            Vector3 targetWorldPos = transform.parent != null ?
+                transform.parent.TransformPoint(platformDestination[currentTarget]) :
+                platformOrigin + platformDestination[currentTarget];
+
+            Vector3 newPos = Vector3.MoveTowards(transform.position, targetWorldPos, platformSpeed * Time.fixedDeltaTime);
+            platformDelta = newPos - transform.position;
+            rb.MovePosition(newPos);
+
+            if ((newPos - targetWorldPos).sqrMagnitude < 0.001f)
             {
-                Rigidbody currentRb = GetComponent<Rigidbody>();
-                currentRb.MovePosition(Vector3.MoveTowards(transform.position, platformDestination[currentTarget], platformSpeed * Time.fixedDeltaTime));
+                currentTarget = (currentTarget + 1) % platformDestination.Length;
             }
-            else
-            {
-                gameObject.transform.localPosition = platformDestination[currentTarget];
-                if (currentTarget < platformDestination.Length - 1) currentTarget++;
-                else currentTarget = 0;
-            }
+        }
+
+        if (playerOnPlatform && playerRb != null)
+        {
+            Vector3 move = new Vector3(platformDelta.x, 0f, platformDelta.z);
+            playerRb.position += move;
+        }
+
+        lastPosition = transform.position;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.CompareTag("Player"))
+        {
+            playerRb = collision.rigidbody;
+            playerOnPlatform = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.transform.CompareTag("Player"))
+        {
+            playerRb = null;
+            playerOnPlatform = false;
         }
     }
 }
