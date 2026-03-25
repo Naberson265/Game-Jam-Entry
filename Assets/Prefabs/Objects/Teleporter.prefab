@@ -1736,7 +1736,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17177b2c2089b274cad8752ecfed7c5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TeleporterTrigger
+  activated: 1
   destinationPos: {x: 100, y: -5, z: 0}
+  glows: []
+  multiUse: 1
 --- !u!1 &4551135691086847640
 GameObject:
   m_ObjectHideFlags: 0
