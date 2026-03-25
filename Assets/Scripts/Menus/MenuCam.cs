@@ -6,7 +6,7 @@ public class MenuCamera : MonoBehaviour
 {
     public float speed = 0.1f;
     public Transform currentDest;
-    void Update()
+    void FixedUpdate()
     {
         transform.position = Vector3.Lerp(transform.position, currentDest.position, speed);
         transform.rotation = Quaternion.Lerp(transform.rotation, currentDest.rotation, speed);
