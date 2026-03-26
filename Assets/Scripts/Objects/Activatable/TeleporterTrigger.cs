@@ -1,11 +1,13 @@
 using UnityEngine;
-using System.Collections.Generic;
+using System.Collections;
 
 public class TeleporterTrigger : Activatable
 {
     public Vector3 destinationPos;
     public GameObject[] glows;
     public bool multiUse = true;
+    public AudioClip ambience;
+    public AudioClip teleportSound;
     void Update()
     {
         if (activated)
@@ -23,12 +25,35 @@ public class TeleporterTrigger : Activatable
             }
         }
     }
+    IEnumerator PlayerTeleport()
+    {
+        PlayerController ps = PlayerController.playerController;
+        ps.canMove = false;
+        ps.playerAudio.PlayOneShot(teleportSound);
+        yield return new WaitForSeconds(1);
+        ps.rb.position = destinationPos;
+        if (!multiUse) activated = false;
+    }
+    IEnumerator ObjectTeleport(Rigidbody rbToTeleport)
+    {
+        GetComponent<AudioSource>().PlayOneShot(teleportSound);
+        yield return new WaitForSeconds(1);
+        rbToTeleport.position = destinationPos;
+        if (!multiUse) activated = false;
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponent<Rigidbody>() && activated)
         {
-            Rigidbody otherRb = other.gameObject.GetComponent<Rigidbody>();
-            otherRb.position = destinationPos;
+            if (other.gameObject.layer != 3)
+            {
+                Rigidbody otherRb = other.gameObject.GetComponent<Rigidbody>();
+                ObjectTeleport(otherRb);
+            }
+        }
+        if (other.gameObject.layer == 3 && activated)
+        {
+            StartCoroutine(PlayerTeleport());
         }
     }
 }
