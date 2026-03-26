@@ -260,7 +260,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VolumeController
   musicAudioMixer: {fileID: 24100000, guid: 850181c93af06ef4d9fe435a24335f74, type: 2}
-  suppressionAmount: -20
+  sfxAudioMixer: {fileID: 24100000, guid: 45f83e00c7506ab43af903e1e668e6ad, type: 2}
+  suppressionAmount: -10
 --- !u!1 &8790304421534426931
 GameObject:
   m_ObjectHideFlags: 0
