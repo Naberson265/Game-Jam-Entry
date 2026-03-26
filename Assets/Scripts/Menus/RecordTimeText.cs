@@ -13,7 +13,7 @@ public class RecordTimeText : MonoBehaviour
     void Start()
     {
         text = GetComponent<TMP_Text>();
-        text.text =  "Best Time: " +  CalculateFormattedTime(ProgressionManager.GetRecord(level, zone));
+        text.text = "Best Time: " +  CalculateFormattedTime(ProgressionManager.GetRecord(level, zone));
     }
 
     public string CalculateFormattedTime(float timeToFormat)

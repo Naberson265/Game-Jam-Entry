@@ -97,11 +97,6 @@ public class ProgressionManager: MonoBehaviour
 
         int levelNum = GameController.gameController.currentLevel;
         int zoneNum = GameController.gameController.zone;
-        print("Setting Record:");
-        print(timerEnd);
-        print(levelNum);
-        print(zoneNum);
-        print("----------------");
         if (timerEnd < currentRecord)
         {
             _saveData.records[zoneNum * RECORDS_PER_LEVEL + levelNum] = timerEnd;
