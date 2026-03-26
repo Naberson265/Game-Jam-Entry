@@ -78,17 +78,35 @@ public class GameController : MonoBehaviour
         else if (levelRanks[levelRanks.Count - 1] == 4) lastLRank = "D";
         else lastLRank = "N/A";
         Resettable.SaveDefaults();
-        ProgressionManager.SetRecord(timePassed);
+        if (timePassed > 5)   // Lazy fix but I don't feel like reworking everything. Hopefully someone doesn't lag for more than 5 seconds.
+        {
+            ProgressionManager.SetRecord(timePassed);
+        }
         currentLevel++;
         ProgressionManager.SaveProgess(PlayerController.playerController.gameObject.transform.position);
-        levelTimers[currentLevel].GetComponent<TMP_Text>().text = "(" + lastLRank +
-        ") L" + currentLevel.ToString() + ": " + CalculateFormattedTime(timePassed);
-        levelTimers[currentLevel].SetActive(true);
+        if (timePassed > 1)
+        {
+            SetLevelTimer(currentLevel, lastLRank, timePassed);
+        }
         gameMusic.Stop();
         gameMusic.clip = levelSongs[currentLevel];
         gameMusic.Play();
         timePassed = 0f;
     }
+    public void SetLevelTimer(int level, string rank, float time)
+    {
+        string rankString;
+        if (rank.Length > 0)
+        {
+            rankString = "(" + rank + ") ";
+        } else
+        {
+            rankString = "";
+        }
+        levelTimers[level].GetComponent<TMP_Text>().text = rankString + "L" + level.ToString() + ": " + CalculateFormattedTime(time);
+        levelTimers[level].SetActive(true);
+    }
+
     public string CalculateFormattedTime(float timeToFormat)
     {
         int timeMinutes;
@@ -128,6 +146,10 @@ public class GameController : MonoBehaviour
         ps.mainCam.transform.rotation = cameraPos.rotation;
         endScreen.SetActive(true);
         mainGUI.SetActive(false);
+        ProgressionManager.SetRecord(timePassed);
+        currentLevel = 0;
+        zone++;
+        ProgressionManager.SaveProgess(PlayerController.playerController.gameObject.transform.position);
     }
     public static void ReloadLevel()
     {

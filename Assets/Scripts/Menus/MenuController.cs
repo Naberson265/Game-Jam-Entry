@@ -20,17 +20,17 @@ public class MenuController : MonoBehaviour
     public void OpenLevel(string levelId)
     {
         string[] levelValues = levelId.Split("-");
-        ProgressionManager.LoadLevel(int.Parse(levelValues[1]) - 1, "Zone" + levelValues[0]);
+        ProgressionManager.LoadLevel(int.Parse(levelValues[1]) - 1, int.Parse(levelValues[0]));
     }
 
     public void Continue()
     {
-        ProgressionManager.LoadLevel(ProgressionManager._saveData.latestCheckpoint.levelNum, ProgressionManager._saveData.latestCheckpoint.levelScene);
+        ProgressionManager.LoadLevel(ProgressionManager._saveData.latestCheckpoint.levelNum, ProgressionManager._saveData.latestCheckpoint.zoneNum);
     }
 
     public void NewGame()
     {
         ProgressionManager.ResetSave();
-        ProgressionManager.LoadLevel(0, "Zone1");
+        ProgressionManager.LoadLevel(0, 1);
     }
 }

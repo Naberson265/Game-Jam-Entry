@@ -11,7 +11,6 @@ using UnityEngine.SceneManagement;
 public struct CheckpointData : IComparable<CheckpointData>
 {
     public string levelScene;
-    public Vector3 checkpointPosition;
     
     // Just a number to sort by.
     public int levelNum;
@@ -20,14 +19,12 @@ public struct CheckpointData : IComparable<CheckpointData>
     public CheckpointData(Vector3 position)
     {
         this.levelScene = SceneManager.GetActiveScene().name;
-        this.checkpointPosition = position;
         this.levelNum = GameController.gameController.currentLevel;
         this.zoneNum = GameController.gameController.zone;
     }
     public CheckpointData(Vector3 position, int levelNum, int zoneNum)
     {
         this.levelScene = SceneManager.GetActiveScene().name;
-        this.checkpointPosition = position;
         this.levelNum = levelNum;
         this.zoneNum = zoneNum;
     }
@@ -93,14 +90,19 @@ public class ProgressionManager: MonoBehaviour
     static public void SetRecord(float timerEnd)
     {
         float currentRecord = Mathf.Infinity;
-        if (GetCurrentRecord() > 0.1f)
+        if (GetCurrentRecord() > 1f)
         {
             currentRecord = GetCurrentRecord();
         }
 
         int levelNum = GameController.gameController.currentLevel;
         int zoneNum = GameController.gameController.zone;
-        if (timerEnd<currentRecord)
+        print("Setting Record:");
+        print(timerEnd);
+        print(levelNum);
+        print(zoneNum);
+        print("----------------");
+        if (timerEnd < currentRecord)
         {
             _saveData.records[zoneNum * RECORDS_PER_LEVEL + levelNum] = timerEnd;
         }
@@ -112,11 +114,23 @@ public class ProgressionManager: MonoBehaviour
         return _saveData.records[zoneNum * RECORDS_PER_LEVEL + levelNum];
     }
 
-    static async public void LoadLevel(int levelNum, string sceneName)
+    static async public void LoadLevel(int levelNum, int zoneNum)
     {
-        SceneManager.LoadScene(sceneName);
+        if(zoneNum > 3)
+        {
+            zoneNum = 3;
+        }
+        if (levelNum > 4)
+        {
+            levelNum = 4;
+        }
+        SceneManager.LoadScene("Zone" + zoneNum.ToString());
         await Awaitable.NextFrameAsync();
         GameController.MovePlayerToLevel(levelNum);
+        for (int i = 0; i < levelNum; i++)
+        {
+            GameController.gameController.SetLevelTimer(i + 1, "", GetRecord(i, zoneNum));
+        }
     }
 
     static public float GetCurrentRecord()
