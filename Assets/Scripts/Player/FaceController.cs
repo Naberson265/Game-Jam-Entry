@@ -25,10 +25,7 @@ public class FaceController : MonoBehaviour
 
         foreach (Collider hitCollider in hitColliders)
         {
-            // Skip self if the character has a collider on the same layer
-            if (hitCollider.gameObject == gameObject) continue;
-
-            float dist = (hitCollider.transform.position - transform.position).sqrMagnitude; // Use sqrMagnitude for performance
+            float dist = (hitCollider.transform.position - transform.position).sqrMagnitude;
 
             if (dist < minDist)
             {

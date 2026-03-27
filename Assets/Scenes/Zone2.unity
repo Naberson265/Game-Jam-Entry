@@ -158134,7 +158134,7 @@ PrefabInstance:
       objectReference: {fileID: 1718688913}
     - target: {fileID: 5840000399227106752, guid: 568b013e936afb94d986c4076905dcfb, type: 3}
       propertyPath: m_VersionIndex
-      value: 4066
+      value: 4069
       objectReference: {fileID: 0}
     - target: {fileID: 5853595244155657382, guid: 568b013e936afb94d986c4076905dcfb, type: 3}
       propertyPath: m_Mesh
@@ -158152,10 +158152,6 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1928182512}
-    - target: {fileID: 6305292190624348659, guid: 568b013e936afb94d986c4076905dcfb, type: 3}
-      propertyPath: pupilDistance
-      value: 0.07
-      objectReference: {fileID: 0}
     - target: {fileID: 6457075837798501732, guid: 568b013e936afb94d986c4076905dcfb, type: 3}
       propertyPath: m_Mesh
       value: 
