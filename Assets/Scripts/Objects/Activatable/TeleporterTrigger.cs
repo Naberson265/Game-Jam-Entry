@@ -32,6 +32,7 @@ public class TeleporterTrigger : Activatable
         ps.playerAudio.PlayOneShot(teleportSound);
         yield return new WaitForSeconds(1);
         ps.rb.position = destinationPos;
+        ps.canMove = true;
         if (!multiUse) activated = false;
     }
     IEnumerator ObjectTeleport(Rigidbody rbToTeleport)
@@ -48,7 +49,7 @@ public class TeleporterTrigger : Activatable
             if (other.gameObject.layer != 3)
             {
                 Rigidbody otherRb = other.gameObject.GetComponent<Rigidbody>();
-                ObjectTeleport(otherRb);
+                StartCoroutine(ObjectTeleport(otherRb));
             }
         }
         if (other.gameObject.layer == 3 && activated)

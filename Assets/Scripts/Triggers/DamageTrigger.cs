@@ -1,11 +1,23 @@
 using UnityEngine;
 
-public class DamageTrigger : MonoBehaviour
+public class DamageTrigger : Resettable
 {
     public int damageAmount = 1;
     public int damageLevel = 0;
     public bool ignoreIFrames = false;
     public bool breakable = false;
+
+    public bool broken = true;
+
+    protected override void ResetObject()
+    {
+        gameObject.SetActive(!broken);
+    }
+
+    protected override void SaveDefault()
+    {
+        broken = !gameObject.activeSelf;
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -24,7 +36,7 @@ public class DamageTrigger : MonoBehaviour
                 else
                 {
                     ps.playerAudio.PlayOneShot(ps.spikeBreakSFX);
-                    Destroy(gameObject);
+                    gameObject.SetActive(false);
                 }
             }
             else

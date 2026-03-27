@@ -27,6 +27,9 @@ public class PlayerController : Resettable
     public GameObject leftOverBox;
     public GameObject face;
 
+    private bool cheat1;
+    private bool cheat2;
+
     [Header("Face")]
     private float blinkCooldown = 4;
 
@@ -106,8 +109,6 @@ public class PlayerController : Resettable
     public float groundPoundPause = 0.15f;
     public ParticleSystem groundPoundParticle;
 
-
-
     [Header("Spring Properties")]
     public float springLaunchMultiplier = 1.5f;
 
@@ -186,7 +187,18 @@ public class PlayerController : Resettable
         // Cheats
         if (Input.GetKey(KeyCode.O))
         {
-            rb.AddForce(new Vector3(0, 25, 0));
+            cheat1 = true;
+        } else
+        {
+            cheat1 = false;
+        }
+        if (Input.GetKey(KeyCode.L))
+        {
+            cheat2 = true;
+        }
+        else
+        {
+            cheat2 = false;
         }
         // Invincibility Timer
         if (invincibleTime > 0f)
@@ -220,6 +232,18 @@ public class PlayerController : Resettable
     {
         modelAnimator.SetBool("Grounded", grounded);
         modelAnimator.SetBool("Moving", movementDir.magnitude > 0.2);
+        if(cheat1)
+        {
+            rb.AddForce(new Vector3(0, 100, 0));
+        }
+
+        if (cheat2)
+        {
+            gameObject.GetComponent<BoxCollider>().enabled = false;
+        } else
+        {
+            gameObject.GetComponent<BoxCollider>().enabled = true;
+        }
         if (canMove)
         {
             // on ground
@@ -276,7 +300,7 @@ public class PlayerController : Resettable
         Collider[] cols = Physics.OverlapSphere(transform.position, 0.1f, whatCanCrush);
         foreach (Collider col in cols)
         {
-            if (!col.isTrigger)
+            if (!col.isTrigger && !cheat2)
             {
                 Damage(10, 3, false);
             }
