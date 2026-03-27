@@ -27,6 +27,9 @@ public class PlayerController : Resettable
     public GameObject leftOverBox;
     public GameObject face;
 
+    [Header("Face")]
+    private float blinkCooldown = 4;
+
     [Header("Movement")]
     public float moveSpeed = 8f;
 
@@ -122,6 +125,8 @@ public class PlayerController : Resettable
         mainCam = Camera.main.gameObject;
         UpdateAppearance();
         SaveDefault();
+
+        blinkCooldown = UnityEngine.Random.Range(2f, 7f);
     }
 
 
@@ -201,6 +206,14 @@ public class PlayerController : Resettable
         else
         {
             face.SetActive(true);
+        }
+
+        // Blink
+        blinkCooldown -= Time.deltaTime;
+        if (blinkCooldown < 0)
+        {
+            modelAnimator.SetTrigger("Blink");
+            blinkCooldown = UnityEngine.Random.Range(2f, 7f);
         }
     }
     private void FixedUpdate()
