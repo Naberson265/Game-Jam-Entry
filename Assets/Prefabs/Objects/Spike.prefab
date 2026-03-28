@@ -19,7 +19,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8405727029053103015
 Transform:
@@ -571,6 +571,7 @@ MonoBehaviour:
   damageLevel: 1
   ignoreIFrames: 0
   breakable: 1
+  broken: 1
 --- !u!136 &2184840379080275432
 CapsuleCollider:
   m_ObjectHideFlags: 0
