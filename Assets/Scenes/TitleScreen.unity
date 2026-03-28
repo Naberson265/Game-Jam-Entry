@@ -2090,6 +2090,7 @@ MonoBehaviour:
   damageLevel: 0
   ignoreIFrames: 0
   breakable: 0
+  broken: 1
 --- !u!136 &23208099
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -10419,6 +10420,7 @@ MonoBehaviour:
   damageLevel: 0
   ignoreIFrames: 0
   breakable: 0
+  broken: 1
 --- !u!136 &81944530
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -12871,6 +12873,7 @@ MonoBehaviour:
   damageLevel: 0
   ignoreIFrames: 0
   breakable: 0
+  broken: 1
 --- !u!136 &114232431
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -53542,6 +53545,7 @@ MonoBehaviour:
   damageLevel: 0
   ignoreIFrames: 0
   breakable: 0
+  broken: 1
 --- !u!136 &493472390
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -93895,6 +93899,7 @@ MonoBehaviour:
   damageLevel: 0
   ignoreIFrames: 0
   breakable: 0
+  broken: 1
 --- !u!136 &782195036
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -102401,6 +102406,7 @@ MonoBehaviour:
   damageLevel: 0
   ignoreIFrames: 0
   breakable: 0
+  broken: 1
 --- !u!136 &849924850
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -115235,6 +115241,7 @@ MonoBehaviour:
   damageLevel: 0
   ignoreIFrames: 0
   breakable: 0
+  broken: 1
 --- !u!136 &960066143
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -161618,6 +161625,7 @@ MonoBehaviour:
   damageLevel: 0
   ignoreIFrames: 0
   breakable: 0
+  broken: 1
 --- !u!136 &1380162097
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -164173,6 +164181,7 @@ MonoBehaviour:
   damageLevel: 0
   ignoreIFrames: 0
   breakable: 0
+  broken: 1
 --- !u!136 &1404416493
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -164754,7 +164763,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3092520009290878070, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: 3-4
+      value: 4-1
       objectReference: {fileID: 0}
     - target: {fileID: 5307890792531492210, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -174514,6 +174523,7 @@ MonoBehaviour:
   damageLevel: 0
   ignoreIFrames: 0
   breakable: 0
+  broken: 1
 --- !u!136 &1510040464
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -226314,6 +226324,7 @@ MonoBehaviour:
   damageLevel: 0
   ignoreIFrames: 0
   breakable: 0
+  broken: 1
 --- !u!136 &1935338067
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -229527,6 +229538,7 @@ MonoBehaviour:
   damageLevel: 0
   ignoreIFrames: 0
   breakable: 0
+  broken: 1
 --- !u!136 &1970362623
 CapsuleCollider:
   m_ObjectHideFlags: 0

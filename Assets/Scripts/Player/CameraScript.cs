@@ -16,7 +16,7 @@ public class CameraScript : MonoBehaviour
     {
         //
         SettingManagement();
-        if (canMove && !paused) CamMove();
+        if (canMove && PlayerController.playerController.canMove && !paused) CamMove();
         if (Input.GetButtonDown("Pause") && canMove)
         {
             if (paused) UnpauseGame();

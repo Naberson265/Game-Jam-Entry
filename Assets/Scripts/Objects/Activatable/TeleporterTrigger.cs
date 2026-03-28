@@ -6,6 +6,7 @@ public class TeleporterTrigger : Activatable
     public Vector3 destinationPos;
     public GameObject[] glows;
     public bool multiUse = true;
+    public bool ditherAutoEnd = true;
     public AudioClip ambience;
     public AudioClip teleportSound;
     void Update()
@@ -27,10 +28,13 @@ public class TeleporterTrigger : Activatable
     }
     IEnumerator PlayerTeleport()
     {
+        DitherTransition ditherer = FindFirstObjectByType<DitherTransition>();
         PlayerController ps = PlayerController.playerController;
         ps.canMove = false;
         ps.playerAudio.PlayOneShot(teleportSound);
+        ditherer.StartAnim("Start");
         yield return new WaitForSeconds(1);
+        if (ditherAutoEnd) ditherer.StartAnim("End");
         ps.rb.position = destinationPos;
         ps.canMove = true;
         if (!multiUse) activated = false;
