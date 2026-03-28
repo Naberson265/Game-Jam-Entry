@@ -266,7 +266,6 @@ public class PlayerController : Resettable
             }
             if (aboutToJump)
             {
-                aboutToJump = false;
                 Jump();
             }
             // Makes the player look in the direction they move.
@@ -405,6 +404,7 @@ public class PlayerController : Resettable
     }
     private void Jump(float mult = 1, bool playJumpAnim = true)
     {
+        aboutToJump = false;
         if (playJumpAnim)
         {
             modelAnimator.SetTrigger("Jump");
