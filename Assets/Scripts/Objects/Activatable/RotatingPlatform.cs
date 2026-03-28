@@ -15,7 +15,36 @@ public class RotatingPlatform : Activatable
         if (activated)
         {
             Quaternion deltaRotate = Quaternion.Euler(rotateDir * Time.fixedDeltaTime);
-            objRb.rotation *= deltaRotate;
+            objRb.MoveRotation(objRb.rotation * deltaRotate);
+            foreach (Rigidbody box in boxes)
+            {
+                Vector3 dir = box.position - objRb.position;
+                dir = deltaRotate * dir;
+                Vector3 newPos = objRb.position + dir;
+
+                box.MovePosition(newPos);
+                box.MoveRotation(deltaRotate * box.rotation);
+            }
+        }
+    }
+    
+    private List<Rigidbody> boxes = new List<Rigidbody>();
+
+    private void OnCollisionEnter(Collision other)
+    {
+        Rigidbody rb = other.rigidbody;
+        if (rb != null && other.gameObject.CompareTag("Player"))
+        {
+            boxes.Add(rb);
+        }
+    }
+
+    private void OnCollisionExit(Collision other)
+    {
+        Rigidbody rb = other.rigidbody;
+        if (rb != null && other.gameObject.CompareTag("Player"))
+        {
+            boxes.Remove(rb);
         }
     }
 }
