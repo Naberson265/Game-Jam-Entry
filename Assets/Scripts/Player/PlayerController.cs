@@ -330,6 +330,15 @@ public class PlayerController : Resettable
         {
             Damage(10, 3, false);
         }
+
+        //Mood heads towards 0
+        if(modelAnimator.GetFloat("Mood") > 0)
+        {
+            modelAnimator.SetFloat("Mood", modelAnimator.GetFloat("Mood") - 5f * Time.fixedDeltaTime);
+        } else
+        {
+            modelAnimator.SetFloat("Mood", modelAnimator.GetFloat("Mood") + 5f * Time.fixedDeltaTime);
+        }
     }
 
     public void Ability()
@@ -347,6 +356,7 @@ public class PlayerController : Resettable
             }
             else if (!usedAirAbility)
             {
+                modelAnimator.SetFloat("Mood", 15);
                 dashParticle.Play();
                 playerAudio.PlayOneShot(speedSFX);
                 usedAirAbility = true;
@@ -365,6 +375,7 @@ public class PlayerController : Resettable
         else if (GetAbility() == 3 && !grounded && currentCoyoteTime <= 0f && !usedAirAbility)
         {
             StartCoroutine(GroundPound());
+            modelAnimator.SetFloat("Mood", 20);
             usedAirAbility = true;
         }
         // Spring
@@ -504,6 +515,7 @@ public class PlayerController : Resettable
         droppedPart.transform.localScale = gameObject.transform.localScale;
         playerAudio.PlayOneShot(hitSFX);
         UpdateAppearance();
+        modelAnimator.SetFloat("Mood", -20);
 
         //Conserve horizontal momentum when taking Damage
         Vector3 saveVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
@@ -521,6 +533,7 @@ public class PlayerController : Resettable
             {
                 launchMult *= springLaunchMultiplier;
                 playerAudio.PlayOneShot(springSFX);
+                modelAnimator.SetFloat("Mood", 15);
             }
             Jump(launchMult, false);
             launching = true;
@@ -552,6 +565,7 @@ public class PlayerController : Resettable
 
     private IEnumerator RespawnRoutine()
     {
+        modelAnimator.SetFloat("Mood", -15);
         for (int i = 0; i < 100; i++)
         {
             float size = healthToSize[health.Count];
@@ -582,6 +596,7 @@ public class PlayerController : Resettable
     public void Powerup(int ability)
     {
         DisableAbilities();
+        modelAnimator.SetFloat("Mood", 20);
         health.Add(ability);
         playerAudio.PlayOneShot(powerupSFX);
         UpdateAppearance();
@@ -597,6 +612,10 @@ public class PlayerController : Resettable
     protected override void SaveDefault()
     {
         savedHealth = new List<int>(health);
+        if(Time.time > 5)
+        {
+            modelAnimator.SetFloat("Mood", 25);
+        }
         // Spawnpoint is set by checkpoints because I'm lazy
     }
 }

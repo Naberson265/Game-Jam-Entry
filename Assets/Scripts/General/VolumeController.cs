@@ -5,6 +5,7 @@ public class VolumeController : MonoBehaviour
 {
     [SerializeField] private AudioMixer musicAudioMixer;
     [SerializeField] private AudioMixer sfxAudioMixer;
+    [SerializeField] private AudioMixer voiceAudioMixer;
 
     public static int suppressMusic = 0;
     [SerializeField] private float suppressionAmount;
@@ -17,6 +18,8 @@ public class VolumeController : MonoBehaviour
     void Update()
     {
         sfxAudioMixer.SetFloat("SfxVolume", PlayerPrefs.GetFloat("SFXVolume"));
+        voiceAudioMixer.SetFloat("VoicelineVolume", PlayerPrefs.GetFloat("VoiceVolume"));
+        
 
         float musicNormal = PlayerPrefs.GetFloat("MusicVolume");
         if (musicNormal <= -39.9f) {
