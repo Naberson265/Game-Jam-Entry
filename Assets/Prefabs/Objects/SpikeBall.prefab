@@ -2316,7 +2316,7 @@ MonoBehaviour:
   damageLevel: 0
   ignoreIFrames: 0
   breakable: 0
-  broken: 1
+  broken: 0
 --- !u!135 &2153952646094349080
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2348,7 +2348,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7254718111913350383, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: m_VersionIndex
-      value: 1699
+      value: 1702
       objectReference: {fileID: 0}
     - target: {fileID: 7553910565950301565, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: damageLevel
@@ -2422,7 +2422,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7254718111913350383, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: m_VersionIndex
-      value: 1699
+      value: 1702
       objectReference: {fileID: 0}
     - target: {fileID: 7553910565950301565, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: damageLevel
@@ -2496,7 +2496,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7254718111913350383, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: m_VersionIndex
-      value: 1699
+      value: 1702
       objectReference: {fileID: 0}
     - target: {fileID: 7553910565950301565, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: damageLevel
@@ -2570,7 +2570,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7254718111913350383, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: m_VersionIndex
-      value: 1699
+      value: 1702
       objectReference: {fileID: 0}
     - target: {fileID: 7553910565950301565, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: damageLevel
@@ -2644,7 +2644,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7254718111913350383, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: m_VersionIndex
-      value: 1699
+      value: 1702
       objectReference: {fileID: 0}
     - target: {fileID: 7553910565950301565, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: damageLevel
@@ -2718,7 +2718,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7254718111913350383, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: m_VersionIndex
-      value: 1699
+      value: 1702
       objectReference: {fileID: 0}
     - target: {fileID: 7553910565950301565, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: damageLevel
@@ -2792,7 +2792,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7254718111913350383, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: m_VersionIndex
-      value: 1699
+      value: 1702
       objectReference: {fileID: 0}
     - target: {fileID: 7553910565950301565, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: damageLevel
@@ -2866,7 +2866,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7254718111913350383, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: m_VersionIndex
-      value: 1699
+      value: 1702
       objectReference: {fileID: 0}
     - target: {fileID: 7553910565950301565, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: damageLevel
@@ -2940,7 +2940,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7254718111913350383, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: m_VersionIndex
-      value: 1699
+      value: 1702
       objectReference: {fileID: 0}
     - target: {fileID: 7553910565950301565, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: damageLevel
@@ -3014,7 +3014,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7254718111913350383, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: m_VersionIndex
-      value: 1699
+      value: 1702
       objectReference: {fileID: 0}
     - target: {fileID: 7553910565950301565, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: damageLevel
@@ -3088,7 +3088,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7254718111913350383, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: m_VersionIndex
-      value: 1699
+      value: 1702
       objectReference: {fileID: 0}
     - target: {fileID: 7553910565950301565, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: damageLevel
@@ -3162,7 +3162,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7254718111913350383, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: m_VersionIndex
-      value: 1699
+      value: 1702
       objectReference: {fileID: 0}
     - target: {fileID: 7553910565950301565, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: damageLevel
@@ -3236,7 +3236,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7254718111913350383, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: m_VersionIndex
-      value: 1699
+      value: 1702
       objectReference: {fileID: 0}
     - target: {fileID: 7553910565950301565, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: damageLevel
@@ -3310,7 +3310,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7254718111913350383, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: m_VersionIndex
-      value: 1699
+      value: 1702
       objectReference: {fileID: 0}
     - target: {fileID: 7553910565950301565, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: damageLevel
@@ -3384,7 +3384,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7254718111913350383, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: m_VersionIndex
-      value: 1699
+      value: 1702
       objectReference: {fileID: 0}
     - target: {fileID: 7553910565950301565, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: damageLevel
@@ -3458,7 +3458,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7254718111913350383, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: m_VersionIndex
-      value: 1699
+      value: 1702
       objectReference: {fileID: 0}
     - target: {fileID: 7553910565950301565, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: damageLevel
@@ -3532,7 +3532,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7254718111913350383, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: m_VersionIndex
-      value: 1699
+      value: 1702
       objectReference: {fileID: 0}
     - target: {fileID: 7553910565950301565, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: damageLevel
@@ -3606,7 +3606,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7254718111913350383, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: m_VersionIndex
-      value: 1699
+      value: 1702
       objectReference: {fileID: 0}
     - target: {fileID: 7553910565950301565, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
       propertyPath: damageLevel

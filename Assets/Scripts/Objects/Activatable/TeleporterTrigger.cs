@@ -26,7 +26,7 @@ public class TeleporterTrigger : Activatable
             }
         }
     }
-    IEnumerator PlayerTeleport()
+    private IEnumerator PlayerTeleport()
     {
         DitherTransition ditherer = FindFirstObjectByType<DitherTransition>();
         PlayerController ps = PlayerController.playerController;
@@ -39,7 +39,7 @@ public class TeleporterTrigger : Activatable
         ps.canMove = true;
         if (!multiUse) activated = false;
     }
-    IEnumerator ObjectTeleport(Rigidbody rbToTeleport)
+    private IEnumerator ObjectTeleport(Rigidbody rbToTeleport)
     {
         GetComponent<AudioSource>().PlayOneShot(teleportSound);
         yield return new WaitForSeconds(1);

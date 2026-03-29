@@ -22,16 +22,21 @@ public class PlayerController : Resettable
 
     [Header("Objects")]
     public GameObject mainCam;
-    public Transform camFixedDirTransform;
     public Animator modelAnimator;
+    public Transform camFixedDirTransform;
     public GameObject leftOverBox;
     public GameObject face;
 
     private bool cheat1;
     private bool cheat2;
+    private DitherTransition ditherer;
 
     [Header("Face")]
     private float blinkCooldown = 4;
+    // Check the mouth spritesheet for the order of faces (left to right).
+    public int mouthState = 0;
+    // 0-Default (only one that blinks) 1-Panicked 2-Shut Eyes
+    public int eyeState = 0;
 
     [Header("Movement")]
     public float moveSpeed = 8f;
@@ -125,6 +130,7 @@ public class PlayerController : Resettable
         rb = GetComponent<Rigidbody>();
         playerAudio = GetComponent<AudioSource>();
         mainCam = Camera.main.gameObject;
+        ditherer = FindFirstObjectByType<DitherTransition>();
         UpdateAppearance();
         SaveDefault();
 
@@ -227,10 +233,18 @@ public class PlayerController : Resettable
         }
 
         // Blink
-        blinkCooldown -= Time.deltaTime;
+        if (eyeState == 1)
+        {
+            // If panicked, the blink time decreases faster.
+            blinkCooldown -= Time.deltaTime * 2;
+        }
+        else blinkCooldown -= Time.deltaTime;
         if (blinkCooldown < 0)
         {
-            modelAnimator.SetTrigger("Blink");
+            if (eyeState == 0)
+            {
+                modelAnimator.SetTrigger("Blink");
+            }
             blinkCooldown = UnityEngine.Random.Range(2f, 7f);
         }
     }
@@ -383,7 +397,7 @@ public class PlayerController : Resettable
         // pause
         yield return new WaitForSeconds(groundPoundPause);
 
-        //slam down
+        // slam down
         modelAnimator.SetTrigger("GroundPound");
         rb.useGravity = true;
         rb.linearVelocity = new Vector3(0f, -groundPoundForce, 0f);
@@ -517,8 +531,18 @@ public class PlayerController : Resettable
         {
             canMove = false;
             rb.isKinematic = true;
+            ditherer.StartAnim("Start");
             yield return new WaitForSeconds(1f);
-            Resettable.ResetAll(); // Eventually set up Resettable
+            // Reset all Resettables unless the bool in GC states otherwise.
+            if (GameController.gameController.reloadOnDeath)
+            {
+                GameController.ReloadLevel();
+            }
+            else
+            {
+                ditherer.StartAnim("End");
+                Resettable.ResetAll();
+            }
         }
         yield break;
     }

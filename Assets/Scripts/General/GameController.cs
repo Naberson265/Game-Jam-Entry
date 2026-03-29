@@ -29,6 +29,8 @@ public class GameController : MonoBehaviour
     // Include the main (blue), and two level timers in the below array:
     public GameObject[] levelTimers;
     public GameObject[] levelSpawnpoints;
+    // If on, reloads the scene instead of calling Resettables on death.
+    public bool reloadOnDeath;
 
     [Header("Fog")]
     public Color currentFogColor = Color.white;
@@ -69,6 +71,13 @@ public class GameController : MonoBehaviour
         RenderSettings.fog = true;
         currentFogDensity = newDensity;
         currentFogColor = newFogColor;
+    }
+    public IEnumerator SwitchSong(AudioClip songToSwitch, float switchDelay = 1)
+    {
+        gameMusic.Stop();
+        yield return new WaitForSeconds(switchDelay);
+        gameMusic.clip = songToSwitch;
+        gameMusic.Play();
     }
     public void StartNewLevel()
     {
