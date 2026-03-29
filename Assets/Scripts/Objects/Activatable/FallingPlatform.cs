@@ -31,7 +31,7 @@ public class FallingPlatform : Activatable
         }
     }
 
-    public void ResetObject()
+    protected override void ResetObject()
     {
         StopAllCoroutines();
         transform.position = startPoint;
@@ -40,6 +40,11 @@ public class FallingPlatform : Activatable
         calledCoroutine = false;
         activated = false;
         objRB.isKinematic = true;
+    }
+
+    protected override void SaveDefault()
+    {
+        return;
     }
 
     IEnumerator Fall()

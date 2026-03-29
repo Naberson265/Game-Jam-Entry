@@ -1,7 +1,8 @@
 using UnityEngine;
 
-public abstract class Activatable : MonoBehaviour
+public abstract class Activatable : Resettable
 {
+    protected bool storedActivated;
     public bool activated;
     public void Toggle()
     {
@@ -13,6 +14,15 @@ public abstract class Activatable : MonoBehaviour
         {
             activated = true;
         }
+    }
+    protected override void ResetObject()
+    {
+        activated = storedActivated;
+    }
+
+    protected override void SaveDefault()
+    {
+        storedActivated = activated;
     }
 }
 

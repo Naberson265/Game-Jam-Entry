@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class MovingPlatform : Activatable
 {
+    private Vector3 savedPosition;
+    private int savedCurrentTarget;
+
+
     public float platformSpeed = 10f;
     public int currentTarget = 1;
     public Vector3[] platformDestination;
@@ -19,6 +23,8 @@ public class MovingPlatform : Activatable
         platformOrigin = transform.localPosition;
         lastPosition = transform.position;
         rb = GetComponent<Rigidbody>();
+        savedPosition = rb.position;
+        savedCurrentTarget = currentTarget;
     }
 
     private void FixedUpdate()
@@ -66,5 +72,18 @@ public class MovingPlatform : Activatable
             playerRb = null;
             playerOnPlatform = false;
         }
+    }
+    protected override void ResetObject()
+    {
+        transform.position = savedPosition;
+        currentTarget = savedCurrentTarget;
+        activated = storedActivated;
+    }
+
+    protected override void SaveDefault()
+    {
+        savedPosition = transform.position;
+        savedCurrentTarget = currentTarget;
+        storedActivated = activated;
     }
 }
