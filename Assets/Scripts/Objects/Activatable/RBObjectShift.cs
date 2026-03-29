@@ -6,8 +6,9 @@ public class RBObjectShift : Activatable
 {
     public float pushSpeed = 0.1f;
     public Vector3 activeDisplacement;
-    private Vector3 startPoint;
-    private Vector3 activePoint;
+    // Serialized for testing purposes.
+    [SerializeField] private Vector3 startPoint;
+    [SerializeField] private Vector3 activePoint;
     private Rigidbody objRB;
 
     private void Start()

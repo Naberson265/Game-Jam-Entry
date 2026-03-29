@@ -37,6 +37,7 @@ public class FaceController : MonoBehaviour
     }
     void FixedUpdate()
     {
+        PlayerController ps = PlayerController.playerController;   
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, lookRange, objectsOfInterest);
 
         float minDist = Mathf.Infinity;
@@ -45,7 +46,6 @@ public class FaceController : MonoBehaviour
         foreach (Collider hitCollider in hitColliders)
         {
             float dist = (hitCollider.transform.position - transform.position).sqrMagnitude;
-
             if (dist < minDist)
             {
                 minDist = dist;
@@ -53,16 +53,21 @@ public class FaceController : MonoBehaviour
             }
         }
 
-        if(closestTarget)
+        if (closestTarget && PlayerController.playerController.eyeState != 1)
         {
             lookLocation = Vector3.Lerp(lookLocation, closestTarget.position, pupilSpeed);
-        } else
+        }
+        else
         {
-            Vector3 defaultLocation = gameObject.transform.position + gameObject.transform.forward * 2;
+            Vector3 defaultLocation = gameObject.transform.position + ps.gameObject.transform.forward * 2;
             if ((lookLocation - defaultLocation).magnitude < 3)
             {
-
                 lookLocation = defaultLocation;
+                if (ps.eyeState == 1)
+                {
+                    // Pupils shake if panicked.
+                    lookLocation += new Vector3(Random.Range(0.15f, -0.15f), Random.Range(0.15f, -0.15f), 0f);
+                }
             }
             lookLocation = Vector3.Lerp(lookLocation, gameObject.transform.position, pupilSpeed);
         }
