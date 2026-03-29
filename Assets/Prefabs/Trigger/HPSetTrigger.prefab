@@ -158,4 +158,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SetHPTrigger
   hpSet: 0000000000000000000000000000000000000000
-  activated: 0
+  usable: 1

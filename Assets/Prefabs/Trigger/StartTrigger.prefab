@@ -195,5 +195,6 @@ MonoBehaviour:
   - {fileID: 0}
   objectsToActivate: []
   objectsToDeactivate: []
-  gc: {fileID: 0}
   spawnpointPosition: {fileID: 4938352604916919925}
+  rankTimes: 5a0000007800000096000000b4000000
+  levelToStart: -1
