@@ -1,9 +1,15 @@
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 using System.Collections;
 
 public class EscapeSequenceTrigger : MonoBehaviour
 {
     public bool activated = false;
+    public GameObject escapeObjects;
+    public Image clockImg;
+    public TMP_Text timeText;
+    public Sprite newClock;
     public Transform playerNewTransform;
     public Transform playerEndAnimTransform;
     public Transform camNewTransform;
@@ -11,6 +17,7 @@ public class EscapeSequenceTrigger : MonoBehaviour
     public AudioClip songSwitch;
     void Start()
     {
+        escapeObjects.SetActive(false);
         // Prevents issues when the game is paused.
         CameraScript cms = Camera.main.GetComponent<CameraScript>();
         cms.GetComponent<Animator>().enabled = false;
@@ -32,7 +39,7 @@ public class EscapeSequenceTrigger : MonoBehaviour
         // Disables movement but allows player and camera to decelerate.
         ps.canMove = false;
         yield return new WaitForSeconds(1f);
-        ps.mouthState = 4;
+        ps.mouthState = 1;
         gc.mainGUI.SetActive(false);
         // Prevents the player and camera from moving due to inputs at all as the song starts.
         cms.canMove = false;
@@ -45,9 +52,19 @@ public class EscapeSequenceTrigger : MonoBehaviour
         ps.modelAnimator.SetTrigger("Escape");
         cms.GetComponent<Animator>().enabled = true;
         cms.GetComponent<Animator>().SetTrigger("Escape");
-        yield return new WaitForSeconds(21.5f);
-        ps.mouthState = 7;
+        yield return new WaitForSeconds(10.75f);
+        // Expression changes during the cutscene.
+        ps.mouthState = 2;
         ps.eyeState = 1;
+        yield return new WaitForSeconds(0.5f);
+        ps.eyeState = 0;
+        yield return new WaitForSeconds(5f);
+        ps.mouthState = 4;
+        ps.eyeState = 1;
+        yield return new WaitForSeconds(5.25f);
+        clockImg.sprite = newClock;
+        timeText.color = Color.red;
+        ps.mouthState = 7;
         ps.transform.position = playerEndAnimTransform.position;
         ps.transform.rotation = playerEndAnimTransform.rotation;
         // Restores all input and resets most things as the escape starts.
@@ -57,6 +74,7 @@ public class EscapeSequenceTrigger : MonoBehaviour
         cms.canMove = true;
         cms.GetComponent<Animator>().enabled = false;
         ps.rb.isKinematic = false;
+        escapeObjects.SetActive(true);
         lavaRise.activated = true;
     }
     private void OnTriggerEnter(Collider other)
