@@ -365,7 +365,6 @@ public class PlayerController : Resettable
         else if (GetAbility() == 3 && !grounded && currentCoyoteTime <= 0f && !usedAirAbility)
         {
             StartCoroutine(GroundPound());
-            invincibleTime = 5f;
             usedAirAbility = true;
         }
         // Spring
