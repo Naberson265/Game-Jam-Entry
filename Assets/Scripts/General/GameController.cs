@@ -153,8 +153,9 @@ public class GameController : MonoBehaviour
         }
         ProgressionManager.SetRecord(timePassed);
         currentLevel = 0;
-        zone++;
+        zone++;     // Lazy Fix
         ProgressionManager.SaveProgess(PlayerController.playerController.gameObject.transform.position);
+        zone--;     // Lazy Fix
     }
     public static void ReloadLevel()
     {
