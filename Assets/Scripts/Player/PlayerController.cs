@@ -252,7 +252,7 @@ public class PlayerController : Resettable
         }
 
         modelAnimator.SetBool("Grounded", grounded);
-        modelAnimator.SetBool("Moving", movementDir.magnitude > 0.2);
+        modelAnimator.SetBool("Moving", movementDir.magnitude > 0.2f && canMove);
         if(cheat1)
         {
             rb.AddForce(new Vector3(0, 100, 0));

@@ -3,13 +3,13 @@ using UnityEngine;
 public abstract class Activatable : MonoBehaviour
 {
     public bool activated;
-
     public void Toggle()
     {
         if (activated)
         {
             activated = false;
-        } else
+        }
+        else
         {
             activated = true;
         }
