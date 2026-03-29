@@ -29,6 +29,8 @@ public class GameController : MonoBehaviour
     // Include the main (blue), and two level timers in the below array:
     public GameObject[] levelTimers;
     public GameObject[] levelSpawnpoints;
+    // If on, reloads the scene instead of calling Resettables on death.
+    public bool reloadOnDeath;
 
     [Header("Fog")]
     public Color currentFogColor = Color.white;

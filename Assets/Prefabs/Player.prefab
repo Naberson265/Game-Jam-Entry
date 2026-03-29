@@ -60728,9 +60728,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FaceController
   pupil1: {fileID: 5976361078564621076}
   pupil2: {fileID: 162660299935699748}
-  mouthSprite: {fileID: 0}
-  pupilSprites: []
-  eyeSprites: []
+  mouthSprite: {fileID: 3655659979270671998}
+  pupilSprites:
+  - {fileID: 5227743633641049155}
+  - {fileID: 3898533160611217192}
+  eyeSprites:
+  - {fileID: 2910492653908975208}
+  - {fileID: 8496548758732957645}
   lookTransform1: {fileID: 2792381748175646719}
   lookTransform2: {fileID: 8507567202140606684}
   lookRange: 20
@@ -62181,6 +62185,7 @@ MonoBehaviour:
   groundPoundUpTime: 0.15
   groundPoundPause: 0.1
   groundPoundParticle: {fileID: 3097255500967850159}
+  slamingDowm: 0
   springLaunchMultiplier: 2
   spawnpoint: {x: 0, y: 0, z: 0}
 --- !u!54 &5729015269261786598
