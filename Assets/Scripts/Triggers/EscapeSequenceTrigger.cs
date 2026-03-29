@@ -17,6 +17,7 @@ public class EscapeSequenceTrigger : MonoBehaviour
     public AudioClip songSwitch;
     void Start()
     {
+        escapeObjects.SetActive(false);
         // Prevents issues when the game is paused.
         CameraScript cms = Camera.main.GetComponent<CameraScript>();
         cms.GetComponent<Animator>().enabled = false;
@@ -73,8 +74,8 @@ public class EscapeSequenceTrigger : MonoBehaviour
         cms.canMove = true;
         cms.GetComponent<Animator>().enabled = false;
         ps.rb.isKinematic = false;
-        lavaRise.activated = true;
         escapeObjects.SetActive(true);
+        lavaRise.activated = true;
     }
     private void OnTriggerEnter(Collider other)
     {
