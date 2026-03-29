@@ -378,6 +378,8 @@ MonoBehaviour:
   activated: 0
   pushSpeed: 0.05
   activeDisplacement: {x: 0, y: 10, z: 0}
+  startPoint: {x: 0, y: 0, z: 0}
+  activePoint: {x: 0, y: 0, z: 0}
 --- !u!114 &3267653915650054501
 MonoBehaviour:
   m_ObjectHideFlags: 0
