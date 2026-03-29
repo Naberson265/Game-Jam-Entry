@@ -65,7 +65,6 @@ public class PlayerDupe : MonoBehaviour
     private IEnumerator DestroyDupeRoutine()
     {
         Vector3 decreaseAmount = transform.localScale * (1f/100);
-        print(decreaseAmount);
         for (int i = 0; i < 100; i++)
         {
             transform.localScale = transform.localScale - decreaseAmount;

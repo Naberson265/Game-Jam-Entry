@@ -144,21 +144,9 @@ public class PlayerController : Resettable
     }
     void Update()
     {
-        
         // Grounded and Movement Direction
-        grounded = Physics.BoxCast(gameObject.transform.position, gameObject.transform.localScale * 0.47f, Vector3.down, gameObject.transform.rotation, gameObject.transform.localScale.y * 0.05f, whatIsGround);
         movementDir = Input.GetAxisRaw("Vertical") * camFixedDirTransform.forward + Input.GetAxisRaw("Horizontal") * camFixedDirTransform.right;
-        if (grounded)
-        {
-            transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
-            currentCoyoteTime = coyoteTime;
-            usedAirAbility = false;
-            if (slamingDowm) StartCoroutine(waitForBool());
-        }
-        else if (currentCoyoteTime > 0f)
-        {
-            currentCoyoteTime -= Time.deltaTime;
-        }
+   
         // Jumping
         if (Input.GetButton("Jump") && readyToJump && (grounded || currentCoyoteTime > 0f) && canMove)
         {
@@ -250,6 +238,19 @@ public class PlayerController : Resettable
     }
     private void FixedUpdate()
     {
+        grounded = Physics.BoxCast(gameObject.transform.position, gameObject.transform.localScale * 0.47f, Vector3.down, gameObject.transform.rotation, gameObject.transform.localScale.y * 0.05f, whatIsGround);
+        if (grounded)
+        {
+            transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
+            currentCoyoteTime = coyoteTime;
+            usedAirAbility = false;
+            if (slamingDowm) StartCoroutine(waitForBool());
+        }
+        else if (currentCoyoteTime > 0f)
+        {
+            currentCoyoteTime -= Time.fixedDeltaTime;
+        }
+
         modelAnimator.SetBool("Grounded", grounded);
         modelAnimator.SetBool("Moving", movementDir.magnitude > 0.2);
         if(cheat1)
