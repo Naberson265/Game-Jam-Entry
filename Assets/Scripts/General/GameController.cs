@@ -21,6 +21,8 @@ public class GameController : MonoBehaviour
     // A rank (from 0(S)-4(D)) is added to this list each level, then averaged at the zone ending.
     public List<int> levelRanks;
     public int finalRank;
+    // Almost always true except for the zone 3s. When off the player keeps movement and rank screen isn't shown.
+    public bool showRankScreen = true;
     // The below two are set manually every level.
     public int zone;
     public int levelCount;
@@ -121,31 +123,34 @@ public class GameController : MonoBehaviour
     {
         gameMusic.Stop();
         finalRank = 0;
-        if (levelRanks.Count != 0 && levelRanks.Count == levelCount)
+        if (showRankScreen)
         {
-            foreach (int lRank in levelRanks)
+            if (levelRanks.Count != 0 && levelRanks.Count == levelCount)
             {
-                finalRank += lRank;
+                foreach (int lRank in levelRanks)
+                {
+                    finalRank += lRank;
+                }
+                int newFR = finalRank /= levelRanks.Count;
+                finalRank = Mathf.RoundToInt(newFR);
+                gameMusic.PlayOneShot(rankThemes[finalRank]);
             }
-            int newFR = finalRank /= levelRanks.Count;
-            finalRank = Mathf.RoundToInt(newFR);
-            gameMusic.PlayOneShot(rankThemes[finalRank]);
+            else
+            {
+                finalRank = 5;
+                gameMusic.PlayOneShot(rankThemes[4]);
+            }
+            PlayerController ps = PlayerController.playerController;
+            ps.canMove = false;
+            ps.transform.position = playerPos.position;
+            ps.transform.rotation = playerPos.rotation;
+            ps.mainCam.GetComponent<CameraScript>().canMove = false;
+            ps.mainCam.GetComponent<CameraScript>().UnlockMouse();
+            ps.mainCam.transform.position = cameraPos.position;
+            ps.mainCam.transform.rotation = cameraPos.rotation;
+            endScreen.SetActive(true);
+            mainGUI.SetActive(false);
         }
-        else
-        {
-            finalRank = 5;
-            gameMusic.PlayOneShot(rankThemes[4]);
-        }
-        PlayerController ps = PlayerController.playerController;
-        ps.canMove = false;
-        ps.transform.position = playerPos.position;
-        ps.transform.rotation = playerPos.rotation;
-        ps.mainCam.GetComponent<CameraScript>().canMove = false;
-        ps.mainCam.GetComponent<CameraScript>().UnlockMouse();
-        ps.mainCam.transform.position = cameraPos.position;
-        ps.mainCam.transform.rotation = cameraPos.rotation;
-        endScreen.SetActive(true);
-        mainGUI.SetActive(false);
         ProgressionManager.SetRecord(timePassed);
         currentLevel = 0;
         zone++;
