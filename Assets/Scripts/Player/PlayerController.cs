@@ -112,6 +112,7 @@ public class PlayerController : Resettable
     public float groundPoundUpTime = 0.15f;
     public float groundPoundPause = 0.15f;
     public ParticleSystem groundPoundParticle;
+    public bool slamingDowm = false;
 
     [Header("Spring Properties")]
     public float springLaunchMultiplier = 1.5f;
@@ -134,7 +135,11 @@ public class PlayerController : Resettable
         blinkCooldown = UnityEngine.Random.Range(2f, 7f);
     }
 
-
+    IEnumerator waitForBool()
+    {
+        yield return new WaitForSecondsRealtime(0.5f);
+        slamingDowm = false;
+    }
     void Update()
     {
         
@@ -146,6 +151,7 @@ public class PlayerController : Resettable
             transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
             currentCoyoteTime = coyoteTime;
             usedAirAbility = false;
+            if (slamingDowm) StartCoroutine(waitForBool());
         }
         else if (currentCoyoteTime > 0f)
         {
@@ -367,6 +373,7 @@ public class PlayerController : Resettable
     }
     private IEnumerator GroundPound()
     {
+        slamingDowm = true;
         playerAudio.PlayOneShot(speedSFX);
         canMove = false;
         rb.useGravity = false;
@@ -376,22 +383,19 @@ public class PlayerController : Resettable
         Vector3 targetPos = startPos + Vector3.up * groundPoundHeight;
 
         float time = 0f;
-
-        // 1. Lerp upward
+        
         while (time < groundPoundUpTime)
         {
             transform.position = Vector3.Lerp(startPos, targetPos, time / groundPoundUpTime);
             time += Time.deltaTime;
             yield return null;
         }
-
-        // Snap exactly to top (prevents tiny float errors)
         transform.position = targetPos;
 
-        // 2. Pause (completely still)
+        // pause
         yield return new WaitForSeconds(groundPoundPause);
 
-        // 3. Slam down
+        //slam down
         modelAnimator.SetTrigger("GroundPound");
         rb.useGravity = true;
         rb.linearVelocity = new Vector3(0f, -groundPoundForce, 0f);

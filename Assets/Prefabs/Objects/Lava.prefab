@@ -805,6 +805,7 @@ MonoBehaviour:
   damageLevel: 3
   ignoreIFrames: 1
   breakable: 0
+  broken: 0
 --- !u!82 &1472776367407876207
 AudioSource:
   m_ObjectHideFlags: 0

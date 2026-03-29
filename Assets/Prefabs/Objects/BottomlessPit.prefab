@@ -577,7 +577,7 @@ MonoBehaviour:
   damageLevel: 3
   ignoreIFrames: 0
   breakable: 0
-  broken: 1
+  broken: 0
 --- !u!1 &2406414832959956047
 GameObject:
   m_ObjectHideFlags: 0

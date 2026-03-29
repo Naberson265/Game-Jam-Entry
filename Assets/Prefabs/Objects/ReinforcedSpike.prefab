@@ -3855,7 +3855,7 @@ MonoBehaviour:
   damageLevel: 3
   ignoreIFrames: 0
   breakable: 0
-  broken: 1
+  broken: 0
 --- !u!136 &2184840379080275432
 CapsuleCollider:
   m_ObjectHideFlags: 0
