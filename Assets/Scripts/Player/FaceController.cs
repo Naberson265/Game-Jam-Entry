@@ -21,7 +21,6 @@ public class FaceController : MonoBehaviour
 
     private Vector3 lookLocation;
 
-    // Update is called once per frame
     void Update()
     {
         PlayerController ps = PlayerController.playerController;

@@ -171,7 +171,7 @@ public class PlayerController : Resettable
             DisableAbilities();
         }
         // Restart from last Checkpoint
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) && canMove)
         {
             Damage(10, 3, true);
         }
@@ -530,6 +530,7 @@ public class PlayerController : Resettable
         }
         else
         {
+            StartCoroutine(MusicPitchChange());
             canMove = false;
             rb.isKinematic = true;
             ditherer.StartAnim("Start");
@@ -537,10 +538,12 @@ public class PlayerController : Resettable
             // Reset all Resettables unless the bool in GC states otherwise.
             if (GameController.gameController.reloadOnDeath)
             {
+                yield return new WaitForSeconds(1f);
                 GameController.ReloadLevel();
             }
             else
             {
+                StartCoroutine(MusicPitchChange(0.5f, 1f));
                 ditherer.StartAnim("End");
                 Resettable.ResetAll();
             }
@@ -560,6 +563,21 @@ public class PlayerController : Resettable
         UpdateAppearance();
         canMove = true;
         rb.isKinematic = false;
+    }
+
+    private IEnumerator MusicPitchChange(float timeUntilFinish = 1f, float newPitch = 0.2f)
+    {
+        GameController gc = GameController.gameController;
+        float lerpDuration = 0f;
+        while (lerpDuration <= timeUntilFinish)
+        {
+            lerpDuration += Time.deltaTime;
+            // I guess bro
+            gc.gameMusic.pitch = Mathf.Lerp(gc.gameMusic.pitch, newPitch, Time.deltaTime * (2f / timeUntilFinish) * (timeUntilFinish + lerpDuration));
+            yield return null;
+        }
+        gc.gameMusic.pitch = newPitch;
+        yield break;
     }
 
     public void Powerup(int ability)
