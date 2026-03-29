@@ -740,6 +740,7 @@ MonoBehaviour:
   damageLevel: 0
   ignoreIFrames: 0
   breakable: 0
+  broken: 0
 --- !u!65 &5527447150392902037
 BoxCollider:
   m_ObjectHideFlags: 0

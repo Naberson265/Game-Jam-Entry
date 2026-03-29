@@ -7,7 +7,7 @@ public class DamageTrigger : Resettable
     public bool ignoreIFrames = false;
     public bool breakable = false;
 
-    public bool broken = true;
+    public bool broken = false;
 
     protected override void ResetObject()
     {

@@ -387,6 +387,8 @@ MonoBehaviour:
   damageAmount: 1
   damageLevel: 3
   ignoreIFrames: 0
+  breakable: 0
+  broken: 0
 --- !u!114 &8211447228336506825
 MonoBehaviour:
   m_ObjectHideFlags: 0
