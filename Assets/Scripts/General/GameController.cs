@@ -70,6 +70,13 @@ public class GameController : MonoBehaviour
         currentFogDensity = newDensity;
         currentFogColor = newFogColor;
     }
+    public IEnumerator SwitchSong(AudioClip songToSwitch, float switchDelay = 1)
+    {
+        gameMusic.Stop();
+        yield return new WaitForSeconds(switchDelay);
+        gameMusic.clip = songToSwitch;
+        gameMusic.Play();
+    }
     public void StartNewLevel()
     {
         string lastLRank;

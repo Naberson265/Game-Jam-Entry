@@ -32,6 +32,10 @@ public class PlayerController : Resettable
 
     [Header("Face")]
     private float blinkCooldown = 4;
+    // Check the mouth spritesheet for the order of faces (left to right).
+    public int mouthState = 0;
+    // 0-Default (only one that blinks) 1-Panicked 2-Shut Eyes
+    public int eyeState = 0;
 
     [Header("Movement")]
     public float moveSpeed = 8f;
@@ -221,10 +225,18 @@ public class PlayerController : Resettable
         }
 
         // Blink
-        blinkCooldown -= Time.deltaTime;
+        if (eyeState == 1)
+        {
+            // If panicked, the blink time decreases faster.
+            blinkCooldown -= Time.deltaTime * 2;
+        }
+        else blinkCooldown -= Time.deltaTime;
         if (blinkCooldown < 0)
         {
-            modelAnimator.SetTrigger("Blink");
+            if (eyeState == 0)
+            {
+                modelAnimator.SetTrigger("Blink");
+            }
             blinkCooldown = UnityEngine.Random.Range(2f, 7f);
         }
     }

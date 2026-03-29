@@ -14,9 +14,8 @@ public class CameraScript : MonoBehaviour
     }
     void LateUpdate()
     {
-        //
         SettingManagement();
-        if (canMove && PlayerController.playerController.canMove && !paused) CamMove();
+        if (canMove && !paused) CamMove();
         if (Input.GetButtonDown("Pause") && canMove)
         {
             if (paused) UnpauseGame();
@@ -34,9 +33,10 @@ public class CameraScript : MonoBehaviour
     }
 	private void CamMove()
     {
-        xRot -= Input.GetAxis("Mouse Y") * mouseSensitivity;
-        yRot += Input.GetAxis("Mouse X") * mouseSensitivity;
-        distanceToPlayer -= Input.GetAxis("Mouse ScrollWheel") * 10f;
+        // Still follows the player if the player can't make inputs, but the camera can't turn.
+        if (PlayerController.playerController.canMove) xRot -= Input.GetAxis("Mouse Y") * mouseSensitivity;
+        if (PlayerController.playerController.canMove) yRot += Input.GetAxis("Mouse X") * mouseSensitivity;
+        if (PlayerController.playerController.canMove) distanceToPlayer -= Input.GetAxis("Mouse ScrollWheel") * 10f;
         if (distanceToPlayer > maxDistance) distanceToPlayer = maxDistance;
         if (distanceToPlayer < minDistance) distanceToPlayer = minDistance;
         xRot = Mathf.Clamp(xRot, -80f, 80f);
