@@ -137,6 +137,7 @@ public class PlayerController : Resettable
         SaveDefault();
 
         blinkCooldown = UnityEngine.Random.Range(2f, 7f);
+        ditherer.StartAnim("End");
     }
 
     IEnumerator waitForBool()
