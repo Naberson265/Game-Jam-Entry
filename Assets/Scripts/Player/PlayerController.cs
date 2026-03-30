@@ -37,6 +37,8 @@ public class PlayerController : Resettable
     public int mouthState = 0;
     // 0-Default (only one that blinks) 1-Panicked 2-Shut Eyes
     public int eyeState = 0;
+    public float faceMood;
+    public bool useMood = true;
 
     [Header("Movement")]
     public float moveSpeed = 8f;
@@ -332,12 +334,29 @@ public class PlayerController : Resettable
         }
 
         //Mood heads towards 0
-        if(modelAnimator.GetFloat("Mood") > 0)
+        if (faceMood > 0)
         {
-            modelAnimator.SetFloat("Mood", modelAnimator.GetFloat("Mood") - 5f * Time.fixedDeltaTime);
-        } else
+            faceMood -= 5f * Time.fixedDeltaTime;
+        }
+        else
         {
-            modelAnimator.SetFloat("Mood", modelAnimator.GetFloat("Mood") + 5f * Time.fixedDeltaTime);
+            faceMood += 5f * Time.fixedDeltaTime;
+        }
+        if (useMood)
+        {
+            if (faceMood > 10f)
+            {
+                mouthState = 5;
+            }
+            else if (faceMood < 10f)
+            {
+                mouthState = 2;
+            }
+            else mouthState = 0;
+        }
+        else
+        {
+            faceMood = 0f;
         }
     }
 
@@ -356,7 +375,7 @@ public class PlayerController : Resettable
             }
             else if (!usedAirAbility)
             {
-                modelAnimator.SetFloat("Mood", 15);
+                faceMood = 15;
                 dashParticle.Play();
                 playerAudio.PlayOneShot(speedSFX);
                 usedAirAbility = true;
@@ -375,7 +394,7 @@ public class PlayerController : Resettable
         else if (GetAbility() == 3 && !grounded && currentCoyoteTime <= 0f && !usedAirAbility)
         {
             StartCoroutine(GroundPound());
-            modelAnimator.SetFloat("Mood", 20);
+            faceMood = 20;
             usedAirAbility = true;
         }
         // Spring
@@ -515,7 +534,7 @@ public class PlayerController : Resettable
         droppedPart.transform.localScale = gameObject.transform.localScale;
         playerAudio.PlayOneShot(hitSFX);
         UpdateAppearance();
-        modelAnimator.SetFloat("Mood", -20);
+        faceMood = -20;
 
         //Conserve horizontal momentum when taking Damage
         Vector3 saveVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
@@ -533,7 +552,7 @@ public class PlayerController : Resettable
             {
                 launchMult *= springLaunchMultiplier;
                 playerAudio.PlayOneShot(springSFX);
-                modelAnimator.SetFloat("Mood", 15);
+                faceMood = 15;
             }
             Jump(launchMult, false);
             launching = true;
@@ -565,7 +584,7 @@ public class PlayerController : Resettable
 
     private IEnumerator RespawnRoutine()
     {
-        modelAnimator.SetFloat("Mood", -15);
+        faceMood = -15;
         for (int i = 0; i < 100; i++)
         {
             float size = healthToSize[health.Count];
@@ -596,7 +615,7 @@ public class PlayerController : Resettable
     public void Powerup(int ability)
     {
         DisableAbilities();
-        modelAnimator.SetFloat("Mood", 20);
+        faceMood = -20;
         health.Add(ability);
         playerAudio.PlayOneShot(powerupSFX);
         UpdateAppearance();
@@ -614,7 +633,7 @@ public class PlayerController : Resettable
         savedHealth = new List<int>(health);
         if(Time.time > 5)
         {
-            modelAnimator.SetFloat("Mood", 25);
+            faceMood = 25;
         }
         // Spawnpoint is set by checkpoints because I'm lazy
     }
