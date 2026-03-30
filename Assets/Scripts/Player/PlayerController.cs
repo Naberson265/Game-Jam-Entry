@@ -334,10 +334,10 @@ public class PlayerController : Resettable
         //Mood heads towards 0
         if(modelAnimator.GetFloat("Mood") > 0)
         {
-            modelAnimator.SetFloat("Mood", modelAnimator.GetFloat("Mood") - 5f * Time.fixedDeltaTime);
+            modelAnimator.SetFloat("Mood", modelAnimator.GetFloat("Mood") - 7f * Time.fixedDeltaTime);
         } else
         {
-            modelAnimator.SetFloat("Mood", modelAnimator.GetFloat("Mood") + 5f * Time.fixedDeltaTime);
+            modelAnimator.SetFloat("Mood", modelAnimator.GetFloat("Mood") + 7f * Time.fixedDeltaTime);
         }
     }
 
