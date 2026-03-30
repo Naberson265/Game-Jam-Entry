@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class EscapeEndTrigger : MonoBehaviour
@@ -40,6 +40,8 @@ public class EscapeEndTrigger : MonoBehaviour
         cms.transform.rotation = camNewTransform.rotation;
         yield return new WaitForSeconds(2f);
         ditherer.StartAnim("Start");
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene("Credits");
     }
     private void OnTriggerEnter(Collider other)
     {

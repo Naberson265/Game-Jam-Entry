@@ -109,8 +109,10 @@ public class EscapeSequenceTrigger : MonoBehaviour
         ps.modelAnimator.Play("Idle");
         cms.GetComponent<Animator>().enabled = false;
         ps.rb.isKinematic = false;
+        escapeObjects.SetActive(true);
         escapeObjects.transform.position = new Vector3(0, 0, 0);
         lavaRise.activated = true;
+        RenderSettings.ambientIntensity = 1.5f;
         ps.transform.position = playerEndAnimTransform.position;
         ps.transform.rotation = playerEndAnimTransform.rotation;
         StartCoroutine(gc.SwitchSong(loopSong, 0f));
