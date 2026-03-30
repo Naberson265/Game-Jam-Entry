@@ -352,7 +352,10 @@ public class PlayerController : Resettable
             {
                 mouthState = 2;
             }
-            else mouthState = 0;
+            else
+            {
+                mouthState = 0;
+            }
         }
         else
         {
@@ -615,7 +618,7 @@ public class PlayerController : Resettable
     public void Powerup(int ability)
     {
         DisableAbilities();
-        faceMood = -20;
+        faceMood = 20;
         health.Add(ability);
         playerAudio.PlayOneShot(powerupSFX);
         UpdateAppearance();
