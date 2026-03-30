@@ -112,6 +112,7 @@ public class ProgressionManager: MonoBehaviour
         GameController.MovePlayerToLevel(levelNum);
         for (int i = 0; i < levelNum; i++)
         {
+            GameController.gameController.levelRanks.Add(5);
             GameController.gameController.SetLevelTimer(i + 1, "", GetRecord(i, zoneNum));
         }
     }
@@ -138,7 +139,7 @@ public class ProgressionManager: MonoBehaviour
 
     public static void Save()
     {
-        print(Application.persistentDataPath);
+        //print(Application.persistentDataPath);
         File.WriteAllText(SaveFileName(), JsonUtility.ToJson(_saveData));
         print("Saved");
     }

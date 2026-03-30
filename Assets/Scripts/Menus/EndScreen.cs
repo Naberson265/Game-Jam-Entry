@@ -33,7 +33,7 @@ public class ZoneEndScreen : MonoBehaviour
                 }
                 else if (gc.finalRank == 3)
                 {
-                    frText.text = "C RANK!";
+                    frText.text = "C RANK.";
                     if (frText.transform.name != "ZoneRankShadow") frText.color = Color.cyan;
                 }
                 else if (gc.finalRank == 4)
@@ -51,6 +51,7 @@ public class ZoneEndScreen : MonoBehaviour
         int currentLRCount = 0;
         foreach (TMP_Text levelText in levelRankTexts)
         {
+            print(currentLRCount.ToString() + " " +  gc.levelRanks[currentLRCount].ToString());
             if (gc.levelRanks.Count > currentLRCount)
             {
                 string rankLetter;
