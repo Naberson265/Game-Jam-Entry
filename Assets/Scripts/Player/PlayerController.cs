@@ -348,7 +348,7 @@ public class PlayerController : Resettable
             {
                 mouthState = 5;
             }
-            else if (faceMood < 10f)
+            else if (faceMood < -10f)
             {
                 mouthState = 2;
             }
