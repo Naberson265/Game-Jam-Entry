@@ -112,10 +112,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 24cd9b63aba2fa348981fcbf4c19bfa3, type: 3}
   levelRanks: 
   finalRank: 0
+  showRankScreen: 1
   zone: 0
   levelCount: 3
   levelTimers: []
   levelSpawnpoints: []
+  reloadOnDeath: 0
   currentFogColor: {r: 1, g: 1, b: 1, a: 1}
   currentFogDensity: 0
 --- !u!82 &4028765369042315540
@@ -261,6 +263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VolumeController
   musicAudioMixer: {fileID: 24100000, guid: 850181c93af06ef4d9fe435a24335f74, type: 2}
   sfxAudioMixer: {fileID: 24100000, guid: 45f83e00c7506ab43af903e1e668e6ad, type: 2}
+  voiceAudioMixer: {fileID: 24100000, guid: f14e394ffa708b543a6b814dbde4271d, type: 2}
   suppressionAmount: -10
 --- !u!1 &8790304421534426931
 GameObject:

@@ -8,6 +8,7 @@ public class OptionsMenuController : MonoBehaviour
     public Slider renderDistSlider;
     public Slider musicVolumeSlider;
     public Slider sfxVolumeSlider;
+    public Slider voiceVolumeSlider;
 
     public Toggle occlusionCullToggle;
     public Toggle turnCam;
@@ -24,6 +25,7 @@ public class OptionsMenuController : MonoBehaviour
         PlayerPrefs.SetInt("TurnWithCamera", 0);
         PlayerPrefs.SetFloat("MusicVolume", 0);
         PlayerPrefs.SetFloat("SFXVolume", 0);
+        PlayerPrefs.SetFloat("VoiceVolume", 0);
         CheckForDefaults();
     }
     public void CheckForDefaults()
@@ -33,12 +35,14 @@ public class OptionsMenuController : MonoBehaviour
         if (PlayerPrefs.GetFloat("RenderDist") == 0) PlayerPrefs.SetFloat("RenderDist", 1000);
         if (PlayerPrefs.GetFloat("MusicVolume") == 0) PlayerPrefs.SetFloat("MusicVolume", 0);
         if (PlayerPrefs.GetFloat("SFXVolume") == 0) PlayerPrefs.SetFloat("SFXVolume", 0);
+        if (PlayerPrefs.GetFloat("VoiceVolume") == 0) PlayerPrefs.SetFloat("VoiceVolume", 0);
         if (PlayerPrefs.GetInt("OcclusionCulling") == 0) PlayerPrefs.SetInt("OcclusionCulling", 2);
         if (PlayerPrefs.GetInt("TurnWithCamera") == 0) PlayerPrefs.SetInt("TurnWithCamera", 1);
         sensitivitySlider.value = PlayerPrefs.GetFloat("Sensitivity");
         renderDistSlider.value = PlayerPrefs.GetFloat("RenderDist");
         musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume");
         sfxVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume");
+        voiceVolumeSlider.value = PlayerPrefs.GetFloat("VoiceVolume");
         if (PlayerPrefs.GetInt("OcclusionCulling") == 2) occlusionCullToggle.isOn = true;
         else occlusionCullToggle.isOn = false;
         if (PlayerPrefs.GetInt("TurnWithCamera") == 2) turnCam.isOn = true;
@@ -50,6 +54,7 @@ public class OptionsMenuController : MonoBehaviour
         PlayerPrefs.SetFloat("RenderDist", renderDistSlider.value);
         PlayerPrefs.SetFloat("MusicVolume", musicVolumeSlider.value);
         PlayerPrefs.SetFloat("SFXVolume", sfxVolumeSlider.value);
+        PlayerPrefs.SetFloat("VoiceVolume", voiceVolumeSlider.value);
         // 0 is default so the bools (done with ints) are set to 1/2 instead of 0/1.
         if (occlusionCullToggle.isOn) PlayerPrefs.SetInt("OcclusionCulling", 2);
         else PlayerPrefs.SetInt("OcclusionCulling", 1);
