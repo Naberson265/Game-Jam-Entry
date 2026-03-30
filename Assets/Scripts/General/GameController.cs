@@ -82,12 +82,19 @@ public class GameController : MonoBehaviour
     public void StartNewLevel()
     {
         string lastLRank;
-        if (levelRanks[levelRanks.Count - 1] == 0) lastLRank = "S";
-        else if (levelRanks[levelRanks.Count - 1] == 1) lastLRank = "A";
-        else if (levelRanks[levelRanks.Count - 1] == 2) lastLRank = "B";
-        else if (levelRanks[levelRanks.Count - 1] == 3) lastLRank = "C";
-        else if (levelRanks[levelRanks.Count - 1] == 4) lastLRank = "D";
-        else lastLRank = "N/A";
+        if (levelRanks.Count == 0)
+        {
+            lastLRank = "N/A";
+        } else
+        {
+            if (levelRanks[levelRanks.Count - 1] == 0) lastLRank = "S";
+            else if (levelRanks[levelRanks.Count - 1] == 1) lastLRank = "A";
+            else if (levelRanks[levelRanks.Count - 1] == 2) lastLRank = "B";
+            else if (levelRanks[levelRanks.Count - 1] == 3) lastLRank = "C";
+            else if (levelRanks[levelRanks.Count - 1] == 4) lastLRank = "D";
+            else lastLRank = "N/A";
+        }
+       
         Resettable.SaveDefaults();
         if (timePassed > 5)   // Lazy fix but I don't feel like reworking everything. Hopefully someone doesn't lag for more than 5 seconds.
         {
@@ -130,6 +137,11 @@ public class GameController : MonoBehaviour
     }
     public void EndLevelSet(Transform cameraPos, Transform playerPos)
     {
+        foreach (int level in levelRanks)
+        {
+            print(level);
+
+        }
         gameMusic.Stop();
         finalRank = 0;
         if (showRankScreen)
