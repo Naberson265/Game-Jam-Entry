@@ -210,7 +210,7 @@ public class PlayerController : Resettable
         {
             abilityCooldown -= Time.deltaTime;
         }
-        // If the camera is very close to or inside the player model, disable it.
+        // If the camera is very close to or inside the player model, disable the face.
         if ((transform.position - mainCam.transform.position).magnitude < healthToSize[health.Count])
         {
             face.SetActive(false);
