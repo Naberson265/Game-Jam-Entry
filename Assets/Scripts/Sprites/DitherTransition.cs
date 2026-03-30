@@ -4,7 +4,7 @@ using System.Collections;
 public class DitherTransition : MonoBehaviour
 {
     private Animator animController;
-    void Start()
+    void Awake()
     {
         animController = GetComponent<Animator>();
     }
