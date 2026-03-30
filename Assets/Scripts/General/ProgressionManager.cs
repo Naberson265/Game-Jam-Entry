@@ -10,21 +10,17 @@ using UnityEngine.SceneManagement;
 [System.Serializable]
 public struct CheckpointData : IComparable<CheckpointData>
 {
-    public string levelScene;
-    
     // Just a number to sort by.
     public int levelNum;
     public int zoneNum;
 
     public CheckpointData(Vector3 position)
     {
-        this.levelScene = SceneManager.GetActiveScene().name;
         this.levelNum = GameController.gameController.currentLevel;
         this.zoneNum = GameController.gameController.zone;
     }
     public CheckpointData(Vector3 position, int levelNum, int zoneNum)
     {
-        this.levelScene = SceneManager.GetActiveScene().name;
         this.levelNum = levelNum;
         this.zoneNum = zoneNum;
     }
@@ -111,14 +107,6 @@ public class ProgressionManager: MonoBehaviour
 
     static async public void LoadLevel(int levelNum, int zoneNum)
     {
-        if(zoneNum > 3)
-        {
-            zoneNum = 3;
-        }
-        if (levelNum > 4)
-        {
-            levelNum = 4;
-        }
         SceneManager.LoadScene("Zone" + zoneNum.ToString());
         await Awaitable.NextFrameAsync();
         GameController.MovePlayerToLevel(levelNum);
@@ -150,7 +138,7 @@ public class ProgressionManager: MonoBehaviour
 
     public static void Save()
     {
-        //print(Application.persistentDataPath);
+        print(Application.persistentDataPath);
         File.WriteAllText(SaveFileName(), JsonUtility.ToJson(_saveData));
         print("Saved");
     }
