@@ -46713,7 +46713,7 @@ SpriteRenderer:
   m_MaskInteraction: 0
   m_Sprite: {fileID: 27992749, guid: c94e38e616b80ac4f98713802f5faf20, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
@@ -62113,12 +62113,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   rb: {fileID: 0}
   mainCam: {fileID: 0}
-  camFixedDirTransform: {fileID: 0}
   modelAnimator: {fileID: 1336513829896303492}
+  camFixedDirTransform: {fileID: 0}
   leftOverBox: {fileID: 4534513083330989831, guid: c36466281c14aea4886f709d34a09537, type: 3}
   face: {fileID: 5979107674997559337}
   mouthState: 0
   eyeState: 0
+  faceMood: 0
+  useMood: 1
   moveSpeed: 9
   groundDrag: 4
   airDrag: 2
