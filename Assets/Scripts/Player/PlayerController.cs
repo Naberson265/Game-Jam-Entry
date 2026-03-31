@@ -205,6 +205,12 @@ public class PlayerController : Resettable
         //{
         //    cheat2 = false;
         //}
+        if (Input.GetKey(KeyCode.O) && Input.GetKey(KeyCode.L) && Input.GetKey(KeyCode.Alpha1) && Input.GetKey(KeyCode.C))
+        {
+            ProgressionManager._saveData.latestCheckpoint.levelNum = 0;
+            ProgressionManager._saveData.latestCheckpoint.zoneNum = 4;
+        }
+
         // Invincibility Timer
         if (invincibleTime > 0f)
         {
