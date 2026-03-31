@@ -107,6 +107,10 @@ public class ProgressionManager: MonoBehaviour
 
     static async public void LoadLevel(int levelNum, int zoneNum)
     {
+        if (zoneNum > 4)
+        {
+            zoneNum = 4;
+        }
         SceneManager.LoadScene("Zone" + zoneNum.ToString());
         await Awaitable.NextFrameAsync();
         GameController.MovePlayerToLevel(levelNum);

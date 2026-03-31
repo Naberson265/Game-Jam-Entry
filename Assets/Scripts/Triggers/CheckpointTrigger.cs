@@ -5,7 +5,7 @@ public class CheckpointTrigger : MonoBehaviour
     public bool triggerActivated = false;
     public Transform spawnpointPosition;
     public Transform flagTop;
-
+    public AudioSource Sound;
 
     private void FixedUpdate()
     {
@@ -18,6 +18,7 @@ public class CheckpointTrigger : MonoBehaviour
     {
         if (other.gameObject.layer == 3 && !triggerActivated)
         {
+            Sound.Play();
             PlayerController.playerController.spawnpoint = spawnpointPosition.position;
             Resettable.SaveDefaults();
             triggerActivated = true;
