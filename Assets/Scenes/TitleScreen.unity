@@ -217224,11 +217224,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2131495353221469022, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
       propertyPath: zone
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2131495353221469022, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
       propertyPath: level
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3092520009290878070, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
