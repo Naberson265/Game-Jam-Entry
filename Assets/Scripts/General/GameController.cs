@@ -7,6 +7,15 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
+    static public float[,,] rankTimes = new float[4, 4, 4] {
+//Level   0                    1                     2             3
+//Rank    S  A  B  C           S  A  B  C            S  A  B  C    S  A  B  C
+        {{1, 100, 200, 400}, {150, 200, 400, 900}, {210, 250, 500, 1000}, {0, 0, 0, 0}},    //Zone 1
+        {{45, 120, 300, 600}, {120, 400, 600, 1300}, {120, 240, 500, 900}, {0, 0, 0, 0}},    //Zone 2
+        {{120, 210, 400, 800}, {190, 270, 400, 1000}, {300, 360, 600, 1200}, {0, 0, 0, 0}},    //Zone 3
+        {{120, 210, 240, 300}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}},     //3-4
+    };
+
     [Header("Objects")]
     public static GameController gameController { get; private set; }
     public GameObject mainGUI;
@@ -39,7 +48,7 @@ public class GameController : MonoBehaviour
     {
         if (gameController != null && gameController != this)
         {
-            Destroy(this.gameObject); // Destroy duplicate
+            Destroy(gameObject); // Destroy duplicate
             return;
         }
         gameController = this;
@@ -79,23 +88,43 @@ public class GameController : MonoBehaviour
         gameMusic.clip = songToSwitch;
         gameMusic.Play();
     }
+    protected void SaveStuff()
+    {
+        Resettable.SaveDefaults();
+    }
+
+    public string getRank(float time, int level, int zone)
+    {
+        if (time < rankTimes[zone - 1, level, 0])
+        {
+            levelRanks.Add(0);
+            return "S";
+        }
+        else if (time < rankTimes[zone - 1, level, 1])
+        {
+            levelRanks.Add(1);
+            return "A";
+        }
+        else if (time < rankTimes[zone - 1, level, 2])
+        {
+            levelRanks.Add(2);
+            return "B";
+        }
+        else if (time < rankTimes[zone - 1, level, 3])
+        {
+            levelRanks.Add(3);
+            return "C";
+        }
+        else
+        {
+            levelRanks.Add(4);
+            return "D";
+        }
+    }
+
     public void StartNewLevel()
     {
-        string lastLRank;
-        if (levelRanks.Count == 0)
-        {
-            lastLRank = "N/A";
-        } else
-        {
-            if (levelRanks[levelRanks.Count - 1] == 0) lastLRank = "S";
-            else if (levelRanks[levelRanks.Count - 1] == 1) lastLRank = "A";
-            else if (levelRanks[levelRanks.Count - 1] == 2) lastLRank = "B";
-            else if (levelRanks[levelRanks.Count - 1] == 3) lastLRank = "C";
-            else if (levelRanks[levelRanks.Count - 1] == 4) lastLRank = "D";
-            else lastLRank = "N/A";
-        }
-       
-        Resettable.SaveDefaults();
+        Invoke("SaveStuff", 0.5f);
         if (timePassed > 5)   // Lazy fix but I don't feel like reworking everything. Hopefully someone doesn't lag for more than 5 seconds.
         {
             ProgressionManager.SetRecord(timePassed);
@@ -104,25 +133,18 @@ public class GameController : MonoBehaviour
         ProgressionManager.SaveProgess(PlayerController.playerController.gameObject.transform.position);
         if (timePassed > 1)
         {
-            SetLevelTimer(currentLevel, lastLRank, timePassed);
+            SetLevelTimer(currentLevel-1, timePassed);
         }
         gameMusic.Stop();
         gameMusic.clip = levelSongs[currentLevel];
         gameMusic.Play();
         timePassed = 0f;
     }
-    public void SetLevelTimer(int level, string rank, float time)
+    public void SetLevelTimer(int level, float time)
     {
-        string rankString;
-        if (rank.Length > 0)
-        {
-            rankString = "(" + rank + ") ";
-        } else
-        {
-            rankString = "";
-        }
-        levelTimers[level].GetComponent<TMP_Text>().text = rankString + "L" + level.ToString() + ": " + CalculateFormattedTime(time);
-        levelTimers[level].SetActive(true);
+        string rankString = getRank(time,level,zone);
+        levelTimers[level+1].GetComponent<TMP_Text>().text = "(" +  rankString +  ")" + "L" + (level+1).ToString() + ": " + CalculateFormattedTime(time);
+        levelTimers[level+1].SetActive(true);
     }
 
     public string CalculateFormattedTime(float timeToFormat)
@@ -137,15 +159,18 @@ public class GameController : MonoBehaviour
     }
     public void EndLevelSet(Transform cameraPos, Transform playerPos)
     {
-        foreach (int level in levelRanks)
-        {
-            print(level);
+        //string rankString = getRank(timePassed, currentLevel, zone);
 
-        }
+
         gameMusic.Stop();
         finalRank = 0;
         if (showRankScreen)
         {
+            print(levelRanks.Count);
+            foreach (int level in levelRanks)
+            {
+                print(level);
+            }
             if (levelRanks.Count != 0 && levelRanks.Count == levelCount)
             {
                 foreach (int lRank in levelRanks)
