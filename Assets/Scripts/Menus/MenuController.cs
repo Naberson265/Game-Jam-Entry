@@ -19,6 +19,17 @@ public class MenuController : MonoBehaviour
     {
         Application.OpenURL(linkToOpen);
     }
+    public void CloseGame()
+    {
+        if (Application.platform != RuntimePlatform.WebGLPlayer)
+        {
+		    Application.Quit();
+        }
+        else
+        {
+            SceneManager.LoadScene("TitleScreen");
+        }
+    }
 
     // Sadly Buttons can only have one argument so I did it this way
     public void OpenLevel(string levelId)

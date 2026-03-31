@@ -54,6 +54,7 @@ public class EscapeSequenceTrigger : MonoBehaviour
     {
         // Labels for people looking through code since this cutscene is a mess cause of how I did it.
         // Also to those who are snooping around, no this isn't a 4th zone, it's an extension to zone 3.
+        Debug.Log("CutsceneSegment1");
         activated = true;
         GameController gc = GameController.gameController;
         PlayerController ps = PlayerController.playerController;
@@ -62,6 +63,7 @@ public class EscapeSequenceTrigger : MonoBehaviour
         // Disables movement but allows player and camera to decelerate.
         ps.canMove = false;
         yield return new WaitForSeconds(1f);
+        Debug.Log("CutsceneSegment2");
         ps.useMood = false;
         ps.mouthState = 1;
         // Disale UI, show skip scene text.
@@ -81,18 +83,23 @@ public class EscapeSequenceTrigger : MonoBehaviour
         midCutscene = true;
         gc.gameMusic.PlayOneShot(voiceline);
         yield return new WaitForSeconds(5.75f);
+        Debug.Log("CutsceneSegment3");
         escapeObjects.transform.position = new Vector3(0, -450, 0);
         escapeObjects.SetActive(true);
         yield return new WaitForSeconds(5f);
+        Debug.Log("CutsceneSegment4");
         // Expression changes during the cutscene.
         ps.mouthState = 2;
         ps.eyeState = 1;
         yield return new WaitForSeconds(0.5f);
+        Debug.Log("CutsceneSegment5");
         ps.eyeState = 0;
         yield return new WaitForSeconds(5f);
+        Debug.Log("CutsceneSegment6");
         ps.mouthState = 4;
         ps.eyeState = 1;
         yield return new WaitForSeconds(5.25f);
+        Debug.Log("CutsceneSegment7");
         CutsceneEnd();
     }
     public void CutsceneEnd()

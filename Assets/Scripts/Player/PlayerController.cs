@@ -61,6 +61,7 @@ public class PlayerController : Resettable
     public float currentCoyoteTime;
     public float terminalVelocity = 50f;
     public bool canMove = true;
+    private bool firstPerson = false;
     private Vector3 movementDir = Vector3.zero;
 
     [Header("Audio")]
@@ -217,10 +218,12 @@ public class PlayerController : Resettable
         if ((transform.position - mainCam.transform.position).magnitude < healthToSize[health.Count])
         {
             face.SetActive(false);
+            firstPerson = true;
         }
         else
         {
             face.SetActive(true);
+            firstPerson = false;
         }
 
         // Blink
@@ -253,7 +256,6 @@ public class PlayerController : Resettable
         {
             currentCoyoteTime -= Time.fixedDeltaTime;
         }
-
         modelAnimator.SetBool("Grounded", grounded);
         modelAnimator.SetBool("Moving", movementDir.magnitude > 0.2f && canMove);
         if(cheat1)
@@ -295,8 +297,8 @@ public class PlayerController : Resettable
             // Makes the player look in the direction they move.
             Vector3 directionToFace = transform.position + transform.forward + movementDir.normalized * 0.4f;
             transform.LookAt(directionToFace);
-            // Cancel out the above if Turn With Camera is enabled.
-            if (PlayerPrefs.GetInt("TurnWithCamera") == 2) transform.rotation = camFixedDirTransform.rotation;
+            // Cancel out the above if Turn With Camera is enabled or the player is in first person.
+            if (PlayerPrefs.GetInt("TurnWithCamera") == 2 || firstPerson) transform.rotation = camFixedDirTransform.rotation;
         }
 
         // We only want terminal velocity to effect downwards speed. When floating change this terminal velocity temporarily.
