@@ -19,8 +19,7 @@ public class ButtonDisable : MonoBehaviour
             button.interactable = true;
         } else
         {
-            // TODO: Uncomment before release!
-            //button.interactable = false;
+            button.interactable = false;
         }
     }
 }

@@ -15,6 +15,10 @@ public class MenuController : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
+    public void OpenWebsite(string linkToOpen)
+    {
+        Application.OpenURL(linkToOpen);
+    }
 
     // Sadly Buttons can only have one argument so I did it this way
     public void OpenLevel(string levelId)

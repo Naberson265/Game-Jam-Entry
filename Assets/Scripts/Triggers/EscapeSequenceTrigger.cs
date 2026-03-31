@@ -9,6 +9,7 @@ public class EscapeSequenceTrigger : MonoBehaviour
     public bool midCutscene = false;
     public float levelRiseSpeed = 15f;
     public GameObject escapeObjects;
+    public GameObject skipText;
     public Image clockImg;
     public TMP_Text timeText;
     public Sprite newClock;
@@ -51,6 +52,8 @@ public class EscapeSequenceTrigger : MonoBehaviour
     }
     public IEnumerator StartSequence()
     {
+        // Labels for people looking through code since this cutscene is a mess cause of how I did it.
+        // Also to those who are snooping around, no this isn't a 4th zone, it's an extension to zone 3.
         activated = true;
         GameController gc = GameController.gameController;
         PlayerController ps = PlayerController.playerController;
@@ -61,7 +64,9 @@ public class EscapeSequenceTrigger : MonoBehaviour
         yield return new WaitForSeconds(1f);
         ps.useMood = false;
         ps.mouthState = 1;
+        // Disale UI, show skip scene text.
         gc.mainGUI.SetActive(false);
+        skipText.SetActive(true);
         // Prevents the player and camera from moving due to inputs at all as the song starts.
         cms.canMove = false;
         ps.rb.isKinematic = true;
@@ -103,6 +108,7 @@ public class EscapeSequenceTrigger : MonoBehaviour
         midCutscene = false;
         // Restores all input and resets most things as the escape starts.
         gc.mainGUI.SetActive(true);
+        skipText.SetActive(false);
         gc.timePassed = 0;
         ps.canMove = true;
         cms.canMove = true;

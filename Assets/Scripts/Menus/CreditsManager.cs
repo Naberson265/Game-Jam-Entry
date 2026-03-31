@@ -7,6 +7,7 @@ using TMPro;
 public class CreditsManager : MonoBehaviour
 {
     public Transform landscape;
+    public GameObject skipText;
     public RectTransform scrollText;
     public float timeUntilScroll;
     // When the text stops scrolling.
@@ -28,6 +29,7 @@ public class CreditsManager : MonoBehaviour
         }
         if (timeUntilScroll <= 0)
         {
+            skipText.SetActive(true);
             timeUntilScroll = 0;
             if (scrollText.anchoredPosition.y < scrollLimit)
             {
@@ -60,7 +62,9 @@ public class CreditsManager : MonoBehaviour
     }
     public IEnumerator CreditsEnd()
     {
+        timeUntilScroll = 99f;
         ditherer.StartAnim("Start");
+        skipText.SetActive(false);
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene("TitleScreen");
     }
