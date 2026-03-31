@@ -30,6 +30,7 @@ public class EscapeEndTrigger : MonoBehaviour
         GameController gc = GameController.gameController;
         PlayerController ps = PlayerController.playerController;
         CameraScript cms = ps.mainCam.GetComponent<CameraScript>();
+        ProgressionManager.SetRecord(GameController.gameController.timePassed);
         lavaRise.activated = false;
         gc.mainGUI.SetActive(false);
         gc.EndLevelSet(camNewTransform, camNewTransform);
@@ -41,6 +42,7 @@ public class EscapeEndTrigger : MonoBehaviour
         yield return new WaitForSeconds(2f);
         ditherer.StartAnim("Start");
         yield return new WaitForSeconds(1f);
+        Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene("Credits");
     }
     private void OnTriggerEnter(Collider other)

@@ -14,6 +14,8 @@ public class LevelStartTrigger : MonoBehaviour
     public int[] rankTimes = {90, 120, 150, 180};
     // Recommend you use the below due to the level select system.
     public int levelToStart = -1;
+
+
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == 3)
@@ -25,7 +27,6 @@ public class LevelStartTrigger : MonoBehaviour
             {
                 PlayerController.playerController.spawnpoint = transform.position;
             }
-            Resettable.SaveDefaults();
             foreach (GameObject activatingObj in objectsToActivate)
             {
                 activatingObj.SetActive(true);
@@ -41,31 +42,6 @@ public class LevelStartTrigger : MonoBehaviour
             foreach (Activatable actionObjectOff in activatablesOff)
             {
                 actionObjectOff.activated = false;
-            }
-            // If you don't like nested if statements too bad.
-            if (GameController.gameController.timePassed > 5)
-            {
-                if (GameController.gameController.timePassed > 1f)
-                {
-                    if (GameController.gameController.timePassed <= rankTimes[3])
-                    {
-                        if (GameController.gameController.timePassed <= rankTimes[2])
-                        {
-                            if (GameController.gameController.timePassed <= rankTimes[1])
-                            {
-                                if (GameController.gameController.timePassed <= rankTimes[0])
-                                {
-                                    GameController.gameController.levelRanks.Add(0);
-                                }
-                                else GameController.gameController.levelRanks.Add(1);
-                            }
-                            else GameController.gameController.levelRanks.Add(2);
-                        }
-                        else GameController.gameController.levelRanks.Add(3);
-                    }
-                    else GameController.gameController.levelRanks.Add(4);
-                }
-                else GameController.gameController.levelRanks.Add(5);
             }
             // If there is a designated level, set the level to 1 before it so that when
             // the GameController level function runs the correct level is set.

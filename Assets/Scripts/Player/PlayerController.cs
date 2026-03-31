@@ -188,22 +188,22 @@ public class PlayerController : Resettable
         {
             rb.linearDamping = airDrag;
         }
-        // Cheats
-        if (Input.GetKey(KeyCode.O))
-        {
-            cheat1 = true;
-        } else
-        {
-            cheat1 = false;
-        }
-        if (Input.GetKey(KeyCode.L))
-        {
-            cheat2 = true;
-        }
-        else
-        {
-            cheat2 = false;
-        }
+        //// Cheats
+        //if (Input.GetKey(KeyCode.O))
+        //{
+        //    cheat1 = true;
+        //} else
+        //{
+        //    cheat1 = false;
+        //}
+        //if (Input.GetKey(KeyCode.L))
+        //{
+        //    cheat2 = true;
+        //}
+        //else
+        //{
+        //    cheat2 = false;
+        //}
         // Invincibility Timer
         if (invincibleTime > 0f)
         {
