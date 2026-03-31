@@ -246882,6 +246882,8 @@ MonoBehaviour:
   activated: 0
   pushSpeed: 0.5
   activeDisplacement: {x: 0, y: -12.5, z: 0}
+  startPoint: {x: 0, y: 0, z: 0}
+  activePoint: {x: 0, y: 0, z: 0}
 --- !u!64 &1247775278
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -269945,6 +269947,8 @@ MonoBehaviour:
   activated: 0
   pushSpeed: 0.5
   activeDisplacement: {x: 0, y: -22.5, z: 0}
+  startPoint: {x: 0, y: 0, z: 0}
+  activePoint: {x: 0, y: 0, z: 0}
 --- !u!64 &1361413966
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -344184,7 +344188,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5515581376375842634, guid: fdca79a255357754b8548bb812d0ea99, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -40
+      value: -35
       objectReference: {fileID: 0}
     - target: {fileID: 5515581376375842634, guid: fdca79a255357754b8548bb812d0ea99, type: 3}
       propertyPath: m_LocalPosition.z
@@ -423474,7 +423478,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EscapeSequenceTrigger
   activated: 0
   midCutscene: 0
-  levelRiseSpeed: 4
+  levelRiseSpeed: 40
   escapeObjects: {fileID: 2079164082}
   skipText: {fileID: 2048849012}
   clockImg: {fileID: 979610562}
