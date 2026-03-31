@@ -246861,7 +246861,7 @@ GameObject:
   - component: {fileID: 1247775278}
   - component: {fileID: 1247775277}
   m_Layer: 6
-  m_Name: MovingTile (1)
+  m_Name: MovingTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -423487,6 +423487,7 @@ MonoBehaviour:
   introSong: {fileID: 8300000, guid: ed8178abb8c12b047b561ac2eb8db17b, type: 3}
   loopSong: {fileID: 8300000, guid: a78bf8db68675504b8979551c83c9b8b, type: 3}
   voiceline: {fileID: 8300000, guid: 65229f48bcd8c7347a10c8a47b34a343, type: 3}
+  cms: {fileID: 40592915}
 --- !u!1 &8737282078780799830
 GameObject:
   m_ObjectHideFlags: 0

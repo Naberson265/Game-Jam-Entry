@@ -20,11 +20,11 @@ public class EscapeSequenceTrigger : MonoBehaviour
     public AudioClip introSong;
     public AudioClip loopSong;
     public AudioClip voiceline;
+    public CameraScript cms;
     void Start()
     {
         escapeObjects.SetActive(false);
         // Prevents issues when the game is paused.
-        CameraScript cms = Camera.main.GetComponent<CameraScript>();
         cms.GetComponent<Animator>().enabled = false;
     }
     void Update()
@@ -56,32 +56,29 @@ public class EscapeSequenceTrigger : MonoBehaviour
         // Also to those who are snooping around, no this isn't a 4th zone, it's an extension to zone 3.
         Debug.Log("CutsceneSegment1");
         activated = true;
-        GameController gc = GameController.gameController;
-        PlayerController ps = PlayerController.playerController;
-        CameraScript cms = ps.mainCam.GetComponent<CameraScript>();
-        StartCoroutine(gc.SwitchSong(introSong));
+        StartCoroutine(GameController.gameController.SwitchSong(introSong));
         // Disables movement but allows player and camera to decelerate.
-        ps.canMove = false;
+        PlayerController.playerController.canMove = false;
         yield return new WaitForSeconds(1f);
         Debug.Log("CutsceneSegment2");
-        ps.useMood = false;
-        ps.mouthState = 1;
+        PlayerController.playerController.useMood = false;
+        PlayerController.playerController.mouthState = 1;
         // Disale UI, show skip scene text.
-        gc.mainGUI.SetActive(false);
+        GameController.gameController.mainGUI.SetActive(false);
         skipText.SetActive(true);
         // Prevents the player and camera from moving due to inputs at all as the song starts.
         cms.canMove = false;
-        ps.rb.isKinematic = true;
-        ps.transform.position = playerNewTransform.position;
-        ps.transform.rotation = playerNewTransform.rotation;
+        PlayerController.playerController.rb.isKinematic = true;
+        PlayerController.playerController.transform.position = playerNewTransform.position;
+        PlayerController.playerController.transform.rotation = playerNewTransform.rotation;
         cms.transform.position = camNewTransform.position;
         cms.transform.rotation = camNewTransform.rotation;
         // Starts all animations.
-        ps.modelAnimator.SetTrigger("Escape");
+        PlayerController.playerController.modelAnimator.SetTrigger("Escape");
         cms.GetComponent<Animator>().enabled = true;
         cms.GetComponent<Animator>().SetTrigger("Escape");
         midCutscene = true;
-        gc.gameMusic.PlayOneShot(voiceline);
+        GameController.gameController.gameMusic.PlayOneShot(voiceline);
         yield return new WaitForSeconds(5.75f);
         Debug.Log("CutsceneSegment3");
         escapeObjects.transform.position = new Vector3(0, -450, 0);
@@ -89,15 +86,15 @@ public class EscapeSequenceTrigger : MonoBehaviour
         yield return new WaitForSeconds(5f);
         Debug.Log("CutsceneSegment4");
         // Expression changes during the cutscene.
-        ps.mouthState = 2;
-        ps.eyeState = 1;
+        PlayerController.playerController.mouthState = 2;
+        PlayerController.playerController.eyeState = 1;
         yield return new WaitForSeconds(0.5f);
         Debug.Log("CutsceneSegment5");
-        ps.eyeState = 0;
+        PlayerController.playerController.eyeState = 0;
         yield return new WaitForSeconds(5f);
         Debug.Log("CutsceneSegment6");
-        ps.mouthState = 4;
-        ps.eyeState = 1;
+        PlayerController.playerController.mouthState = 4;
+        PlayerController.playerController.eyeState = 1;
         yield return new WaitForSeconds(5.25f);
         Debug.Log("CutsceneSegment7");
         CutsceneEnd();
@@ -105,30 +102,27 @@ public class EscapeSequenceTrigger : MonoBehaviour
     public void CutsceneEnd()
     {
         StopAllCoroutines();
-        GameController gc = GameController.gameController;
-        PlayerController ps = PlayerController.playerController;
-        CameraScript cms = ps.mainCam.GetComponent<CameraScript>();
         clockImg.sprite = newClock;
         timeText.color = Color.red;
-        ps.mouthState = 7;
-        ps.eyeState = 1;
+        PlayerController.playerController.mouthState = 7;
+        PlayerController.playerController.eyeState = 1;
         midCutscene = false;
         // Restores all input and resets most things as the escape starts.
-        gc.mainGUI.SetActive(true);
+        GameController.gameController.mainGUI.SetActive(true);
         skipText.SetActive(false);
-        gc.timePassed = 0;
-        ps.canMove = true;
+        GameController.gameController.timePassed = 0;
+        PlayerController.playerController.canMove = true;
         cms.canMove = true;
-        ps.modelAnimator.Play("Idle");
+        PlayerController.playerController.modelAnimator.Play("Idle");
         cms.GetComponent<Animator>().enabled = false;
-        ps.rb.isKinematic = false;
+        PlayerController.playerController.rb.isKinematic = false;
         escapeObjects.SetActive(true);
         escapeObjects.transform.position = new Vector3(0, 0, 0);
         lavaRise.activated = true;
         RenderSettings.ambientIntensity = 1.5f;
-        ps.transform.position = playerEndAnimTransform.position;
-        ps.transform.rotation = playerEndAnimTransform.rotation;
-        StartCoroutine(gc.SwitchSong(loopSong, 0f));
+        PlayerController.playerController.transform.position = playerEndAnimTransform.position;
+        PlayerController.playerController.transform.rotation = playerEndAnimTransform.rotation;
+        StartCoroutine(GameController.gameController.SwitchSong(loopSong, 0f));
     }
     private void OnTriggerEnter(Collider other)
     {
