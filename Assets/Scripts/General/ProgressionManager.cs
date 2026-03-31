@@ -129,6 +129,8 @@ public class ProgressionManager: MonoBehaviour
 
     static public void ResetSave()
     {
+        PlayerPrefs.SetInt("LevelNum", -1);
+        PlayerPrefs.SetInt("ZoneNum", -1);
         _saveData.latestCheckpoint = new CheckpointData(new Vector3(0, 0, 0), -1, -1);
         _saveData.records = new float[RECORDS_PER_LEVEL * LEVELS];
         Save();
@@ -143,6 +145,8 @@ public class ProgressionManager: MonoBehaviour
     public static void Save()
     {
         //print(Application.persistentDataPath);
+        PlayerPrefs.SetInt("LevelNum", _saveData.latestCheckpoint.levelNum);
+        PlayerPrefs.SetInt("ZoneNum", _saveData.latestCheckpoint.zoneNum);
         File.WriteAllText(SaveFileName(), JsonUtility.ToJson(_saveData));
         print("Saved");
     }
@@ -153,6 +157,8 @@ public class ProgressionManager: MonoBehaviour
 
         SaveData saveData = JsonUtility.FromJson<SaveData>(saveContent);
         _saveData = saveData;
+        _saveData.latestCheckpoint.levelNum = PlayerPrefs.GetInt("LevelNum");
+        _saveData.latestCheckpoint.zoneNum = PlayerPrefs.GetInt("ZoneNum");
         print("Loaded");
     }
 }

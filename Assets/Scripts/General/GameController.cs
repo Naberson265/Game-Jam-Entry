@@ -81,6 +81,10 @@ public class GameController : MonoBehaviour
         currentFogDensity = newDensity;
         currentFogColor = newFogColor;
     }
+    public void SwitchSongF(AudioClip songToSwitch, float switchDelay = 1)
+    {
+        StartCoroutine(SwitchSong(songToSwitch, switchDelay));
+    }
     public IEnumerator SwitchSong(AudioClip songToSwitch, float switchDelay = 1)
     {
         gameMusic.Stop();

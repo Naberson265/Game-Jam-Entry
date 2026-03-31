@@ -56,7 +56,7 @@ public class EscapeSequenceTrigger : MonoBehaviour
         // Also to those who are snooping around, no this isn't a 4th zone, it's an extension to zone 3.
         Debug.Log("CutsceneSegment1");
         activated = true;
-        StartCoroutine(GameController.gameController.SwitchSong(introSong));
+        GameController.gameController.SwitchSongF(introSong);
         // Disables movement but allows player and camera to decelerate.
         PlayerController.playerController.canMove = false;
         yield return new WaitForSeconds(1f);
