@@ -31,7 +31,12 @@ public class CreditsManager : MonoBehaviour
             timeUntilScroll = 0;
             if (scrollText.anchoredPosition.y < scrollLimit)
             {
-                scrollText.anchoredPosition += new Vector2(0f, scrollSpeed * Time.deltaTime);
+                float scrollMultiplier = 1;
+                if (Input.GetButton("Jump"))
+                {
+                    scrollMultiplier = 10;
+                }
+                scrollText.anchoredPosition += new Vector2(0f, scrollSpeed * scrollMultiplier * Time.deltaTime);
             }
             else
             {
