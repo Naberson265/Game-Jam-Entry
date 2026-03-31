@@ -72604,7 +72604,7 @@ GameObject:
   - component: {fileID: 356149926}
   m_Layer: 9
   m_Name: PlayerEndAnimPoint
-  m_TagString: EditorOnly
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125853,7 +125853,7 @@ GameObject:
   - component: {fileID: 646434072}
   m_Layer: 9
   m_Name: CamPoint
-  m_TagString: EditorOnly
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -331521,7 +331521,7 @@ GameObject:
   - component: {fileID: 1662299894}
   m_Layer: 9
   m_Name: PlayerPoint
-  m_TagString: EditorOnly
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
