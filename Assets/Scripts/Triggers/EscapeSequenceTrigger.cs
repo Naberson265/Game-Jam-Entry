@@ -21,11 +21,13 @@ public class EscapeSequenceTrigger : MonoBehaviour
     public AudioClip loopSong;
     public AudioClip voiceline;
     public CameraScript cms;
+    public Animator camAnimator;
     void Start()
     {
         escapeObjects.SetActive(false);
         // Prevents issues when the game is paused.
-        cms.GetComponent<Animator>().enabled = false;
+        camAnimator = cms.GetComponent<Animator>();
+        camAnimator.enabled = false;
     }
     void Update()
     {
@@ -75,8 +77,8 @@ public class EscapeSequenceTrigger : MonoBehaviour
         cms.transform.rotation = camNewTransform.rotation;
         // Starts all animations.
         PlayerController.playerController.modelAnimator.SetTrigger("Escape");
-        cms.GetComponent<Animator>().enabled = true;
-        cms.GetComponent<Animator>().SetTrigger("Escape");
+        camAnimator.enabled = true;
+        camAnimator.SetTrigger("Escape");
         midCutscene = true;
         GameController.gameController.gameMusic.PlayOneShot(voiceline);
         yield return new WaitForSeconds(5.75f);
@@ -114,7 +116,7 @@ public class EscapeSequenceTrigger : MonoBehaviour
         PlayerController.playerController.canMove = true;
         cms.canMove = true;
         PlayerController.playerController.modelAnimator.Play("Idle");
-        cms.GetComponent<Animator>().enabled = false;
+        camAnimator.enabled = false;
         PlayerController.playerController.rb.isKinematic = false;
         escapeObjects.SetActive(true);
         escapeObjects.transform.position = new Vector3(0, 0, 0);
