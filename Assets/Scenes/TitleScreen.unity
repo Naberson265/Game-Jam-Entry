@@ -33195,6 +33195,8 @@ MonoBehaviour:
   activated: 0
   pushSpeed: 0.1
   activeDisplacement: {x: 0, y: 0, z: -9}
+  startPoint: {x: 0, y: 0, z: 0}
+  activePoint: {x: 0, y: 0, z: 0}
 --- !u!64 &264451975
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -42974,6 +42976,8 @@ MonoBehaviour:
   activated: 0
   pushSpeed: 0.1
   activeDisplacement: {x: 0, y: 0, z: -4}
+  startPoint: {x: 0, y: 0, z: 0}
+  activePoint: {x: 0, y: 0, z: 0}
 --- !u!64 &336784769
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -72331,6 +72335,8 @@ MonoBehaviour:
   activated: 0
   pushSpeed: 0.1
   activeDisplacement: {x: 0, y: 0, z: -4}
+  startPoint: {x: 0, y: 0, z: 0}
+  activePoint: {x: 0, y: 0, z: 0}
 --- !u!64 &502689603
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -74572,6 +74578,8 @@ MonoBehaviour:
   activated: 0
   pushSpeed: 0.1
   activeDisplacement: {x: 0, y: 0, z: 4}
+  startPoint: {x: 0, y: 0, z: 0}
+  activePoint: {x: 0, y: 0, z: 0}
 --- !u!64 &510870336
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -74944,6 +74952,8 @@ MonoBehaviour:
   activated: 0
   pushSpeed: 0.5
   activeDisplacement: {x: 0, y: -22.5, z: 0}
+  startPoint: {x: 0, y: 0, z: 0}
+  activePoint: {x: 0, y: 0, z: 0}
 --- !u!64 &512583718
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -84230,6 +84240,8 @@ MonoBehaviour:
   activated: 0
   pushSpeed: 0.1
   activeDisplacement: {x: 0, y: 0, z: 4}
+  startPoint: {x: 0, y: 0, z: 0}
+  activePoint: {x: 0, y: 0, z: 0}
 --- !u!64 &594488070
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -128686,6 +128698,8 @@ MonoBehaviour:
   activated: 0
   pushSpeed: 0.1
   activeDisplacement: {x: 0, y: 0, z: 4}
+  startPoint: {x: 0, y: 0, z: 0}
+  activePoint: {x: 0, y: 0, z: 0}
 --- !u!64 &814406639
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -142984,6 +142998,8 @@ MonoBehaviour:
   activated: 0
   pushSpeed: 0.1
   activeDisplacement: {x: 0, y: 0, z: 4}
+  startPoint: {x: 0, y: 0, z: 0}
+  activePoint: {x: 0, y: 0, z: 0}
 --- !u!64 &908613409
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -172545,6 +172561,8 @@ MonoBehaviour:
   activated: 1
   pushSpeed: 0.035
   activeDisplacement: {x: 100, y: 0, z: 0}
+  startPoint: {x: 0, y: 0, z: 0}
+  activePoint: {x: 0, y: 0, z: 0}
 --- !u!43 &1115366917
 Mesh:
   m_ObjectHideFlags: 0
@@ -184374,6 +184392,8 @@ MonoBehaviour:
   activated: 0
   pushSpeed: 0.1
   activeDisplacement: {x: 0, y: 0, z: 9}
+  startPoint: {x: 0, y: 0, z: 0}
+  activePoint: {x: 0, y: 0, z: 0}
 --- !u!64 &1184298325
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -196485,6 +196505,8 @@ MonoBehaviour:
   activated: 0
   pushSpeed: 0.1
   activeDisplacement: {x: 0, y: 0, z: -9}
+  startPoint: {x: 0, y: 0, z: 0}
+  activePoint: {x: 0, y: 0, z: 0}
 --- !u!64 &1289110817
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -234349,6 +234371,8 @@ MonoBehaviour:
   activated: 0
   pushSpeed: 0.1
   activeDisplacement: {x: 0, y: 0, z: 9}
+  startPoint: {x: 0, y: 0, z: 0}
+  activePoint: {x: 0, y: 0, z: 0}
 --- !u!64 &1511206554
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -241680,6 +241704,8 @@ MonoBehaviour:
   activated: 0
   pushSpeed: 0.1
   activeDisplacement: {x: 0, y: 0, z: -4}
+  startPoint: {x: 0, y: 0, z: 0}
+  activePoint: {x: 0, y: 0, z: 0}
 --- !u!64 &1552484201
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -253021,6 +253047,8 @@ MonoBehaviour:
   activated: 0
   pushSpeed: 0.1
   activeDisplacement: {x: 0, y: 0, z: -4}
+  startPoint: {x: 0, y: 0, z: 0}
+  activePoint: {x: 0, y: 0, z: 0}
 --- !u!64 &1622415389
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -270307,6 +270335,8 @@ MonoBehaviour:
   activated: 0
   pushSpeed: 0.1
   activeDisplacement: {x: 0, y: 0, z: -4}
+  startPoint: {x: 0, y: 0, z: 0}
+  activePoint: {x: 0, y: 0, z: 0}
 --- !u!64 &1743144243
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -286367,6 +286397,8 @@ MonoBehaviour:
   activated: 0
   pushSpeed: 0.1
   activeDisplacement: {x: 0, y: 0, z: -4}
+  startPoint: {x: 0, y: 0, z: 0}
+  activePoint: {x: 0, y: 0, z: 0}
 --- !u!64 &1838053452
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -290456,6 +290488,8 @@ MonoBehaviour:
   activated: 0
   pushSpeed: 0.1
   activeDisplacement: {x: 0, y: 0, z: 4}
+  startPoint: {x: 0, y: 0, z: 0}
+  activePoint: {x: 0, y: 0, z: 0}
 --- !u!64 &1875423636
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -306874,6 +306908,8 @@ MonoBehaviour:
   activated: 0
   pushSpeed: 0.1
   activeDisplacement: {x: 0, y: 0, z: 4}
+  startPoint: {x: 0, y: 0, z: 0}
+  activePoint: {x: 0, y: 0, z: 0}
 --- !u!64 &1975351545
 MeshCollider:
   m_ObjectHideFlags: 0
