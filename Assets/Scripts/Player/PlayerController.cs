@@ -188,23 +188,23 @@ public class PlayerController : Resettable
         {
             rb.linearDamping = airDrag;
         }
-        //// Cheats
-        //if (Input.GetKey(KeyCode.O))
-        //{
-        //    cheat1 = true;
-        //}
-        //else
-        //{
-        //    cheat1 = false;
-        //}
-        //if (Input.GetKey(KeyCode.L))
-        //{
-        //    cheat2 = true;
-        //}
-        //else
-        //{
-        //    cheat2 = false;
-        //}
+        // Cheats
+        if (Input.GetKey(KeyCode.O))
+        {
+            cheat1 = true;
+        }
+        else
+        {
+            cheat1 = false;
+        }
+        if (Input.GetKey(KeyCode.L))
+        {
+            cheat2 = true;
+        }
+        else
+        {
+            cheat2 = false;
+        }
         if (Input.GetKey(KeyCode.O) && Input.GetKey(KeyCode.L) && Input.GetKey(KeyCode.Alpha1) && Input.GetKey(KeyCode.C))
         {
             ProgressionManager._saveData.latestCheckpoint.levelNum = 0;
