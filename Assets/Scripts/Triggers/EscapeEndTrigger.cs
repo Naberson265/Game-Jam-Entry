@@ -20,7 +20,7 @@ public class EscapeEndTrigger : MonoBehaviour
         if (activated)
         {
             // Make sure the player goes far enough into the light that they get out of view.
-            ps.rb.position += transform.forward * Time.deltaTime;
+            ps.rb.position += transform.forward * 10 * Time.deltaTime;
             ps.transform.LookAt(ps.transform.position + transform.forward);
         }
     }
