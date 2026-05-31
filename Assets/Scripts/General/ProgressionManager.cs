@@ -45,6 +45,11 @@ public class ProgressionManager: MonoBehaviour
         public float[] records;
     }
 
+    // So we can better name and organize zones or rearrange them
+    static public string[] levelSceneNames = new string[8] {
+        "ControlChambers", "FreezingFactory", "ScorchingSteelworks", "LavaRising", "Zone5","Zone6","Zone7","Zone8"
+    };
+
     public static SaveData _saveData;
 
     public static ProgressionManager progressionManager { get; private set; }
@@ -111,7 +116,7 @@ public class ProgressionManager: MonoBehaviour
         {
             zoneNum = 4;
         }
-        SceneManager.LoadScene("Zone" + zoneNum.ToString());
+        SceneManager.LoadScene(levelSceneNames[zoneNum - 1]);
         await Awaitable.NextFrameAsync();
         GameController.MovePlayerToLevel(levelNum);
         for (int i = 0; i < levelNum; i++)
