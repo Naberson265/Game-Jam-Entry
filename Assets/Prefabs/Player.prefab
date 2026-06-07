@@ -62147,10 +62147,10 @@ MonoBehaviour:
   landSFX: {fileID: 8300000, guid: ee71e041718ac594f9aba1fa4e95356d, type: 3}
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 2240
   whatCanCrush:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 2112
   grounded: 0
   health: 0000000000000000000000000000000000000000
   healthToSize:

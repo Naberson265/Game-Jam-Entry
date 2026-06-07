@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3672482394412868595}
   - component: {fileID: 1344449450154232306}
   - component: {fileID: 3267653915650054501}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: StepShiftingPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -416,7 +416,7 @@ GameObject:
   - component: {fileID: 5755572761106715931}
   - component: {fileID: 4451058733815446400}
   - component: {fileID: 2990581159945109478}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: ButtonTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -587,7 +587,7 @@ GameObject:
   - component: {fileID: 4652579425157490953}
   - component: {fileID: 6682034201523495535}
   - component: {fileID: 2225257733455304299}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: Indication
   m_TagString: Untagged
   m_Icon: {fileID: 0}
