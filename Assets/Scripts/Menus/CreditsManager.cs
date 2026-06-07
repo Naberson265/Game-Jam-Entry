@@ -58,7 +58,7 @@ public class CreditsManager : MonoBehaviour
     void FixedUpdate()
     {
         // Static objects like the water don't move.
-        landscape.localPosition = new Vector3(0f, Mathf.Sin((float)Time.frameCount * 0.025f) / 2f, 0f);
+        landscape.localPosition = new Vector3(0f, Mathf.Sin((float)Time.frameCount * (Time.deltaTime * 0.5f)) / 2f, 0f);
     }
     public IEnumerator CreditsEnd()
     {
