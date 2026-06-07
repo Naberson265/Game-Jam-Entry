@@ -37,7 +37,9 @@ public class PlayerController : Resettable
     public bool useMood = true;
 
     [Header("Movement")]
-    public float moveSpeed = 8f, groundDrag = 2, airDrag = 0.4f, jumpHeight = 25f, minJumpHeight = 15f,
+
+    public float moveSpeed = 8f;
+    public float groundDrag = 2, airDrag = 0.4f, jumpHeight = 25f, minJumpHeight = 15f,
     launchMultiplier = 1.5f, jumpCooldown = 0.25f, airMultiplier = 0.4f;
     private bool jumping = false, launching = false, aboutToJump = false, readyToJump = true;
 
@@ -47,12 +49,14 @@ public class PlayerController : Resettable
     private Vector3 movementDir = Vector3.zero;
 
     [Header("Audio")]
-    public AudioSource playerAudio, playerLoopingAudio;
+
+    public AudioSource playerAudio;
+    public AudioSource playerLoopingAudio;
     public AudioClip jumpSFX, droneSFX, hitSFX, rocketSFX, springSFX, speedSFX, powerupSFX, spikeBreakSFX, poundSFX, landSFX;
     
     [Header("Ground Check")]
-    public LayerMask whatIsGround, whatCanCrush;
     public bool grounded;
+    public LayerMask whatIsGround, whatCanCrush;
 
     [Header("Health and Ability")]
     // Abilities: 0-Default 1-Rocket/Dash 2-Feather/Drone 3-Metallic/Heavy 4-Spring
@@ -65,17 +69,17 @@ public class PlayerController : Resettable
     public bool usedAirAbility = false;
 
     [Header("Rocket Properties")]
-    public float rocketSpeedMultiplier = 1.5f, dashForce = 40;
     private bool isDashing = false;
+    public float rocketSpeedMultiplier = 1.5f, dashForce = 40;
     public ParticleSystem runParticle1, runParticle2, dashParticle;
 
     [Header("Drone Properties")]
-    public float floatTerminalVelocity = 0.2f, floatGravityPercentage = 0.5f;
     private bool isFloating = false;
+    public float floatTerminalVelocity = 0.2f, floatGravityPercentage = 0.5f;
 
     [Header("Metal Properties")]
-    public float groundPoundForce = 50f, groundPoundHeight = 2f, groundPoundUpTime = 0.15f, groundPoundPause = 0.15f;
     public ParticleSystem groundPoundParticle;
+    public float groundPoundForce = 50f, groundPoundHeight = 2f, groundPoundUpTime = 0.15f, groundPoundPause = 0.15f;
     public bool slamingDowm = false;
 
     [Header("Spring Properties")]
