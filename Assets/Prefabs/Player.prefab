@@ -62112,11 +62112,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   rb: {fileID: 0}
-  mainCam: {fileID: 0}
   modelAnimator: {fileID: 1336513829896303492}
   camFixedDirTransform: {fileID: 0}
   leftOverBox: {fileID: 4534513083330989831, guid: c36466281c14aea4886f709d34a09537, type: 3}
   face: {fileID: 5979107674997559337}
+  mainCam: {fileID: 0}
   mouthState: 0
   eyeState: 0
   faceMood: 0
@@ -62145,13 +62145,13 @@ MonoBehaviour:
   spikeBreakSFX: {fileID: 8300000, guid: 31ed83adcbe54a148be4439ef48adbda, type: 3}
   poundSFX: {fileID: 8300000, guid: 305af0d3def3e184aa250f9826c44857, type: 3}
   landSFX: {fileID: 8300000, guid: ee71e041718ac594f9aba1fa4e95356d, type: 3}
+  grounded: 0
   whatIsGround:
     serializedVersion: 2
     m_Bits: 2240
   whatCanCrush:
     serializedVersion: 2
     m_Bits: 2112
-  grounded: 0
   health: 0000000000000000000000000000000000000000
   healthToSize:
   - 0
@@ -62182,11 +62182,11 @@ MonoBehaviour:
   dashParticle: {fileID: 608529281768637447}
   floatTerminalVelocity: 2.5
   floatGravityPercentage: 0.3
+  groundPoundParticle: {fileID: 3097255500967850159}
   groundPoundForce: 100
   groundPoundHeight: 2
   groundPoundUpTime: 0.15
   groundPoundPause: 0.1
-  groundPoundParticle: {fileID: 3097255500967850159}
   slamingDowm: 0
   springLaunchMultiplier: 2
   spawnpoint: {x: 0, y: 0, z: 0}

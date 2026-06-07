@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CameraScript : MonoBehaviour
 {
-    void Start()
+    void Awake()
     {
         // Sets every pref to its default in case the settings were never opened until this point.
         if (PlayerPrefs.GetFloat("Sensitivity") == 0) PlayerPrefs.SetFloat("Sensitivity", 1);
@@ -10,11 +10,13 @@ public class CameraScript : MonoBehaviour
         if (PlayerPrefs.GetInt("OcclusionCulling") == 0) PlayerPrefs.SetInt("OcclusionCulling", 2);
         if (PlayerPrefs.GetInt("TurnWithCamera") == 0) PlayerPrefs.SetInt("TurnWithCamera", 1);
         LockMouse();
+        camChar = GetComponent<CharacterController>();
         camComp = GetComponent<Camera>();
     }
     void LateUpdate()
     {
         SettingManagement();
+        camChar.enabled = freeCamMode;
         if (canMove && !paused) CamMove();
         if (Input.GetButtonDown("Pause") && canMove)
         {
@@ -26,7 +28,10 @@ public class CameraScript : MonoBehaviour
             Time.timeScale = 0f;
             if (freeCamMode) FreeCamMove();
         }
-        else Time.timeScale = 1f;
+        else
+        {
+            Time.timeScale = 1f;
+        }
     }
     public void SettingManagement()
     {
@@ -59,7 +64,8 @@ public class CameraScript : MonoBehaviour
     }
 	private void FreeCamMove()
     {
-        UnlockMouse();
+        LockMouse();
+        freeCamMode = true;
         // Turning. Carried over when unpausing.
         xRot -= Input.GetAxis("Mouse Y") * mouseSensitivity;
         yRot += Input.GetAxis("Mouse X") * mouseSensitivity;
@@ -67,7 +73,7 @@ public class CameraScript : MonoBehaviour
         transform.localEulerAngles = new Vector3(xRot, yRot, 0f);
         camFixedDirTransform.localEulerAngles = new Vector3(0f, yRot, 0f);
         Vector3 movementDir = Input.GetAxisRaw("Vertical") * transform.forward + Input.GetAxisRaw("Horizontal") * transform.right;
-        camChar.Move(movementDir * Time.deltaTime);
+        camChar.Move(movementDir * Time.unscaledDeltaTime * 20f);
     }
     public void PauseGame()
     {

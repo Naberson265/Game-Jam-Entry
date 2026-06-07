@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4643670065830158217}
   - component: {fileID: 5127363466879752867}
   - component: {fileID: 8113401259513747832}
+  - component: {fileID: 5986369506723955692}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -150,6 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10c3c1bab71315d40b3121ad074ba92f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraScript
+  camChar: {fileID: 0}
   distanceToPlayer: 12
   maxDistance: 30
   minDistance: 0.1
@@ -158,9 +160,35 @@ MonoBehaviour:
   yRot: 0
   canMove: 1
   paused: 0
+  freeCamMode: 0
   rayLayerMask:
     serializedVersion: 2
     m_Bits: 193
   playerTransform: {fileID: 0}
   camFixedDirTransform: {fileID: 0}
   pauseMenu: {fileID: 0}
+--- !u!143 &5986369506723955692
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638478587609214908}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 0.1
+  m_Radius: 0.1
+  m_SlopeLimit: 45
+  m_StepOffset: 0.1
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
