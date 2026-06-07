@@ -21,67 +21,37 @@ public class PlayerController : Resettable
     public Rigidbody rb;
 
     [Header("Objects")]
-    public GameObject mainCam;
     public Animator modelAnimator;
     public Transform camFixedDirTransform;
-    public GameObject leftOverBox;
-    public GameObject face;
+    public GameObject leftOverBox, face, mainCam;
 
-    private bool cheat1;
-    private bool cheat2;
+    private bool cheat1, cheat2;
     private DitherTransition ditherer;
 
     [Header("Face")]
     private float blinkCooldown = 4;
     // Check the mouth spritesheet for the order of faces (left to right).
-    public int mouthState = 0;
-    // 0-Default (only one that blinks) 1-Panicked 2-Shut Eyes
-    public int eyeState = 0;
+    public int mouthState = 0, eyeState = 0;
+    // Eyes; 0-Default (only one that blinks) 1-Panicked 2-Shut Eyes
     public float faceMood;
     public bool useMood = true;
 
     [Header("Movement")]
-    public float moveSpeed = 8f;
+    public float moveSpeed = 8f, groundDrag = 2, airDrag = 0.4f, jumpHeight = 25f, minJumpHeight = 15f,
+    launchMultiplier = 1.5f, jumpCooldown = 0.25f, airMultiplier = 0.4f;
+    private bool jumping = false, launching = false, aboutToJump = false, readyToJump = true;
 
-    public float groundDrag = 2;
-    public float airDrag = 0.4f;
-
-    public float jumpHeight = 25f;
-    public float minJumpHeight = 15f;
-    private bool jumping = false;
-    private bool launching = false;
-    // To make jumping run in FixedUpdate and not Update.
-    private bool aboutToJump = false;
-    public float launchMultiplier = 1.5f;
-    public float jumpCooldown = 0.25f;
-    public float airMultiplier = 0.4f;
-    private bool readyToJump = true;
-
-    public float coyoteTime = 0.15f;
-    public float currentCoyoteTime;
-    public float terminalVelocity = 50f;
+    public float coyoteTime = 0.15f, currentCoyoteTime, terminalVelocity = 50f;
     public bool canMove = true;
     private bool firstPerson = false;
     private Vector3 movementDir = Vector3.zero;
 
     [Header("Audio")]
-    public AudioSource playerAudio;
-    public AudioSource playerLoopingAudio;
-    public AudioClip jumpSFX;
-    public AudioClip droneSFX;
-    public AudioClip hitSFX;
-    public AudioClip rocketSFX;
-    public AudioClip springSFX;
-    public AudioClip speedSFX;
-    public AudioClip powerupSFX;
-    public AudioClip spikeBreakSFX;
-    public AudioClip poundSFX;
-    public AudioClip landSFX;
+    public AudioSource playerAudio, playerLoopingAudio;
+    public AudioClip jumpSFX, droneSFX, hitSFX, rocketSFX, springSFX, speedSFX, powerupSFX, spikeBreakSFX, poundSFX, landSFX;
     
     [Header("Ground Check")]
-    public LayerMask whatIsGround;
-    // Typically the same but excluding pushable objects so that player dupes don't kill.
-    public LayerMask whatCanCrush;
+    public LayerMask whatIsGround, whatCanCrush;
     public bool grounded;
 
     [Header("Health and Ability")]
@@ -89,32 +59,22 @@ public class PlayerController : Resettable
     public List<int> health = new List<int> { 0, 0, 0, 0, 0 };
     public float[] healthToSize = { 0f, 1f, 1.5f, 2f, 2.5f, 3f, 3.5f, 4f, 4.5f, 4.75f, 5f };
 
-    public float maxInvincibleTime = 1f;
-    public float invincibleTime = 0f;
-
-    public float abilityCooldown = 1f;
+    public float maxInvincibleTime = 1f, invincibleTime = 0f, abilityCooldown = 1f;
     public GameObject[] abilityModels;
 
     public bool usedAirAbility = false;
 
     [Header("Rocket Properties")]
-    public float rocketSpeedMultiplier = 1.5f;
-    public float dashForce = 40;
+    public float rocketSpeedMultiplier = 1.5f, dashForce = 40;
     private bool isDashing = false;
-    public ParticleSystem runParticle1;
-    public ParticleSystem runParticle2;
-    public ParticleSystem dashParticle;
+    public ParticleSystem runParticle1, runParticle2, dashParticle;
 
     [Header("Drone Properties")]
-    public float floatTerminalVelocity = 0.2f;
-    public float floatGravityPercentage = 0.5f;
+    public float floatTerminalVelocity = 0.2f, floatGravityPercentage = 0.5f;
     private bool isFloating = false;
 
     [Header("Metal Properties")]
-    public float groundPoundForce = 50f;
-    public float groundPoundHeight = 2f;
-    public float groundPoundUpTime = 0.15f;
-    public float groundPoundPause = 0.15f;
+    public float groundPoundForce = 50f, groundPoundHeight = 2f, groundPoundUpTime = 0.15f, groundPoundPause = 0.15f;
     public ParticleSystem groundPoundParticle;
     public bool slamingDowm = false;
 

@@ -21,7 +21,11 @@ public class CameraScript : MonoBehaviour
             if (paused) UnpauseGame();
             else PauseGame();
         }
-        if (paused) Time.timeScale = 0f;
+        if (paused)
+        {
+            Time.timeScale = 0f;
+            if (freeCamMode) FreeCamMove();
+        }
         else Time.timeScale = 1f;
     }
     public void SettingManagement()
@@ -53,6 +57,18 @@ public class CameraScript : MonoBehaviour
             transform.position = playerTransform.position - (transform.forward * distanceToPlayer);
         }
     }
+	private void FreeCamMove()
+    {
+        UnlockMouse();
+        // Turning. Carried over when unpausing.
+        xRot -= Input.GetAxis("Mouse Y") * mouseSensitivity;
+        yRot += Input.GetAxis("Mouse X") * mouseSensitivity;
+        xRot = Mathf.Clamp(xRot, -80f, 80f);
+        transform.localEulerAngles = new Vector3(xRot, yRot, 0f);
+        camFixedDirTransform.localEulerAngles = new Vector3(0f, yRot, 0f);
+        Vector3 movementDir = Input.GetAxisRaw("Vertical") * transform.forward + Input.GetAxisRaw("Horizontal") * transform.right;
+        camChar.Move(movementDir * Time.deltaTime);
+    }
     public void PauseGame()
     {
         UnlockMouse();
@@ -61,6 +77,7 @@ public class CameraScript : MonoBehaviour
     }
     public void UnpauseGame()
     {
+        freeCamMode = false;
         LockMouse();
         paused = false;
         pauseMenu.SetActive(false);
@@ -85,17 +102,11 @@ public class CameraScript : MonoBehaviour
     {
 		Cursor.lockState = CursorLockMode.None;
     }
-	public float distanceToPlayer = 12f;
-	public float maxDistance = 30f;
-	public float minDistance = 0.1f;
-	public float mouseSensitivity = 1f;
-	public float xRot = 0f;
-	public float yRot = 0f;
-    public bool canMove = true;
-    public bool paused = false;
+    public CharacterController camChar;
+	public float distanceToPlayer = 12f, maxDistance = 30f, minDistance = 0.1f, mouseSensitivity = 1f, xRot = 0f, yRot = 0f;
+    public bool canMove = true, paused = false, freeCamMode = false;
 	public LayerMask rayLayerMask;
-	public Transform playerTransform;
-	public Transform camFixedDirTransform;
+	public Transform playerTransform, camFixedDirTransform;
 	public GameObject pauseMenu;
     private Camera camComp;
 }
