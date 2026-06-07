@@ -155,11 +155,18 @@ public class GameController : MonoBehaviour
     {
         int timeMinutes;
         int timeSeconds;
-        if (timeToFormat > 0f) timeMinutes = Mathf.FloorToInt(timeToFormat / 60);
+        float timeMilliseconds;
+        string formattedTime;
+
+        float timePassed = GameController.gameController.timePassed;
+        if (timePassed > 0f) timeMinutes = Mathf.FloorToInt(timePassed / 60);
         else timeMinutes = 0;
-        if (timeToFormat > 0f) timeSeconds = Mathf.FloorToInt(timeToFormat % 60);
+        if (timePassed > 0f) timeSeconds = Mathf.FloorToInt(timePassed % 60);
         else timeSeconds = 0;
-        return string.Format("{0:00}:{1:00}", timeMinutes, timeSeconds);
+        timeMilliseconds = (float)Math.Round((timePassed - Mathf.FloorToInt(timePassed)), 3);
+        formattedTime = string.Format("{0:00}:{1:00}", timeMinutes, timeSeconds);
+        string properMsTime = timeMilliseconds.ToString().Substring(1);
+        return formattedTime += properMsTime;
     }
     public void EndLevelSet(Transform cameraPos, Transform playerPos)
     {
