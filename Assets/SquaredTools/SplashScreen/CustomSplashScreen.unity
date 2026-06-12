@@ -442,7 +442,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SplashScreenScript
   splashImages:
   - {fileID: 21300000, guid: 6bfac621c8df39a408e36bd12dfad55e, type: 3}
-  - {fileID: 21300000, guid: a915131b92aef514ea70632c1655af22, type: 3}
   - {fileID: 21300000, guid: d5e4857916ba80942a3a4a0389db498f, type: 3}
   bgImage: {fileID: 1848702364}
   splashDisplay: {fileID: 173319121}
