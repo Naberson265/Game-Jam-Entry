@@ -62165,7 +62165,7 @@ MonoBehaviour:
   - 4.5
   - 4.75
   - 5
-  maxInvincibleTime: 0.4
+  maxInvincibleTime: 1
   invincibleTime: 0
   abilityCooldown: 1
   abilityModels:
