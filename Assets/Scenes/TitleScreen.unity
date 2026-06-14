@@ -487,6 +487,7 @@ GameObject:
   - component: {fileID: 8669930}
   - component: {fileID: 8669929}
   - component: {fileID: 8669928}
+  - component: {fileID: 8669931}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -632,6 +633,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8669926}
   m_CullTransparentMesh: 1
+--- !u!114 &8669931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8669926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3b63713fd544044981efcd8c4d57d7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BackButtonSwitcher
 --- !u!43 &9459239
 Mesh:
   m_ObjectHideFlags: 0
@@ -1757,6 +1770,7 @@ GameObject:
   - component: {fileID: 19953487}
   - component: {fileID: 19953486}
   - component: {fileID: 19953485}
+  - component: {fileID: 19953488}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -1890,6 +1904,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 19953483}
   m_CullTransparentMesh: 1
+--- !u!114 &19953488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19953483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3b63713fd544044981efcd8c4d57d7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BackButtonSwitcher
 --- !u!1 &20443544
 GameObject:
   m_ObjectHideFlags: 0
@@ -23551,6 +23577,23 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!1 &172036711 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7270962504268898148, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
+  m_PrefabInstance: {fileID: 466637106}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &172036716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172036711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3b63713fd544044981efcd8c4d57d7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BackButtonSwitcher
 --- !u!43 &172818580
 Mesh:
   m_ObjectHideFlags: 0
@@ -30833,6 +30876,23 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!1 &236482321 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7270962504268898148, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
+  m_PrefabInstance: {fileID: 974118519}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &236482326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 236482321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3b63713fd544044981efcd8c4d57d7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BackButtonSwitcher
 --- !u!43 &237073516
 Mesh:
   m_ObjectHideFlags: 0
@@ -41747,6 +41807,7 @@ GameObject:
   - component: {fileID: 326620294}
   - component: {fileID: 326620293}
   - component: {fileID: 326620292}
+  - component: {fileID: 326620295}
   m_Layer: 5
   m_Name: NoButton
   m_TagString: Untagged
@@ -41880,6 +41941,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 326620290}
   m_CullTransparentMesh: 1
+--- !u!114 &326620295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 326620290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3b63713fd544044981efcd8c4d57d7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BackButtonSwitcher
 --- !u!43 &328642228
 Mesh:
   m_ObjectHideFlags: 0
@@ -44311,7 +44384,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7270962504268898148, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2014371715}
   m_SourcePrefab: {fileID: 100100000, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
 --- !u!1 &340832184 stripped
 GameObject:
@@ -54095,6 +54171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b81c0dce707d4e4c9c5cf1176529986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuController
+  targetBackButton: {fileID: 0}
 --- !u!4 &406445899
 Transform:
   m_ObjectHideFlags: 0
@@ -62620,6 +62697,7 @@ GameObject:
   - component: {fileID: 460632668}
   - component: {fileID: 460632667}
   - component: {fileID: 460632666}
+  - component: {fileID: 460632669}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -62765,6 +62843,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 460632664}
   m_CullTransparentMesh: 1
+--- !u!114 &460632669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 460632664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3b63713fd544044981efcd8c4d57d7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BackButtonSwitcher
 --- !u!1 &463598438
 GameObject:
   m_ObjectHideFlags: 0
@@ -63582,7 +63672,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7270962504268898148, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 172036716}
   m_SourcePrefab: {fileID: 100100000, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
 --- !u!1 &466637107 stripped
 GameObject:
@@ -68243,6 +68336,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 294128952}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &489553882 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1015683407482635542, guid: a1bd71d773b8d9b4aae7592d43fc0062, type: 3}
+  m_PrefabInstance: {fileID: 944838010}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &489553887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489553882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3b63713fd544044981efcd8c4d57d7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BackButtonSwitcher
 --- !u!1 &491100507
 GameObject:
   m_ObjectHideFlags: 0
@@ -69001,6 +69111,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1716564128}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &492764154 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7270962504268898148, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
+  m_PrefabInstance: {fileID: 731540983}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &492764159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 492764154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3b63713fd544044981efcd8c4d57d7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BackButtonSwitcher
 --- !u!1 &493472387
 GameObject:
   m_ObjectHideFlags: 0
@@ -78019,7 +78146,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7270962504268898148, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1000316981}
   m_SourcePrefab: {fileID: 100100000, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
 --- !u!1 &542517842 stripped
 GameObject:
@@ -85542,7 +85672,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7270962504268898148, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 777104840}
   m_SourcePrefab: {fileID: 100100000, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
 --- !u!1 &605774856 stripped
 GameObject:
@@ -114246,7 +114379,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7270962504268898148, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 492764159}
   m_SourcePrefab: {fileID: 100100000, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
 --- !u!1 &731540984 stripped
 GameObject:
@@ -114848,7 +114984,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7270962504268898148, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1689773055}
   m_SourcePrefab: {fileID: 100100000, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
 --- !u!224 &733209495 stripped
 RectTransform:
@@ -118746,6 +118885,23 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8405727029053103015, guid: 86b71c04c8a1e7c4fae91b6fe5592eb1, type: 3}
   m_PrefabInstance: {fileID: 1090658392}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &752575283 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7270962504268898148, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
+  m_PrefabInstance: {fileID: 955657654}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &752575288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752575283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3b63713fd544044981efcd8c4d57d7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BackButtonSwitcher
 --- !u!1 &752887044
 GameObject:
   m_ObjectHideFlags: 0
@@ -122708,6 +122864,23 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!1 &777104835 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7270962504268898148, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
+  m_PrefabInstance: {fileID: 605774855}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &777104840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777104835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3b63713fd544044981efcd8c4d57d7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BackButtonSwitcher
 --- !u!43 &777475622
 Mesh:
   m_ObjectHideFlags: 0
@@ -144080,6 +144253,7 @@ GameObject:
   - component: {fileID: 913603149}
   - component: {fileID: 913603148}
   - component: {fileID: 913603147}
+  - component: {fileID: 913603150}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -144225,6 +144399,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 913603145}
   m_CullTransparentMesh: 1
+--- !u!114 &913603150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 913603145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3b63713fd544044981efcd8c4d57d7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BackButtonSwitcher
 --- !u!1 &915178991
 GameObject:
   m_ObjectHideFlags: 0
@@ -148296,7 +148482,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1015683407482635542, guid: a1bd71d773b8d9b4aae7592d43fc0062, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 489553887}
   m_SourcePrefab: {fileID: 100100000, guid: a1bd71d773b8d9b4aae7592d43fc0062, type: 3}
 --- !u!224 &944838011 stripped
 RectTransform:
@@ -150785,7 +150974,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7270962504268898148, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 752575288}
   m_SourcePrefab: {fileID: 100100000, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
 --- !u!1 &955657655 stripped
 GameObject:
@@ -153480,6 +153672,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7226180613255438984, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 974118523}
+    - targetCorrespondingSourceObject: {fileID: 7270962504268898148, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 236482326}
   m_SourcePrefab: {fileID: 100100000, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
 --- !u!1 &974118520 stripped
 GameObject:
@@ -160467,6 +160662,23 @@ MonoBehaviour:
   spawnInterval: 2
   despawnTime: 7
   objToSummon: {fileID: 4534513083330989831, guid: 63274826cba74624b91f238f7d2cab1f, type: 3}
+--- !u!1 &1000316976 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7270962504268898148, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
+  m_PrefabInstance: {fileID: 542517841}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1000316981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000316976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3b63713fd544044981efcd8c4d57d7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BackButtonSwitcher
 --- !u!1 &1003531129
 GameObject:
   m_ObjectHideFlags: 0
@@ -190625,6 +190837,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 294128952}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1231265657 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7270962504268898148, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
+  m_PrefabInstance: {fileID: 1414138757}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1231265662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1231265657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3b63713fd544044981efcd8c4d57d7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BackButtonSwitcher
 --- !u!43 &1231871902
 Mesh:
   m_ObjectHideFlags: 0
@@ -217460,7 +217689,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7270962504268898148, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1231265662}
   m_SourcePrefab: {fileID: 100100000, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
 --- !u!224 &1414138758 stripped
 RectTransform:
@@ -241531,6 +241763,7 @@ GameObject:
   - component: {fileID: 1551637860}
   - component: {fileID: 1551637859}
   - component: {fileID: 1551637858}
+  - component: {fileID: 1551637862}
   m_Layer: 5
   m_Name: CloseButton
   m_TagString: Untagged
@@ -241667,6 +241900,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1551637856}
   m_CullTransparentMesh: 1
+--- !u!114 &1551637862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1551637856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3b63713fd544044981efcd8c4d57d7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &1552484199
 GameObject:
   m_ObjectHideFlags: 0
@@ -261160,6 +261405,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2139088298}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1689773050 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7270962504268898148, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
+  m_PrefabInstance: {fileID: 733209494}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1689773055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1689773050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3b63713fd544044981efcd8c4d57d7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BackButtonSwitcher
 --- !u!43 &1690186534
 Mesh:
   m_ObjectHideFlags: 0
@@ -269548,6 +269810,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 294128952}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1732467767 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7270962504268898148, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
+  m_PrefabInstance: {fileID: 1998046764}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1732467772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732467767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3b63713fd544044981efcd8c4d57d7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BackButtonSwitcher
 --- !u!43 &1733986776
 Mesh:
   m_ObjectHideFlags: 0
@@ -311769,7 +312048,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7270962504268898148, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1732467772}
   m_SourcePrefab: {fileID: 100100000, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
 --- !u!1 &1998046765 stripped
 GameObject:
@@ -312391,6 +312673,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 98626851}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2014371710 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7270962504268898148, guid: 84cd6be9b3e736747b0d2a024746376c, type: 3}
+  m_PrefabInstance: {fileID: 340832183}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2014371715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014371710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3b63713fd544044981efcd8c4d57d7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BackButtonSwitcher
 --- !u!1 &2017392692
 GameObject:
   m_ObjectHideFlags: 0

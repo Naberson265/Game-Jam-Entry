@@ -1,15 +1,28 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
 {
-    void Start()
-    {
-        RenderSettings.skybox.SetFloat("_Rotation", 0f);
-    }
+    public Button targetBackButton;
+    void Start() => RenderSettings.skybox.SetFloat("_Rotation", 0f);
     void Update()
     {
         RenderSettings.skybox.SetFloat("_Rotation", Time.time * 0.75f);
+        if (Input.GetButtonDown("Cancel"))
+        {
+            LastPage();
+        }
+    }
+    public void SetBackButton(Button setButton) => targetBackButton = setButton;
+    public void LastPage()
+    {
+        if (targetBackButton != null)
+        {
+            EventSystem.current.SetSelectedGameObject(targetBackButton.gameObject);
+            targetBackButton.onClick.Invoke();
+        }
     }
     public void OpenScene(string sceneName)
     {

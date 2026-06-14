@@ -45,7 +45,11 @@ public class CameraScript : MonoBehaviour
         // Still follows the player if the player can't make inputs, but the camera can't turn.
         if (PlayerController.playerController.canMove) xRot -= Input.GetAxis("Mouse Y") * mouseSensitivity;
         if (PlayerController.playerController.canMove) yRot += Input.GetAxis("Mouse X") * mouseSensitivity;
+        // Controller input:
+        if (PlayerController.playerController.canMove) xRot -= Input.GetAxis("Right Stick Y") * mouseSensitivity;
+        if (PlayerController.playerController.canMove) yRot += Input.GetAxis("Right Stick X") * mouseSensitivity;
         if (PlayerController.playerController.canMove) distanceToPlayer -= Input.GetAxis("Mouse ScrollWheel") * 10f;
+        if (PlayerController.playerController.canMove) distanceToPlayer -= Input.GetAxis("Bumper Scrolling") * 10f;
         if (distanceToPlayer > maxDistance) distanceToPlayer = maxDistance;
         if (distanceToPlayer < minDistance) distanceToPlayer = minDistance;
         xRot = Mathf.Clamp(xRot, -80f, 80f);

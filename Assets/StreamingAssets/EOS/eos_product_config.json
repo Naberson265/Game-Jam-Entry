@@ -1,0 +1,38 @@
+{
+  "ProductName": "ExpressYourselfClassic",
+  "ProductId": "2b975aaf68ed4262a826ef461ab48b28",
+  "ProductVersion": "1.1",
+  "imported": true,
+  "Clients": [
+    {
+      "Value": {
+        "ClientId": "xyza7891ZVFIwUsaf0yjf9UDTFpAtEB9",
+        "ClientSecret": "2BwC+KFY/fXU7zER52f3a3ca4PEwUoV8Bjjuh7bKP1g",
+        "EncryptionKey": "3711E3654A50B7B5E5E1BEC4CA286A2A7980E5DA01692B00EA69BA3CF21F54D8"
+      },
+      "Name": "Client"
+    }
+  ],
+  "Environments": {
+    "Deployments": [
+      {
+        "Value": {
+          "SandboxId": {
+            "Value": "b990ff7731494186952e38f941b45570"
+          },
+          "DeploymentId": "5d6e612a7586471aabba3d96b16bd1ea"
+        },
+        "Name": "Deployment"
+      }
+    ],
+    "Sandboxes": [
+      {
+        "Value": {
+          "Value": "b990ff7731494186952e38f941b45570"
+        },
+        "Name": "Sandbox"
+      }
+    ]
+  },
+  "schemaVersion": "1.0"
+}
