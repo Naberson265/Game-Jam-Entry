@@ -11,6 +11,8 @@ public class OptionsMenuController : MonoBehaviour
     public Slider voiceVolumeSlider;
 
     public Toggle occlusionCullToggle;
+    public Toggle leaderboardToggle;
+    public Toggle subtitleToggle;
     public Toggle turnCam;
     void Start()
     {
@@ -21,11 +23,13 @@ public class OptionsMenuController : MonoBehaviour
         // Sets everything to zero, then uses the below function to set to defaults.
         PlayerPrefs.SetFloat("Sensitivity", 0);
         PlayerPrefs.SetFloat("RenderDist", 0);
-        PlayerPrefs.SetInt("OcclusionCulling", 0);
-        PlayerPrefs.SetInt("TurnWithCamera", 0);
         PlayerPrefs.SetFloat("MusicVolume", 0);
         PlayerPrefs.SetFloat("SFXVolume", 0);
         PlayerPrefs.SetFloat("VoiceVolume", 0);
+        PlayerPrefs.SetInt("OcclusionCulling", 0);
+        PlayerPrefs.SetInt("TurnWithCamera", 0);
+        PlayerPrefs.SetInt("LeaderboardPosting", 0);
+        PlayerPrefs.SetInt("Subtitles", 0);
         CheckForDefaults();
     }
     public void CheckForDefaults()
@@ -37,6 +41,8 @@ public class OptionsMenuController : MonoBehaviour
         if (PlayerPrefs.GetFloat("SFXVolume") == 0) PlayerPrefs.SetFloat("SFXVolume", 0);
         if (PlayerPrefs.GetFloat("VoiceVolume") == 0) PlayerPrefs.SetFloat("VoiceVolume", 0);
         if (PlayerPrefs.GetInt("OcclusionCulling") == 0) PlayerPrefs.SetInt("OcclusionCulling", 2);
+        if (PlayerPrefs.GetInt("LeaderboardPosting") == 0) PlayerPrefs.SetInt("LeaderboardPosting", 2);
+        if (PlayerPrefs.GetInt("Subtitles") == 0) PlayerPrefs.SetInt("Subtitles", 1);
         if (PlayerPrefs.GetInt("TurnWithCamera") == 0) PlayerPrefs.SetInt("TurnWithCamera", 1);
         sensitivitySlider.value = PlayerPrefs.GetFloat("Sensitivity");
         renderDistSlider.value = PlayerPrefs.GetFloat("RenderDist");
@@ -47,6 +53,8 @@ public class OptionsMenuController : MonoBehaviour
         else occlusionCullToggle.isOn = false;
         if (PlayerPrefs.GetInt("TurnWithCamera") == 2) turnCam.isOn = true;
         else turnCam.isOn = false;
+        if (PlayerPrefs.GetInt("LeaderboardPosting") == 2) leaderboardToggle.isOn = true;
+        else leaderboardToggle.isOn = false;
     }
     void Update()
     {
@@ -60,5 +68,9 @@ public class OptionsMenuController : MonoBehaviour
         else PlayerPrefs.SetInt("OcclusionCulling", 1);
         if (turnCam.isOn) PlayerPrefs.SetInt("TurnWithCamera", 2);
         else PlayerPrefs.SetInt("TurnWithCamera", 1);
+        if (leaderboardToggle.isOn) PlayerPrefs.SetInt("LeaderboardPosting", 2);
+        else PlayerPrefs.SetInt("LeaderboardPosting", 1);
+        if (subtitleToggle.isOn) PlayerPrefs.SetInt("Subtitles", 2);
+        else PlayerPrefs.SetInt("Subtitles", 1);
     }
 }
