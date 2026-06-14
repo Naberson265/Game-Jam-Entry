@@ -9,7 +9,7 @@ OcclusionCullingSettings:
     smallestHole: 0.25
     backfaceThreshold: 100
   m_SceneGUID: 91074e0573ffdda4d9836860050ec5d1
-  m_OcclusionCullingData: {fileID: 36300000, guid: da7e3c1630e516d4680eb5f4baea0a3b, type: 2}
+  m_OcclusionCullingData: {fileID: 36300000, guid: ac0ebc6a082a39741a77e97dae6aef9b, type: 2}
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
@@ -148089,7 +148089,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2444002794314769990, guid: 512630a581799e645942e9ac6b8ea9a0, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: FreezingFactory
+      value: ScorchingSteelworks
       objectReference: {fileID: 0}
     - target: {fileID: 3615594179513993814, guid: 512630a581799e645942e9ac6b8ea9a0, type: 3}
       propertyPath: m_AnchorMax.x
