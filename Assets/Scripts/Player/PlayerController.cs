@@ -153,27 +153,29 @@ public class PlayerController : Resettable
             rb.linearDamping = airDrag;
         }
         // Cheats
-        if (Input.GetKey(KeyCode.O))
-        {
-            cheat1 = true;
-        }
-        else
-        {
-            cheat1 = false;
-        }
-        if (Input.GetKey(KeyCode.L))
-        {
-            cheat2 = true;
-        }
-        else
-        {
-            cheat2 = false;
-        }
-        if (Input.GetKey(KeyCode.O) && Input.GetKey(KeyCode.L) && Input.GetKey(KeyCode.Alpha1) && Input.GetKey(KeyCode.C))
-        {
-            ProgressionManager._saveData.latestCheckpoint.levelNum = 0;
-            ProgressionManager._saveData.latestCheckpoint.zoneNum = 4;
-        }
+        #if UNITY_EDITOR
+            if (Input.GetKey(KeyCode.O))
+            {
+                cheat1 = true;
+            }
+            else
+            {
+                cheat1 = false;
+            }
+            if (Input.GetKey(KeyCode.L))
+            {
+                cheat2 = true;
+            }
+            else
+            {
+                cheat2 = false;
+            }
+            if (Input.GetKey(KeyCode.O) && Input.GetKey(KeyCode.L) && Input.GetKey(KeyCode.Alpha1) && Input.GetKey(KeyCode.C))
+            {
+                ProgressionManager._saveData.latestCheckpoint.levelNum = 0;
+                ProgressionManager._saveData.latestCheckpoint.zoneNum = 4;
+            }
+        #endif
 
         // Invincibility Timer
         if (invincibleTime > 0f)
