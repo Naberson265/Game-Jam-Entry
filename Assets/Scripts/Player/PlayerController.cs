@@ -593,6 +593,7 @@ public class PlayerController : Resettable
     {
         DisableAbilities();
         faceMood = 20;
+        health.RemoveAt(0);
         health.Add(ability);
         playerAudio.PlayOneShot(powerupSFX);
         UpdateAppearance();
