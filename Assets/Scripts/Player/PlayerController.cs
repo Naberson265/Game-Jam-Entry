@@ -595,7 +595,7 @@ public class PlayerController : Resettable
     {
         DisableAbilities();
         faceMood = 20;
-        health.RemoveAt(0);
+        if (health.Count >= 10) health.RemoveAt(0);
         health.Add(ability);
         playerAudio.PlayOneShot(powerupSFX);
         UpdateAppearance();
