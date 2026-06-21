@@ -12,6 +12,7 @@ public class CameraScript : MonoBehaviour
         LockMouse();
         camChar = GetComponent<CharacterController>();
         camComp = GetComponent<Camera>();
+        csm = FindFirstObjectByType<CamScreenManager>();
     }
     void LateUpdate()
     {
@@ -103,6 +104,9 @@ public class CameraScript : MonoBehaviour
                 child.gameObject.SetActive(false);
             }
         }
+        csm.mainGUI.SetActive(true);
+        csm.mainScreen.SetActive(true);
+        csm.gameObject.SetActive(false);
     }
     public void LockMouse()
     {
@@ -119,4 +123,5 @@ public class CameraScript : MonoBehaviour
 	public Transform playerTransform, camFixedDirTransform;
 	public GameObject pauseMenu;
     private Camera camComp;
+    private CamScreenManager csm;
 }

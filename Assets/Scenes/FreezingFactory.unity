@@ -132078,6 +132078,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1638478587609214908, guid: befb81fab5c107346be0d99758d8966e, type: 3}
   m_PrefabInstance: {fileID: 1729496079}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1118697009 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8113401259513747832, guid: befb81fab5c107346be0d99758d8966e, type: 3}
+  m_PrefabInstance: {fileID: 1729496079}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118697007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10c3c1bab71315d40b3121ad074ba92f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraScript
 --- !u!1001 &1119397336
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -148190,6 +148201,10 @@ PrefabInstance:
     - target: {fileID: 8226952966257861311, guid: 512630a581799e645942e9ac6b8ea9a0, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 1118697009}
+    - target: {fileID: 8226952966257861311, guid: 512630a581799e645942e9ac6b8ea9a0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UnpauseGame
       objectReference: {fileID: 0}
     - target: {fileID: 8799484063969230426, guid: 512630a581799e645942e9ac6b8ea9a0, type: 3}
       propertyPath: m_AnchorMax.x
