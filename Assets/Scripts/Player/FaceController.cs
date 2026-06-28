@@ -77,10 +77,18 @@ public class FaceController : MonoBehaviour
 
         float magnitudeInY = Vector3.Dot(pupil1.up, lookTransform1.forward);
         float magnitudeInX = Vector3.Dot(pupil1.right, lookTransform1.forward);
-        pupil1.localPosition = new Vector3(magnitudeInX, magnitudeInY, 0) * pupilDistance;
+        pupil1.localPosition = new Vector3(
+            magnitudeInX * pupilDistance,
+            magnitudeInY * pupilDistance,
+            0f
+        );
 
         magnitudeInY = Vector3.Dot(pupil2.up, lookTransform2.forward);
         magnitudeInX = Vector3.Dot(pupil2.right, lookTransform2.forward);
-        pupil2.localPosition = new Vector3(magnitudeInX, magnitudeInY, 0) * pupilDistance;
+        pupil2.localPosition = new Vector3(
+            magnitudeInX * pupilDistance,
+            magnitudeInY * pupilDistance,
+            0f
+        );
     }
 }
